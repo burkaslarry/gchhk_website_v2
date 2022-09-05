@@ -1,2 +1,2 @@
 # gchhk_website_v2
-Revamped website 
+This is the demo website for gchhk, written in typescript , supported by nextjs, notion 
