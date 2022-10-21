@@ -3,20 +3,17 @@ require('dotenv').config();
 const nodemailer = require("nodemailer"),
     config = process.env
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        type: "OAuth2",
-        user: config.EMAIL_HOST_ADDRESS,
-        clientId: config.OAUTH_CLIENT_ID,
-        clientSecret: config.OAUTH_CLIENT_SECRET,
-        refreshToken: config.OAUTH_REFRESH_TOKEN,
-        accessToken: config.OAUTH_ACCESS_TOKEN
-    }
-});
 
+const transporter = nodemailer.createTransport({
+        port: 465,     
+        host: "smtp.gmail.com",
+           auth: {
+                user: 'meylinmad1234@gmail.com',
+                pass: process.env.password,
+             },
+        secure: true,
+      });
+      
 function mailOptions(email_address, subject, message) {
     return {
         from: config.EMAIL_HOST_ADDRESS,

@@ -9,6 +9,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import CheckIcon from '@mui/icons-material/Check';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import SendEmail from '../components/sendmail';
 
 const actions = [
   { icon: 'TEST', name: 'Text' },
@@ -97,6 +98,13 @@ const Home: NextPage = () => {
                 icon={action.icon}
                 tooltipTitle={action.name}
                 sx={actionSize}
+                onClick={ 
+                  SendEmail.sendMail({
+                    "email": "info@gchhk.org",
+                    "title": "Testing email",
+                    "message" : "Testing"
+                  })                                  
+                }
               />
             ))}
           </SpeedDial>
