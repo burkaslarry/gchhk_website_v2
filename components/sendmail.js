@@ -1,7 +1,6 @@
 require('dotenv').config();
 
-const nodemailer = require("nodemailer"),
-    config = process.env
+const nodemailer = require("nodemailer")
 
 
 const transporter = nodemailer.createTransport({
@@ -16,7 +15,7 @@ const transporter = nodemailer.createTransport({
       
 function mailOptions(email_address, subject, message) {
     return {
-        from: config.EMAIL_HOST_ADDRESS,
+        from: process.env.EMAIL_HOST_ADDRESS,
         to: email_address,
         subject: subject,
         text: message
@@ -43,7 +42,6 @@ const sendMail = async (mail_data) => {
             console.log(error)
         }
     })
-
 }
 
 
