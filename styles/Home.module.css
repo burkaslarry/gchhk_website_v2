@@ -127,3 +127,37 @@
     filter: invert(1);
   }
 }
+
+.banner {
+  /* Sizing */
+  width: 100vw;
+  height: 100vh;
+
+  /* Flexbox stuff */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Text styles */
+  text-align: center;
+  color: white;
+
+  /* Background styles */
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://codetheweb.blog/assets/img/posts/full-image-hero/image.jpg');*/
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://codetheweb.blog/assets/img/posts/full-image-hero/image.jpg');*/
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.container {
+  z-index: 10;
+}
+
+.btn {
+  padding: 10px 30px;
+  border: 1px solid white;
+  border-radius: 30px;
+  background-color: #00000075;
+}
