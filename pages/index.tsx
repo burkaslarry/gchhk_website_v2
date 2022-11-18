@@ -17,19 +17,29 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Layout from "../components/ui/Layout";
+import ContactUs from "../components/ui/ContactUs";
 import styles from "../styles/Home.module.css";
-import banner from "/image1.png";
+import banner from "../assets/image2.jpg";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+
 const actions = [
-  { icon: "TEST", name: "Text" },
-  { icon: <CheckIcon />, name: "Check" },
-  { icon: <ErrorOutlineIcon />, name: "Error" },
-  { icon: <ThumbUpIcon />, name: "Share" },
+  { icon: <HomeOutlinedIcon />, name: "回到主頁" },
+  { icon: <ContactMailOutlinedIcon />, name: "聯絡我們" },
+  { icon: <PeopleOutlinedIcon />, name: "社區回收" },
+  { icon: <FoodBankOutlinedIcon />, name: "廚餘回收" },
+  { icon: <GavelOutlinedIcon />, name: "工作指引" },
 ];
 
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "lightblue",
+  backgroundColor: "#53C351",
 };
 
 const Home: NextPage = () => {
@@ -39,13 +49,15 @@ const Home: NextPage = () => {
       <section className={styles.banner}>
         <Image
           layout="fill"
+          alt="Cover Picture"
           src={banner}
           placeholder="blur"
+          width={700}
+          height={475}
+          sizes="80vw"
           quality={100}
-          sizes="100vw"
-          alt="banner home"
         />
-        <Container className={styles.container}>
+        <Container className={styles.container_translucent}>
           <h1>My awesome website</h1>
           <h2>Look at this website and bask in its amazing glory!</h2>
           <a href="https://example.com/" className={styles.btn}>
@@ -54,22 +66,25 @@ const Home: NextPage = () => {
         </Container>
       </section>
 
+      <ContactUs />
+
       <SpeedDial
         ariaLabel="Custom SpeedDial example"
         sx={{
           position: "fixed",
-          bottom: 32,
-          right: 32,
+          bottom: 42,
+          right: 42,
           "& .MuiFab-primary": {
-            backgroundColor: "gold",
-            color: "blue",
-            width: 80,
-            height: 80,
-            "& .MuiSpeedDialIcon-icon": { fontSize: 30 },
-            "&:hover": { backgroundColor: "yellow" },
+            backgroundColor: "#53C351",
+            color: "white",
+            width: 64,
+            height: 64,
+            "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
+            "&:hover": { backgroundColor: "#53C351" },
           },
         }}
-        icon={<SpeedDialIcon />}
+        openIcon={<ClearOutlinedIcon />}
+        icon={<MenuOutlinedIcon />}
       >
         {actions.map((action) => (
           <SpeedDialAction
