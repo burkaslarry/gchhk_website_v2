@@ -6,6 +6,19 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 
+const inputFillChecking = {
+  titleName: "姓名",
+  titleEmail: "電郵地址",
+  titleDonate: "捐款事宜",
+  titleGeneral: "一般查詢",
+  titleContent: "內容",
+  titleColor: "#1C3A27",
+  nonEmptyMessage: "必須填寫",
+  placeholder: "請填寫",
+  max40: "最多填40字母",
+  invalidEmail: "必須符合電郵地址格式，如 sjkelvin23@gmail.com",
+};
+
 const ContactForm = () => {
   const {
     register,
@@ -29,17 +42,21 @@ const ContactForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <TextField
             {...register("firstName", {
-              required: { value: true, message: "Field is required" },
+              required: {
+                value: true,
+                message: inputFillChecking.nonEmptyMessage,
+              },
               maxLength: {
-                value: 20,
-                message: "exceeded the limit of 20 characters",
+                value: 40,
+                message: inputFillChecking.max40,
               },
             })}
             id="firstName"
-            label="First name"
+            placeholder={inputFillChecking.placeholder}
+            label={inputFillChecking.titleName}
             fullWidth
             autoComplete="given-name"
             variant="standard"
@@ -49,38 +66,21 @@ const ContactForm = () => {
             <FormHelperText error>{errors.firstName?.message}</FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register("lastName", {
-              required: { value: true, message: "Field is required" },
-              maxLength: {
-                value: 20,
-                message: "exceeded the limit of 20 characters",
-              },
-            })}
-            id="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            variant="standard"
-            error={!!errors.lastName}
-          />
-          {errors.lastName && (
-            <FormHelperText error>{errors.lastName?.message}</FormHelperText>
-          )}
-        </Grid>
 
         <Grid item xs={12}>
           <TextField
             {...register("email", {
-              required: { value: true, message: "Field is required" },
+              required: {
+                value: true,
+                message: inputFillChecking.nonEmptyMessage,
+              },
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "invalid email address",
+                message: inputFillChecking.invalidEmail,
               },
             })}
             id="email"
-            label="Email"
+            label={inputFillChecking.titleEmail}
             fullWidth
             autoComplete="email"
             variant="standard"
@@ -88,54 +88,6 @@ const ContactForm = () => {
           />
           {errors.email && (
             <FormHelperText error>{errors.email?.message}</FormHelperText>
-          )}
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            {...register("address", {
-              required: { value: true, message: "Field is required" },
-            })}
-            id="address"
-            label="Address line"
-            fullWidth
-            autoComplete="street-address"
-            variant="standard"
-            error={!!errors.address}
-          />
-          {errors.address && (
-            <FormHelperText error>{errors.address?.message}</FormHelperText>
-          )}
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register("city", {
-              required: { value: true, message: "Field is required" },
-            })}
-            id="city"
-            label="City"
-            fullWidth
-            autoComplete="address-level2"
-            variant="standard"
-            error={!!errors.city}
-          />
-          {errors.city && (
-            <FormHelperText error>{errors.city?.message}</FormHelperText>
-          )}
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register("state", {
-              required: { value: true, message: "Field is required" },
-            })}
-            id="state"
-            label="State/Province/Region"
-            fullWidth
-            autoComplete="address-level1"
-            variant="standard"
-            error={!!errors.state}
-          />
-          {errors.state && (
-            <FormHelperText error>{errors.state?.message}</FormHelperText>
           )}
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -152,9 +104,33 @@ const ContactForm = () => {
             <FormHelperText error>{errors.country?.message}</FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained">
-            Submit
+        <Grid item xs={12} sm={6}>
+          <TextField
+            {...register("country", { required: true })}
+            id="country"
+            label="Country"
+            fullWidth
+            autoComplete="country"
+            variant="standard"
+            error={!!errors.country}
+          />
+          {errors.country && (
+            <FormHelperText error>{errors.country?.message}</FormHelperText>
+          )}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          container
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ width: "50vw", padding: 1, margin: 2 }}
+          >
+            送出電郵
           </Button>
         </Grid>
       </Grid>

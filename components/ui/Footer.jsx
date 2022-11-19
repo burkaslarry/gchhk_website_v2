@@ -4,7 +4,7 @@ import { Copyright } from "./Copyright";
 
 const Footer = () => {
   return (
-    <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+    <Box sx={{ bgcolor: "#F4F9F8", p: 3 }} component="footer">
       <Copyright />
     </Box>
   );

@@ -47,25 +47,32 @@ const Home: NextPage = () => {
   return (
     <Layout>
       {/* Hero unit */}
-      <section className={styles.banner}>
+
+      <Box
+        sx={{
+          position: "relative",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          width: "100%",
+          height: "496px",
+          background: "#123456",
+        }}
+      >
         <Image
           layout="fill"
+          objectFit="cover"
           alt="Cover Picture"
           src={banner}
           placeholder="blur"
-          width={700}
-          height={475}
-          sizes="80vw"
           quality={100}
         />
         <Container className={styles.container_translucent}>
-          <h1>My awesome website</h1>
-          <h2>Look at this website and bask in its amazing glory!</h2>
-          <a href="https://example.com/" className={styles.btn}>
-            Go ahead...
-          </a>
+          <Typography variant="h6" align="center">
+            Welcome
+          </Typography>
         </Container>
-      </section>
+      </Box>
 
       <section id="contact">
         <ContactUs />
