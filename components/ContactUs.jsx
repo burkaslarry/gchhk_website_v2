@@ -1,7 +1,6 @@
-import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
-import ContactForm from "../ui/ContactForm";
+import ContactForm from "../components/ContactForm";
 
 export default function ContactUs() {
   return (

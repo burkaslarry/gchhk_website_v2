@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,9 +19,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/ui/Footer.jsx",
-    "components/ui/ContactForm.jsx",
-    "components/ui/Header.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -13,8 +13,6 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green, pink, purple } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
-import React from "react";
-import RadioSelection from "../ui/RadioSelection";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -30,7 +28,11 @@ const inputFillChecking = {
   invalidEmail: "必須符合電郵地址格式，如 sjkelvin23@gmail.com",
 };
 
-var selection = "female";
+var selection = "donate";
+
+const handleChange = (event) => {
+  selection = event.target.value;
+};
 
 const ContactForm = () => {
   const {
@@ -39,8 +41,17 @@ const ContactForm = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("radio sent :" + JSON.stringify(selection));
-    console.log("email sent :" + JSON.stringify(data));
+    let emailTitle =
+      selection == "geenral"
+        ? inputFillChecking.titleGeneral + "-" + data.firstName
+        : inputFillChecking.titleDonate + "-" + data.firstName;
+    let constructData = data;
+    constructData["title"] = emailTitle;
+    constructData["content"] = data.content + "\n From:" + data.email;
+    console.log("email sent :" + JSON.stringify(constructData));
+    {
+      sendRequiryEMail(JSON.stringify(constructData));
+    }
   };
 
   if (isSubmitSuccessful) {
@@ -112,8 +123,40 @@ const ContactForm = () => {
             <FormHelperText error>{errors.email?.message}</FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12} container justifyContent="center" fullWidth>
-          <RadioSelection stateSelection="female" />
+        <Grid item xs={12} container justifyContent="center">
+          <FormControl>
+            <FormLabel>電郵主題</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="quiz"
+              name="quiz"
+              value={selection}
+              sx={{
+                width: "100vw",
+                float: "left",
+              }}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="donate"
+                control={<Radio />}
+                label="捐款事宜"
+                sx={{
+                  width: "50vw",
+                  float: "left",
+                }}
+              />
+              <FormControlLabel
+                value="geenral"
+                control={<Radio />}
+                label="一般查詢"
+                sx={{
+                  width: "40vw",
+                  float: "left",
+                }}
+              />
+            </RadioGroup>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>

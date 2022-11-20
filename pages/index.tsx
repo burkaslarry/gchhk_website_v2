@@ -1,23 +1,12 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import CheckIcon from "@mui/icons-material/Check";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Layout from "../components/ui/Layout";
-import ContactUs from "../components/ui/ContactUs";
+import Layout from "../components/Layout";
+import ContactUs from "../components/ContactUs";
 import styles from "../styles/Home.module.css";
 import banner from "../assets/image2.jpg";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -40,7 +29,7 @@ const actions = [
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#FFFFFF",
 };
 
 const Home: NextPage = () => {
