@@ -14,5 +14,8 @@ export const theme = createTheme({
     success: {
       main: "#2e7d32",
     },
+    themeWhite: {
+      main: "#ffffff",
+    },
   },
 });

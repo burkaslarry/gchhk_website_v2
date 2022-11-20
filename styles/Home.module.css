@@ -137,8 +137,9 @@
 
 .banner {
   /* Sizing */
-  width: "100vw";
-  height: auto;
+  width: 100vw;
+  height: 100vh;
+
   /* Flexbox stuff */
   display: flex;
   justify-content: center;
@@ -149,9 +150,6 @@
   text-align: center;
   color: white;
 
-  /* Background styles */
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://codetheweb.blog/assets/img/posts/full-image-hero/image.jpg');*/
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://codetheweb.blog/assets/img/posts/full-image-hero/image.jpg');*/
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -159,11 +157,20 @@
 }
 
 .container_translucent {
-  opacity: 0.6;
+  z-index: 5;
   width: 100vw;
   height: 100vh;
-  z-index: 10;
   background: linear-gradient(180deg, #0c632f -5.54%, rgba(1, 22, 19, 0) 100%);
+}
+
+.container_item {
+  margin-top: 15%;
+  z-index: 10;
+  width: 100vw;
+  height: 20vh;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn {
