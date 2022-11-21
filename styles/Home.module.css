@@ -166,9 +166,8 @@
 .container_item {
   margin-top: 15%;
   z-index: 10;
-  width: 100vw;
   height: 20vh;
-  display: inline-block;
+  display: block;
   justify-content: center;
   align-items: center;
 }

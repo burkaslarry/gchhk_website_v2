@@ -19,6 +19,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
+import Router from "next/router";
 
 const actions = [
   {
@@ -116,6 +117,11 @@ const Home: NextPage = () => {
                     inline: "nearest",
                   });
                 }
+              } else if (action.key == "guideline") {
+                Router.push({
+                  pathname: "/terms",
+                  query: { pid: 1 },
+                });
               }
             }}
           />
