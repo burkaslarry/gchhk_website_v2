@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
-import GCHHKGird3 from "../components/GCHHKGird3";
+import GCHHKGird from "../components/GCHHKGird";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
@@ -53,6 +53,22 @@ const actionSize = {
   backgroundColor: "#53C351",
 };
 
+const projectList = [
+  { title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角" },
+  { title: "Milmill 參觀" },
+  { title: "嘉道理農場" },
+  { title: "其他" },
+];
+
+const recyclerKPI = [
+  { title: "廚餘回收", figure: 1230 },
+  { title: "回收總數", figure: 5000 },
+  { title: "塑膠回收", figure: 1200 },
+  { title: "廢紙回收", figure: 2570 },
+  { title: "金屬回收", figure: 500 },
+  { title: "其他", figure: 110 },
+];
+
 const heroResult = {
   imageUrl:
     "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
@@ -91,7 +107,13 @@ const Home: NextPage = () => {
           <strong>項目總覽</strong>
         </Typography>
       </section>
-      <section id="project_content"></section>
+      <section id="project_content">
+        <GCHHKGird
+          appliedStyle="gchhkgrid2"
+          itemStyle="squarelight"
+          resultList={projectList}
+        />
+      </section>
       <section id="recycle_kpi_title">
         <Typography
           variant="h4"
@@ -104,7 +126,11 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird3 />
+        <GCHHKGird
+          appliedStyle="gchhkgrid3"
+          itemStyle="squaredark"
+          resultList={recyclerKPI}
+        />
       </section>
 
       <section id="contact">

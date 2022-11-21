@@ -33,11 +33,25 @@ a {
   margin: 16;
 }
 
-.square {
+.squaredark {
   aspect-ratio: 1/ 1;
   display: flex;
   align-items: center;
+  font-weight: 700;
+  justify-content: center;
   padding: 5%;
+  background-color: #1c3a27;
+  color: #fff;
+}
+
+.squarelight {
+  aspect-ratio: 1/ 1;
+  display: flex;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+  background-color: #53c351;
   color: #fff;
 }
 
@@ -54,4 +68,11 @@ a {
 
 .square.fullImg img {
   object-fit: cover;
+}
+
+.container_item_1 {
+  z-index: 10;
+  display: block;
+  justify-content: center;
+  align-items: center;
 }
