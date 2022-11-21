@@ -1,11 +1,12 @@
 import Container from "@mui/material/Container";
 import styles from "../styles/Home.module.css";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 import Image from "next/image";
 import gchLogo from "../public/GCH.svg";
 import { Box } from "@mui/system";
 
-const HeroBanner = ({ resultConfig }) => {
+const HeroBanner = ({ resultConfig, showButton }) => {
   return (
     <div>
       <Box
@@ -25,7 +26,9 @@ const HeroBanner = ({ resultConfig }) => {
           }}
         >
           <Box sx={{ display: "flex" }}>
-            <Image src={gchLogo} height={88} width={88} />
+            <Link href="/">
+              <Image src={gchLogo} height={88} width={88} Link />
+            </Link>
           </Box>
 
           <Container
@@ -45,7 +48,12 @@ const HeroBanner = ({ resultConfig }) => {
                 variant="outlined"
                 type="submit"
                 color="themeWhite"
-                sx={{ width: "20vw", padding: 1, margin: 2 }}
+                sx={{
+                  width: "20vw",
+                  padding: 1,
+                  margin: 2,
+                  display: showButton == "true" ? "inline" : "none",
+                }}
               >
                 聯絡我們
               </Button>

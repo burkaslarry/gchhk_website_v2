@@ -67,7 +67,7 @@ const Home: NextPage = () => {
     <Layout>
       {/* Hero unit */}
       <section className={styles.banner} id="home">
-        <HeroBanner resultConfig={heroResult} />
+        <HeroBanner resultConfig={heroResult} showButton="true" />
       </section>
       <section id="contact">
         <Box sx={{ width: "100vw" }}>
