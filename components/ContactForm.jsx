@@ -49,9 +49,9 @@ const ContactForm = () => {
     constructData["title"] = emailTitle;
     constructData["content"] = data.content + "\n From:" + data.email;
     console.log("email sent :" + JSON.stringify(constructData));
-    {
-      sendRequiryEMail(JSON.stringify(constructData));
-    }
+    // {
+    //   sendRequiryEMail(JSON.stringify(constructData));
+    // }
   };
 
   if (isSubmitSuccessful) {
