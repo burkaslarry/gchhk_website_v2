@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
+import GCHHKGird3 from "../components/GCHHKGird3";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
@@ -15,6 +16,8 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
+import { Typography, Grid, Paper } from "@mui/material";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 const actions = [
   {
@@ -64,6 +67,46 @@ const Home: NextPage = () => {
       <section className={styles.banner} id="home">
         <HeroBanner resultConfig={heroResult} showButton="true" />
       </section>
+
+      <section id="event_title">
+        <Typography
+          variant="h4"
+          gutterBottom
+          fontWeight="700"
+          sx={{ paddingTop: 3 }}
+          align="center"
+        >
+          <strong>網誌日常</strong>
+        </Typography>
+      </section>
+      <section id="event_content"></section>
+      <section id="project_title">
+        <Typography
+          variant="h4"
+          gutterBottom
+          fontWeight="700"
+          sx={{ paddingTop: 3 }}
+          align="center"
+        >
+          <strong>項目總覽</strong>
+        </Typography>
+      </section>
+      <section id="project_content"></section>
+      <section id="recycle_kpi_title">
+        <Typography
+          variant="h4"
+          gutterBottom
+          fontWeight="700"
+          sx={{ paddingTop: 3 }}
+          align="center"
+        >
+          <strong>項目回收總數</strong>
+        </Typography>
+      </section>
+      <section id="recycle_kpi_content">
+        <GCHHKGird3 />
+      </section>
+
       <section id="contact">
         <Box sx={{ width: "100vw" }}>
           <ContactUs />
