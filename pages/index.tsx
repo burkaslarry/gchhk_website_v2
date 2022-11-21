@@ -1,13 +1,8 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import Layout from "../components/Layout";
-import Footer from "../components/Footer";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
 import styles from "../styles/Home.module.css";
@@ -120,7 +115,7 @@ const Home: NextPage = () => {
               } else if (action.key == "guideline") {
                 Router.push({
                   pathname: "/terms",
-                  query: { pid: 1 },
+                  query: {},
                 });
               }
             }}
