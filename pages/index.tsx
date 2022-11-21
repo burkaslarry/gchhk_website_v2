@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
 import GCHHKGird from "../components/GCHHKGird";
+import EventBanner from "../components/EventBanner";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
@@ -53,10 +54,28 @@ const actionSize = {
   backgroundColor: "#53C351",
 };
 
+const eventList = [
+  {
+    title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角",
+    createDate: "2022-09-02",
+    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
+  },
+  {
+    title: "Milmill 參觀",
+    createDate: "2022-07-02",
+    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
+  },
+  {
+    title: "嘉道理農場參觀",
+    createDate: "2022-06-01",
+    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
+  },
+];
+
 const projectList = [
   { title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角" },
-  { title: "Milmill 參觀" },
-  { title: "嘉道理農場" },
+  { title: "多棄多付測試計劃" },
+  { title: "廚餘回收計劃" },
   { title: "其他" },
 ];
 
@@ -95,7 +114,9 @@ const Home: NextPage = () => {
           <strong>網誌日常</strong>
         </Typography>
       </section>
-      <section id="event_content"></section>
+      <section id="event_content">
+        <EventBanner results={eventList} />
+      </section>
       <section id="project_title">
         <Typography
           variant="h4"

@@ -15,13 +15,17 @@ a {
   box-sizing: border-box;
 }
 
+.gchhkgrid1 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2em;
+}
+
 .gchhkgrid2 {
   display: grid;
   padding: 4em;
   grid-template-columns: repeat(2, 1fr);
   gap: 2em;
-  padding: 16;
-  margin: 16;
 }
 
 .gchhkgrid3 {
@@ -42,6 +46,19 @@ a {
   padding: 5%;
   background-color: #1c3a27;
   color: #fff;
+  --elevation: 0;
+  --epx: calc(var(--elevation) * 1px);
+
+  /* these 2 shadows serve as a border for  0-1 elevation    */
+  --shadow1: 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow2: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  --offset-y: calc(var(--epx) + 1px);
+  --blur: calc(var(--epx) * 2);
+  --spread: calc(var(--epx) * 0.3);
+  --shadow3: 0 var(--offset-y) var(--blur) var(--spread) rgba(0, 0, 0, 0.2);
+
+  box-shadow: var(--shadow1), var(--shadow2), var(--shadow3);
 }
 
 .squarelight {
@@ -53,6 +70,19 @@ a {
   padding: 5%;
   background-color: #53c351;
   color: #fff;
+  --elevation: 0;
+  --epx: calc(var(--elevation) * 1px);
+
+  /* these 2 shadows serve as a border for  0-1 elevation    */
+  --shadow1: 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow2: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  --offset-y: calc(var(--epx) + 1px);
+  --blur: calc(var(--epx) * 2);
+  --spread: calc(var(--epx) * 0.3);
+  --shadow3: 0 var(--offset-y) var(--blur) var(--spread) rgba(0, 0, 0, 0.2);
+
+  box-shadow: var(--shadow1), var(--shadow2), var(--shadow3);
 }
 
 .square img {
@@ -75,4 +105,20 @@ a {
   display: block;
   justify-content: center;
   align-items: center;
+}
+
+.gccard {
+  --elevation: 0;
+  --epx: calc(var(--elevation) * 1px);
+
+  /* these 2 shadows serve as a border for  0-1 elevation    */
+  --shadow1: 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow2: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  --offset-y: calc(var(--epx) + 1px);
+  --blur: calc(var(--epx) * 2);
+  --spread: calc(var(--epx) * 0.3);
+  --shadow3: 0 var(--offset-y) var(--blur) var(--spread) rgba(0, 0, 0, 0.2);
+
+  box-shadow: var(--shadow1), var(--shadow2), var(--shadow3);
 }
