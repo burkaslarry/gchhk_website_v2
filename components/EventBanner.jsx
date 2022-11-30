@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export function EventBanner({ results }) {
   useEffect(() => {
-    console.log(results);
+    console.log("EventBanner :" + results);
   });
 
   const getEventDatabaseDisplay = () => {

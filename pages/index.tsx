@@ -1,4 +1,7 @@
 import type { NextPage } from "next";
+import Link from "@mui/material/Link";
+import Image from "next/image";
+
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
@@ -17,8 +20,8 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
-import { Typography, Grid, Paper } from "@mui/material";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { Typography } from "@mui/material";
+import { getPosts, getEvents, getRecycle } from "../lib/notion";
 
 const actions = [
   {
@@ -79,14 +82,17 @@ const projectList = [
   { title: "其他" },
 ];
 
-const recyclerKPI = [
-  { title: "廚餘回收", figure: 1230 },
-  { title: "回收總數", figure: 5000 },
-  { title: "塑膠回收", figure: 1200 },
-  { title: "廢紙回收", figure: 2570 },
-  { title: "金屬回收", figure: 500 },
-  { title: "其他", figure: 110 },
-];
+class REcycleClass {
+  title: string;
+  figure: number;
+  unit: string;
+
+  constructor(name: string, amount: number, unit: string) {
+    this.title = name;
+    this.figure = amount;
+    this.unit = unit;
+  }
+}
 
 const heroResult = {
   imageUrl:
@@ -95,7 +101,27 @@ const heroResult = {
   subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
 };
 
-const Home: NextPage = () => {
+export async function getServerSideProps() {
+  let { results } = await getPosts();
+  // Return the result
+  return {
+    props: {
+      eventList: results,
+    },
+  };
+}
+
+interface Props {
+  eventList: [any];
+  project: [any];
+  recycle: [any];
+}
+
+const Home: NextPage<Props> = (props) => {
+  console.log("eventList:" + props.eventList);
+  console.log("project :" + props.project);
+  console.log("recycler :" + props.recycle);
+
   return (
     <Layout>
       {/* Hero unit */}
@@ -115,7 +141,30 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="event_content">
-        <EventBanner results={eventList} />
+        {props.eventList.map((result, index) => {
+          console.log("email sent :" + JSON.stringify(result.properties));
+          console.log(
+            "email sent Name:" + JSON.stringify(result.properties.Name)
+          );
+          console.log(
+            "email sentXX :" + JSON.stringify(result.properties.Title)
+          );
+          return (
+            <div className={styles.cardHolder} key={index}>
+              <Link href={`/posts/${result.id}`}>
+                <Image
+                  src={"https://i.imgur.com/PSi9TDW.jpg"}
+                  width={300}
+                  height={200}
+                />
+              </Link>
+              <div className={styles.cardContent}>
+                {result.properties.Name.title[0].rich_text}
+                {result.properties.Title.rich_text[0].plain_text}
+              </div>
+            </div>
+          );
+        })}
       </section>
       <section id="project_title">
         <Typography
@@ -129,11 +178,11 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="project_content">
-        <GCHHKGird
+        {/* <GCHHKGird
           appliedStyle="gchhkgrid2"
           itemStyle="squarelight"
-          resultList={projectList}
-        />
+          resultList={props.posts}
+        /> */}
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -147,11 +196,11 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird
+        {/* <GCHHKGird
           appliedStyle="gchhkgrid3"
           itemStyle="squaredark"
-          resultList={recyclerKPI}
-        />
+          resultList={props.recycle}
+        /> */}
       </section>
 
       <section id="contact">
