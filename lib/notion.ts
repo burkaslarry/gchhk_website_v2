@@ -9,7 +9,7 @@ async function getPosts() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
   });
-  return myPosts;
+  return myPosts.results;
 }
 
 async function getPost(id: string) {
@@ -23,7 +23,7 @@ async function getEvents() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
   });
-  return myPosts.results;
+  return myPosts;
 }
 
 async function getEvent(id: string) {
@@ -37,7 +37,7 @@ async function getRecycle() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_RECYCLEKPI_TABLE_KEY}`,
   });
-  return myPosts.results;
+  return myPosts;
 }
 
 async function blocks(id: string) {

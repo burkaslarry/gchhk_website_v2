@@ -102,11 +102,16 @@ const heroResult = {
 };
 
 export async function getServerSideProps() {
-  let { results } = await getPosts();
+  let results = await getPosts();
+  let resultKing = await getEvents();
+  let resultQueen = await getRecycle();
+
   // Return the result
   return {
     props: {
       eventList: results,
+      project: resultKing,
+      recycle: resultQueen,
     },
   };
 }
@@ -142,13 +147,6 @@ const Home: NextPage<Props> = (props) => {
       </section>
       <section id="event_content">
         {props.eventList.map((result, index) => {
-          console.log("email sent :" + JSON.stringify(result.properties));
-          console.log(
-            "email sent Name:" + JSON.stringify(result.properties.Name)
-          );
-          console.log(
-            "email sentXX :" + JSON.stringify(result.properties.Title)
-          );
           return (
             <div className={styles.cardHolder} key={index}>
               <Link href={`/posts/${result.id}`}>
