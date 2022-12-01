@@ -100,13 +100,6 @@ a {
   object-fit: cover;
 }
 
-.container_item_1 {
-  z-index: 10;
-  display: block;
-  justify-content: center;
-  align-items: center;
-}
-
 .gccard {
   --elevation: 0;
   --epx: calc(var(--elevation) * 1px);

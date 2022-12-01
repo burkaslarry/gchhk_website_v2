@@ -5,6 +5,18 @@ const client = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
+const contentFilter = {
+  and: [
+    {
+      property: "Title",
+      rich_text: {
+        is_not_empty: true,
+      },
+    },
+  ],
+};
+const contentSorts = [{ property: "PublishDate", direction: "descending" }];
+
 async function getPosts() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -22,8 +34,18 @@ async function getPost(id: string) {
 async function getEvents() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "LongName",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
   });
-  return myPosts;
+  return myPosts.results;
 }
 
 async function getEvent(id: string) {
@@ -37,7 +59,7 @@ async function getRecycle() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_RECYCLEKPI_TABLE_KEY}`,
   });
-  return myPosts;
+  return myPosts.results;
 }
 
 async function blocks(id: string) {

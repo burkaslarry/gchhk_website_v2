@@ -29,7 +29,7 @@ const inputFillChecking = {
 };
 
 var selection = "donate";
-
+var isSubmitSuccessful = false;
 const handleChange = (event) => {
   selection = event.target.value;
 };
@@ -38,7 +38,7 @@ const ContactForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     let emailTitle =
@@ -49,6 +49,7 @@ const ContactForm = () => {
     constructData["title"] = emailTitle;
     constructData["content"] = data.content + "\n From:" + data.email;
     console.log("email sent :" + JSON.stringify(constructData));
+    isSubmitSuccessful = true;
     // {
     //   sendRequiryEMail(JSON.stringify(constructData));
     // }

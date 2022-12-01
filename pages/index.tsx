@@ -22,6 +22,8 @@ import React from "react";
 import Router from "next/router";
 import { Typography } from "@mui/material";
 import { getPosts, getEvents, getRecycle } from "../lib/notion";
+import Container from "@mui/material/Container";
+import { Paper } from "@mui/material";
 
 const actions = [
   {
@@ -75,13 +77,6 @@ const eventList = [
   },
 ];
 
-const projectList = [
-  { title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角" },
-  { title: "多棄多付測試計劃" },
-  { title: "廚餘回收計劃" },
-  { title: "其他" },
-];
-
 class REcycleClass {
   title: string;
   figure: number;
@@ -123,8 +118,6 @@ interface Props {
 }
 
 const Home: NextPage<Props> = (props) => {
-  console.log("eventList:" + props.eventList);
-  console.log("project :" + props.project);
   console.log("recycler :" + props.recycle);
 
   return (
@@ -176,11 +169,23 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="project_content">
-        {/* <GCHHKGird
-          appliedStyle="gchhkgrid2"
-          itemStyle="squarelight"
-          resultList={props.posts}
-        /> */}
+        {props.project.map((result, index) => {
+          console.log(
+            "email sent :" +
+              JSON.stringify(result.properties.LongName.rich_text[0])
+          );
+          return (
+            <div className={styles.cardHolder} key={index}>
+              <div>
+                <Container className={styles.container_item_1}>
+                  <Typography variant="h2" color="white" align="center">
+                    {result.properties.LongName.rich_text[0].plain_text}
+                  </Typography>
+                </Container>
+              </div>
+            </div>
+          );
+        })}
       </section>
       <section id="recycle_kpi_title">
         <Typography
