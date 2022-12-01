@@ -118,8 +118,6 @@ interface Props {
 }
 
 const Home: NextPage<Props> = (props) => {
-  console.log("recycler :" + props.recycle);
-
   return (
     <Layout>
       {/* Hero unit */}
@@ -140,19 +138,18 @@ const Home: NextPage<Props> = (props) => {
       </section>
       <section id="event_content">
         {props.eventList.map((result, index) => {
+          console.log("email sent :" + JSON.stringify(result.properties));
+
           return (
             <div className={styles.cardHolder} key={index}>
               <Link href={`/posts/${result.id}`}>
-                <Image
-                  src={"https://i.imgur.com/PSi9TDW.jpg"}
-                  width={300}
-                  height={200}
+                <EventBanner
+                  parentStyle={"gchhkgrid2"}
+                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
+                  createDate={result.properties.PublishDate.date?.start}
+                  title={result.properties.Title.rich_text[0].plain_text}
                 />
               </Link>
-              <div className={styles.cardContent}>
-                {result.properties.Name.title[0].rich_text}
-                {result.properties.Title.rich_text[0].plain_text}
-              </div>
             </div>
           );
         })}
