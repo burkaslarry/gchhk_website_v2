@@ -169,23 +169,21 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="project_content">
-        {props.project.map((result, index) => {
-          console.log(
-            "email sent :" +
-              JSON.stringify(result.properties.LongName.rich_text[0])
-          );
-          return (
-            <div className={styles.cardHolder} key={index}>
-              <div>
-                <Container className={styles.container_item_1}>
-                  <Typography variant="h2" color="white" align="center">
-                    {result.properties.LongName.rich_text[0].plain_text}
-                  </Typography>
-                </Container>
+        <div className="gchhkgrid2">
+          {props.project.map((result, index) => {
+            return (
+              <div className="squarelight" key={index}>
+                <div>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h2" color="white" align="center">
+                      {result.properties.LongName.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -199,6 +197,27 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
+        <div className="gchhkgrid3">
+          {props.recycle.map((result, index) => {
+            return (
+              <div className="squaredark" key={index}>
+                <div>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h4" color="white" align="center">
+                      {result.properties.Title.title[0].plain_text}
+                    </Typography>
+                    <br />
+                    <Typography variant="h4" color="white" align="center">
+                      {result.properties.Number.number +
+                        " " +
+                        result.properties.Unit.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                </div>
+              </div>
+            );
+          })}
+        </div>
         {/* <GCHHKGird
           appliedStyle="gchhkgrid3"
           itemStyle="squaredark"
