@@ -55,8 +55,14 @@ const renderBlock = (block: any) => {
       return <h1>{block["heading_1"].text[0].plain_text} </h1>;
     case "image":
       // For an image
-      let result = block["image"].external.url;
-      return <Image src={result} width={650} height={400} alt="" />;
+      return (
+        <Image
+          src={block["image"].external.url}
+          width={650}
+          height={400}
+          alt=""
+        />
+      );
     case "bulleted_list_item":
       // For an unordered list
       return (
@@ -73,7 +79,7 @@ const renderBlock = (block: any) => {
   }
 };
 
-const Post: NextPage<Props> = ({ id, post, blocks }) => {
+const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
   return (
     <div className={styles.blogPageHolder}>
       <Head>
@@ -97,4 +103,4 @@ const Post: NextPage<Props> = ({ id, post, blocks }) => {
   );
 };
 
-export default Post;
+export default ProjectList;

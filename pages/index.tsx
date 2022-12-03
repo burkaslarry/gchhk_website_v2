@@ -143,7 +143,7 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Link href={`/projects/${result.id}`}>
+                  <Link href={`/projects/projects-${result.id}`}>
                     <Container className={styles.container_item_1}>
                       <Typography variant="h2" color="white" align="center">
                         {result.properties.LongName.rich_text[0].plain_text}
