@@ -19,7 +19,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
 import { Typography } from "@mui/material";
-import { getPosts, getEvents, getRecycle } from "../lib/notion";
+import { getPosts, getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
 
 const actions = [
@@ -69,8 +69,8 @@ const heroResult = {
 };
 
 export async function getServerSideProps() {
-  let results = await getPosts();
-  let resultKing = await getEvents();
+  let results = await getEvents();
+  let resultKing = await getProjects();
   let resultQueen = await getRecycle();
 
   // Return the result
