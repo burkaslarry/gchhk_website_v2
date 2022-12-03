@@ -14,12 +14,12 @@ import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
 import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-import FaceBookOutlinedIcon from "@mui/icons-material/FaceBookOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
 import { Typography } from "@mui/material";
-import { getPosts, getEvents, getRecycle } from "../lib/notion";
+import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
 
 const actions = [
@@ -49,7 +49,7 @@ const actions = [
     key: "guideline",
   },
   {
-    icon: <FaceBookOutlinedIcon sx={{ color: "#ffffff" }} />,
+    icon: <FacebookIcon sx={{ color: "#ffffff" }} />,
     name: "Facebook專頁",
     key: "facebookpage",
   },
@@ -69,8 +69,8 @@ const heroResult = {
 };
 
 export async function getServerSideProps() {
-  let results = await getPosts();
-  let resultKing = await getEvents();
+  let results = await getEvents();
+  let resultKing = await getProjects();
   let resultQueen = await getRecycle();
 
   // Return the result
@@ -113,14 +113,13 @@ const Home: NextPage<Props> = (props) => {
           {props.eventList.map((result, index) => {
             return (
               <div className={""} key={index}>
-                <Link href={`/events/${result.id}`}>
-                  <EventBanner
-                    parentStyle={"gccard"}
-                    imageUrl={result.properties.Gallary.rich_text[0].plain_text}
-                    createDate={result.properties.PublishDate.date?.start}
-                    title={result.properties.Title.rich_text[0].plain_text}
-                  />
-                </Link>
+                <EventBanner
+                  parentStyle={"gccard"}
+                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
+                  createDate={result.properties.PublishDate.date?.start}
+                  title={result.properties.Title.rich_text[0].plain_text}
+                />
+                {/* <Link href={`/events/${result.id}`}></Link> */}
               </div>
             );
           })}
@@ -143,13 +142,12 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Link href={`/projects/projects-${result.id}`}>
-                    <Container className={styles.container_item_1}>
-                      <Typography variant="h2" color="white" align="center">
-                        {result.properties.LongName.rich_text[0].plain_text}
-                      </Typography>
-                    </Container>
-                  </Link>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h2" color="white" align="center">
+                      {result.properties.LongName.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                  {/* <Link href={`/projects/${result.id}`}></Link> */}
                 </div>
               </div>
             );

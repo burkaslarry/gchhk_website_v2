@@ -6,7 +6,6 @@ const EventBanner = ({ parentStyle, imageUrl, createDate, title }) => {
   return (
     <div className={parentStyle}>
       <Container
-        borderRadius="25%"
         sx={{
           width: "100vw",
           height: "40vh",
@@ -18,7 +17,7 @@ const EventBanner = ({ parentStyle, imageUrl, createDate, title }) => {
           backgroundSize: "cover",
         }}
       >
-        <Box sx={{ display: "block", marginTop: 4 }} borderRadius="25%">
+        <Box sx={{ display: "block", marginTop: 4 }}>
           <Grid container spacing={3}>
             <Grid item xs={9}>
               <Typography variant="h4" color="white" align="left">

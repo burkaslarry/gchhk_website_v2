@@ -17,7 +17,7 @@ const contentFilter = {
 };
 const contentSorts = [{ property: "PublishDate", direction: "descending" }];
 
-async function getPosts() {
+async function getEvents() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
     filter: {
@@ -47,14 +47,14 @@ async function getPosts() {
   return myPosts.results;
 }
 
-async function getPost(id: string) {
+async function getEvent(id: string) {
   const myPost = await client.pages.retrieve({
     page_id: id,
   });
   return myPost;
 }
 
-async function getEvents() {
+async function getProjects() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
     filter: {
@@ -71,7 +71,7 @@ async function getEvents() {
   return myPosts.results;
 }
 
-async function getEvent(id: string) {
+async function getProject(id: string) {
   const myPost = await client.pages.retrieve({
     page_id: id,
   });
@@ -94,7 +94,7 @@ async function blocks(id: string) {
 
 async function posts() {
   const myPosts = await client.databases.query({
-    database_id: `${process.env.NOTION_DATABASE}`,
+    database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
   });
   return myPosts;
 }
@@ -107,12 +107,12 @@ async function post(id: string) {
 }
 
 export {
-  getPost,
-  getPosts,
-  blocks,
   getRecycle,
   getEvent,
   getEvents,
+  getProject,
+  getProjects,
   posts,
   post,
+  blocks,
 };

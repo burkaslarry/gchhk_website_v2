@@ -15,11 +15,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="description"
           content="草根文化館是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。"
         />
-        <script
-          src="https://web3forms.com/client/script.js"
-          async
-          defer
-        ></script>
         <link
           rel="icon"
           type="image/png"
