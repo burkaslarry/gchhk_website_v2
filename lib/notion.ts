@@ -92,4 +92,27 @@ async function blocks(id: string) {
   return myBlocks;
 }
 
-export { getPost, getPosts, blocks, getRecycle, getEvent, getEvents };
+async function posts() {
+  const myPosts = await client.databases.query({
+    database_id: `${process.env.NOTION_DATABASE}`,
+  });
+  return myPosts;
+}
+
+async function post(id: string) {
+  const myPost = await client.pages.retrieve({
+    page_id: id,
+  });
+  return myPost;
+}
+
+export {
+  getPost,
+  getPosts,
+  blocks,
+  getRecycle,
+  getEvent,
+  getEvents,
+  posts,
+  post,
+};
