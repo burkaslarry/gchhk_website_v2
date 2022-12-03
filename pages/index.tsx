@@ -14,7 +14,7 @@ import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
 import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-import FaceBookOutlinedIcon from "@mui/icons-material/FaceBookOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
@@ -49,7 +49,7 @@ const actions = [
     key: "guideline",
   },
   {
-    icon: <FaceBookOutlinedIcon sx={{ color: "#ffffff" }} />,
+    icon: <FacebookIcon sx={{ color: "#ffffff" }} />,
     name: "Facebook專頁",
     key: "facebookpage",
   },
@@ -143,7 +143,7 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Link href={`/projects/${result.id}`}>
+                  <Link href={`/projects/projects-${result.id}`}>
                     <Container className={styles.container_item_1}>
                       <Typography variant="h2" color="white" align="center">
                         {result.properties.LongName.rich_text[0].plain_text}
