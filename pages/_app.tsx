@@ -15,6 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta charSet="utf-8" />
         <title>草根文化館有限公司 Grassroots Cultural Hub Limited</title>
         <meta name="description" content="An example of a meta description." />
+        <script
+          src="https://web3forms.com/client/script.js"
+          async
+          defer
+        ></script>
         <link
           rel="icon"
           type="image/png"

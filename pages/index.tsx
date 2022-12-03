@@ -1,14 +1,11 @@
 import type { NextPage } from "next";
 import Link from "@mui/material/Link";
-import Image from "next/image";
-
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
-import GCHHKGird from "../components/GCHHKGird";
 import EventBanner from "../components/EventBanner";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -23,7 +20,6 @@ import Router from "next/router";
 import { Typography } from "@mui/material";
 import { getPosts, getEvents, getRecycle } from "../lib/notion";
 import Container from "@mui/material/Container";
-import { Paper } from "@mui/material";
 
 const actions = [
   {
@@ -138,8 +134,6 @@ const Home: NextPage<Props> = (props) => {
       </section>
       <section id="event_content">
         {props.eventList.map((result, index) => {
-          console.log("email sent :" + JSON.stringify(result.properties));
-
           return (
             <div className={styles.cardHolder} key={index}>
               <Link href={`/posts/${result.id}`}>
