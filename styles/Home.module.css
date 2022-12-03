@@ -19,6 +19,13 @@
   align-items: center;
 }
 
+.container_item_1 {
+  z-index: 10;
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
 .footer {
   display: flex;
   flex: 1;

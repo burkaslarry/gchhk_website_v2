@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
+import Link from "@mui/material/Link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
-import GCHHKGird from "../components/GCHHKGird";
 import EventBanner from "../components/EventBanner";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -17,8 +17,9 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
-import { Typography, Grid, Paper } from "@mui/material";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { Typography } from "@mui/material";
+import { getPosts, getEvents, getRecycle } from "../lib/notion";
+import Container from "@mui/material/Container";
 
 const actions = [
   {
@@ -72,21 +73,17 @@ const eventList = [
   },
 ];
 
-const projectList = [
-  { title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角" },
-  { title: "多棄多付測試計劃" },
-  { title: "廚餘回收計劃" },
-  { title: "其他" },
-];
+class REcycleClass {
+  title: string;
+  figure: number;
+  unit: string;
 
-const recyclerKPI = [
-  { title: "廚餘回收", figure: 1230 },
-  { title: "回收總數", figure: 5000 },
-  { title: "塑膠回收", figure: 1200 },
-  { title: "廢紙回收", figure: 2570 },
-  { title: "金屬回收", figure: 500 },
-  { title: "其他", figure: 110 },
-];
+  constructor(name: string, amount: number, unit: string) {
+    this.title = name;
+    this.figure = amount;
+    this.unit = unit;
+  }
+}
 
 const heroResult = {
   imageUrl:
@@ -95,7 +92,28 @@ const heroResult = {
   subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
 };
 
-const Home: NextPage = () => {
+export async function getServerSideProps() {
+  let results = await getPosts();
+  let resultKing = await getEvents();
+  let resultQueen = await getRecycle();
+
+  // Return the result
+  return {
+    props: {
+      eventList: results,
+      project: resultKing,
+      recycle: resultQueen,
+    },
+  };
+}
+
+interface Props {
+  eventList: [any];
+  project: [any];
+  recycle: [any];
+}
+
+const Home: NextPage<Props> = (props) => {
   return (
     <Layout>
       {/* Hero unit */}
@@ -115,7 +133,20 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="event_content">
-        <EventBanner results={eventList} />
+        {props.eventList.map((result, index) => {
+          return (
+            <div className={styles.cardHolder} key={index}>
+              <Link href={`/posts/${result.id}`}>
+                <EventBanner
+                  parentStyle={"gchhkgrid2"}
+                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
+                  createDate={result.properties.PublishDate.date?.start}
+                  title={result.properties.Title.rich_text[0].plain_text}
+                />
+              </Link>
+            </div>
+          );
+        })}
       </section>
       <section id="project_title">
         <Typography
@@ -129,11 +160,21 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="project_content">
-        <GCHHKGird
-          appliedStyle="gchhkgrid2"
-          itemStyle="squarelight"
-          resultList={projectList}
-        />
+        <div className="gchhkgrid2">
+          {props.project.map((result, index) => {
+            return (
+              <div className="squarelight" key={index}>
+                <div>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h2" color="white" align="center">
+                      {result.properties.LongName.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -147,11 +188,32 @@ const Home: NextPage = () => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird
+        <div className="gchhkgrid3">
+          {props.recycle.map((result, index) => {
+            return (
+              <div className="squaredark" key={index}>
+                <div>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h4" color="white" align="center">
+                      {result.properties.Title.title[0].plain_text}
+                    </Typography>
+                    <br />
+                    <Typography variant="h4" color="white" align="center">
+                      {result.properties.Number.number +
+                        " " +
+                        result.properties.Unit.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {/* <GCHHKGird
           appliedStyle="gchhkgrid3"
           itemStyle="squaredark"
-          resultList={recyclerKPI}
-        />
+          resultList={props.recycle}
+        /> */}
       </section>
 
       <section id="contact">

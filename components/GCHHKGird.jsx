@@ -13,10 +13,6 @@ const GCHHKGird = ({ appliedStyle, itemStyle, resultList }) => {
           <Typography variant="h2" color="white" align="center">
             {cardItem.title}
           </Typography>
-          <br />
-          <Typography variant="h2" color="white" align="center">
-            {cardItem.figure}
-          </Typography>
         </Container>
       </div>
     );
