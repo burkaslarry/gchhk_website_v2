@@ -13,6 +13,7 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green, pink, purple } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
+import { sendRequiryEMail } from "../components/sendmail";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -29,7 +30,6 @@ const inputFillChecking = {
 };
 
 var selection = "donate";
-var isSubmitSuccessful = false;
 const handleChange = (event) => {
   selection = event.target.value;
 };
@@ -51,18 +51,11 @@ const ContactForm = () => {
     console.log("email sent :" + JSON.stringify(constructData));
     isSubmitSuccessful = true;
     // {
-    //   sendRequiryEMail(JSON.stringify(constructData));
+    sendRequiryEMail(JSON.stringify(constructData));
     // }
   };
 
   if (isSubmitSuccessful) {
-    setTimeout(
-      function () {
-        isSubmitSuccessful = false;
-      }.bind(this),
-      5000
-    );
-
     return (
       <div style={{ textAlign: "center" }}>
         <CheckCircleIcon sx={{ fontSize: 100 }} color="success" />
