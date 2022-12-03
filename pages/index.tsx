@@ -133,20 +133,22 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="event_content">
-        {props.eventList.map((result, index) => {
-          return (
-            <div className={styles.cardHolder} key={index}>
-              <Link href={`/posts/${result.id}`}>
-                <EventBanner
-                  parentStyle={"gchhkgrid2"}
-                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
-                  createDate={result.properties.PublishDate.date?.start}
-                  title={result.properties.Title.rich_text[0].plain_text}
-                />
-              </Link>
-            </div>
-          );
-        })}
+        <div className="gchhkgrid1">
+          {props.eventList.map((result, index) => {
+            return (
+              <div className={styles.cardHolder} key={index}>
+                <Link href={`/posts/${result.id}`}>
+                  <EventBanner
+                    parentStyle={"gchhkgrid1"}
+                    imageUrl={result.properties.Gallary.rich_text[0].plain_text}
+                    createDate={result.properties.PublishDate.date?.start}
+                    title={result.properties.Title.rich_text[0].plain_text}
+                  />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </section>
       <section id="project_title">
         <Typography
