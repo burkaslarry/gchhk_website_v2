@@ -17,6 +17,7 @@ a {
 
 .gchhkgrid1 {
   display: grid;
+  padding: 0em;
   grid-template-columns: repeat(1, 1fr);
   gap: 2em;
 }
@@ -102,7 +103,6 @@ a {
 
 .gccard {
   --elevation: 0;
-  --epx: calc(var(--elevation) * 1px);
 
   /* these 2 shadows serve as a border for  0-1 elevation    */
   --shadow1: 0 0 1px rgba(0, 0, 0, 0.1);
