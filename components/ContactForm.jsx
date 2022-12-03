@@ -13,7 +13,6 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green, pink, purple } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
-import { sendRequiryEMail } from "../components/sendmail";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -26,34 +25,38 @@ const inputFillChecking = {
   placeholder: "請填寫",
   max40: "最多填40字母",
   max400: "最多填400字",
+  missionControl: "草根文化館",
   invalidEmail: "必須符合電郵地址格式，如 sjkelvin23@gmail.com",
 };
 
-var selection = "donate";
-const handleChange = (event) => {
-  selection = event.target.value;
-};
+var isSubmitSuccessful = false;
 
-const ContactForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    let emailTitle =
-      selection == "geenral"
-        ? inputFillChecking.titleGeneral + "-" + data.firstName
-        : inputFillChecking.titleDonate + "-" + data.firstName;
-    let constructData = data;
-    constructData["title"] = emailTitle;
-    constructData["content"] = data.content + "\n From:" + data.email;
-    console.log("email sent :" + JSON.stringify(constructData));
-    isSubmitSuccessful = true;
-    // {
-    sendRequiryEMail(JSON.stringify(constructData));
-    // }
-  };
+export default function ContactForm() {
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "5561f46b-c354-4847-9f43-13e57e8d2e68");
+    formData.append("subject", "一般查詢 - " + objectBefore.senderName);
+    草根文化館;
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: json,
+    });
+    const result = await response.json();
+    if (result.success) {
+      isSubmitSuccessful = true;
+      console.log(result);
+    }
+  }
 
   if (isSubmitSuccessful) {
     return (
@@ -68,113 +71,43 @@ const ContactForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
-            {...register("firstName", {
-              required: {
-                value: true,
-                message: inputFillChecking.nonEmptyMessage,
-              },
-              maxLength: {
-                value: 40,
-                message: inputFillChecking.max40,
-              },
-            })}
-            id="firstName"
+            name="senderName"
+            id="senderName"
+            required
             placeholder={inputFillChecking.placeholder}
             label={inputFillChecking.titleName}
             fullWidth
             autoComplete="given-name"
             variant="standard"
-            error={!!errors.firstName}
           />
-          {errors.firstName && (
-            <FormHelperText error>{errors.firstName?.message}</FormHelperText>
-          )}
         </Grid>
         <Grid item xs={12}>
           <TextField
-            {...register("email", {
-              required: {
-                value: true,
-                message: inputFillChecking.nonEmptyMessage,
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: inputFillChecking.invalidEmail,
-              },
-            })}
+            name="email"
             id="email"
+            required
             label={inputFillChecking.titleEmail}
             fullWidth
             autoComplete="email"
             variant="standard"
-            error={!!errors.email}
           />
-          {errors.email && (
-            <FormHelperText error>{errors.email?.message}</FormHelperText>
-          )}
-        </Grid>
-        <Grid item xs={12} container justifyContent="center">
-          <FormControl>
-            <FormLabel>電郵主題</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="quiz"
-              name="quiz"
-              value={selection}
-              sx={{
-                width: "100vw",
-                float: "left",
-              }}
-              onChange={handleChange}
-            >
-              <FormControlLabel
-                value="donate"
-                control={<Radio />}
-                label="捐款事宜"
-                sx={{
-                  width: "50vw",
-                  float: "left",
-                }}
-              />
-              <FormControlLabel
-                value="geenral"
-                control={<Radio />}
-                label="一般查詢"
-                sx={{
-                  width: "40vw",
-                  float: "left",
-                }}
-              />
-            </RadioGroup>
-          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
           <TextField
-            {...register("content", {
-              required: {
-                value: true,
-                message: inputFillChecking.nonEmptyMessage,
-              },
-              maxLength: {
-                value: 400,
-                message: inputFillChecking.max400,
-              },
-            })}
             label={inputFillChecking.titleContent}
             fullWidth
+            required
+            multiline
             maxRows={4}
+            name="message"
             id="outlined-multiline-flexible"
             variant="standard"
-            error={!!errors.content}
           />
-          {errors.content && (
-            <FormHelperText error>{errors.content?.message}</FormHelperText>
-          )}
         </Grid>
         <Grid
           item
@@ -186,14 +119,25 @@ const ContactForm = () => {
           <Button
             type="submit"
             variant="contained"
-            sx={{ width: "50vw", padding: 1, margin: 2 }}
+            sx={{ width: "60vw", padding: 1, margin: 2 }}
           >
             送出電郵
           </Button>
         </Grid>
+        <Grid
+          item
+          xs={12}
+          container
+          justifyContent="center"
+          alignItems="center"
+        >
+          <input
+            type="hidden"
+            name="from_name"
+            value={inputFillChecking.missionControl}
+          ></input>
+        </Grid>
       </Grid>
     </form>
   );
-};
-
-export default ContactForm;
+}
