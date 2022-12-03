@@ -113,14 +113,13 @@ const Home: NextPage<Props> = (props) => {
           {props.eventList.map((result, index) => {
             return (
               <div className={""} key={index}>
-                <Link href={`/events/${result.id}`}>
-                  <EventBanner
-                    parentStyle={"gccard"}
-                    imageUrl={result.properties.Gallary.rich_text[0].plain_text}
-                    createDate={result.properties.PublishDate.date?.start}
-                    title={result.properties.Title.rich_text[0].plain_text}
-                  />
-                </Link>
+                <EventBanner
+                  parentStyle={"gccard"}
+                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
+                  createDate={result.properties.PublishDate.date?.start}
+                  title={result.properties.Title.rich_text[0].plain_text}
+                />
+                {/* <Link href={`/events/${result.id}`}></Link> */}
               </div>
             );
           })}
@@ -143,13 +142,12 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Link href={`/projects/projects-${result.id}`}>
-                    <Container className={styles.container_item_1}>
-                      <Typography variant="h2" color="white" align="center">
-                        {result.properties.LongName.rich_text[0].plain_text}
-                      </Typography>
-                    </Container>
-                  </Link>
+                  <Container className={styles.container_item_1}>
+                    <Typography variant="h2" color="white" align="center">
+                      {result.properties.LongName.rich_text[0].plain_text}
+                    </Typography>
+                  </Container>
+                  {/* <Link href={`/projects/${result.id}`}></Link> */}
                 </div>
               </div>
             );
