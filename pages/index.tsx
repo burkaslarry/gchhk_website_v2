@@ -19,7 +19,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
 import { Typography } from "@mui/material";
-import { getPosts, getEvents, getRecycle, getProjects } from "../lib/notion";
+import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
 
 const actions = [
