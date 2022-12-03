@@ -1,7 +1,6 @@
 import { Box, Container } from "@mui/system";
 import Typography from "@mui/material/Typography";
-import { Client } from "@notionhq/client";
-import { useEffect } from "react";
+import Grid from "@mui/material/Grid";
 
 const EventBanner = ({ parentStyle, imageUrl, createDate, title }) => {
   return (
@@ -20,12 +19,18 @@ const EventBanner = ({ parentStyle, imageUrl, createDate, title }) => {
         }}
       >
         <Box sx={{ display: "block", marginTop: 4 }} borderRadius="25%">
-          <Typography variant="h4" color="white" align="right">
-            {createDate}
-          </Typography>
-          <Typography variant="h4" color="white" align="left">
-            {title}
-          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={9}>
+              <Typography variant="h4" color="white" align="left">
+                {title}
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h4" color="white" align="right">
+                {createDate}
+              </Typography>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </div>

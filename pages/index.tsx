@@ -14,6 +14,7 @@ import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
 import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import FaceBookOutlinedIcon from "@mui/icons-material/FaceBookOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React from "react";
 import Router from "next/router";
@@ -47,6 +48,11 @@ const actions = [
     name: "工作指引",
     key: "guideline",
   },
+  {
+    icon: <FaceBookOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "Facebook專頁",
+    key: "facebookpage",
+  },
 ];
 
 const actionSize = {
@@ -54,36 +60,6 @@ const actionSize = {
   height: 50,
   backgroundColor: "#53C351",
 };
-
-const eventList = [
-  {
-    title: "單幢式樓宇藉都市固體廢物收費試驗項目—旺角",
-    createDate: "2022-09-02",
-    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
-  },
-  {
-    title: "Milmill 參觀",
-    createDate: "2022-07-02",
-    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
-  },
-  {
-    title: "嘉道理農場參觀",
-    createDate: "2022-06-01",
-    imageUrl: "https://i.imgur.com/PSi9TDW.jpg",
-  },
-];
-
-class REcycleClass {
-  title: string;
-  figure: number;
-  unit: string;
-
-  constructor(name: string, amount: number, unit: string) {
-    this.title = name;
-    this.figure = amount;
-    this.unit = unit;
-  }
-}
 
 const heroResult = {
   imageUrl:
@@ -136,10 +112,10 @@ const Home: NextPage<Props> = (props) => {
         <div className="gchhkgrid1">
           {props.eventList.map((result, index) => {
             return (
-              <div className={styles.cardHolder} key={index}>
-                <Link href={`/posts/${result.id}`}>
+              <div className={""} key={index}>
+                <Link href={`/events/${result.id}`}>
                   <EventBanner
-                    parentStyle={"gchhkgrid1"}
+                    parentStyle={"gccard"}
                     imageUrl={result.properties.Gallary.rich_text[0].plain_text}
                     createDate={result.properties.PublishDate.date?.start}
                     title={result.properties.Title.rich_text[0].plain_text}
@@ -167,11 +143,13 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Container className={styles.container_item_1}>
-                    <Typography variant="h2" color="white" align="center">
-                      {result.properties.LongName.rich_text[0].plain_text}
-                    </Typography>
-                  </Container>
+                  <Link href={`/projects/${result.id}`}>
+                    <Container className={styles.container_item_1}>
+                      <Typography variant="h2" color="white" align="center">
+                        {result.properties.LongName.rich_text[0].plain_text}
+                      </Typography>
+                    </Container>
+                  </Link>
                 </div>
               </div>
             );
@@ -211,11 +189,6 @@ const Home: NextPage<Props> = (props) => {
             );
           })}
         </div>
-        {/* <GCHHKGird
-          appliedStyle="gchhkgrid3"
-          itemStyle="squaredark"
-          resultList={props.recycle}
-        /> */}
       </section>
 
       <section id="contact">
@@ -269,6 +242,11 @@ const Home: NextPage<Props> = (props) => {
               } else if (action.key == "guideline") {
                 Router.push({
                   pathname: "/terms",
+                  query: {},
+                });
+              } else if (action.key == "facebookpage") {
+                Router.push({
+                  pathname: "https://www.facebook.com/JaPeiGoal",
                   query: {},
                 });
               }

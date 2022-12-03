@@ -8,13 +8,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width”, viewport-fit=cover"
-        />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta charSet="utf-8" />
         <title>草根文化館有限公司 Grassroots Cultural Hub Limited</title>
-        <meta name="description" content="An example of a meta description." />
+        <meta
+          name="description"
+          content="草根文化館是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。"
+        />
         <script
           src="https://web3forms.com/client/script.js"
           async
