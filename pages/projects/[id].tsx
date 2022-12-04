@@ -3,7 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
-import { post, posts, blocks } from "../../lib/notion";
+import { getEvent, posts, blocks } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 
 interface IParams extends ParsedUrlQuery {
@@ -13,7 +13,7 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
   // Get the dynamic id
-  let page_result = await post(id);
+  let page_result = await getEvent(id);
   // Fetch the post
   let { results } = await blocks(id);
   // Get the children

@@ -23,7 +23,13 @@ async function getEvents() {
     filter: {
       and: [
         {
-          property: "Gallary",
+          property: "Gallery",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "BlogId",
           rich_text: {
             is_not_empty: true,
           },
@@ -48,10 +54,40 @@ async function getEvents() {
 }
 
 async function getEvent(id: string) {
-  const myPost = await client.pages.retrieve({
-    page_id: id,
+  const myPosts = await client.databases.query({
+    database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "Gallery",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "BlogId",
+          rich_text: {
+            equals: id,
+          },
+        },
+        {
+          property: "Title",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "PublishDate",
+          date: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
+    sorts: [{ property: "PublishDate", direction: "descending" }],
   });
-  return myPost;
+
+  return myPosts.results;
 }
 
 async function getProjects() {
@@ -89,6 +125,9 @@ async function blocks(id: string) {
   const myBlocks = await client.blocks.children.list({
     block_id: id,
   });
+
+  console.log("selected myBlocks: " + JSON.stringify(myBlocks));
+
   return myBlocks;
 }
 
@@ -98,21 +137,12 @@ async function posts() {
   });
   return myPosts;
 }
-
-async function post(id: string) {
-  const myPost = await client.pages.retrieve({
-    page_id: id,
-  });
-  return myPost;
-}
-
 export {
   getRecycle,
   getEvent,
   getEvents,
   getProject,
   getProjects,
-  posts,
-  post,
   blocks,
+  posts,
 };

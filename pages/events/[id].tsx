@@ -3,7 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
-import { post, posts, blocks } from "../../lib/notion";
+import { getProject, blocks, posts } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 
 interface IParams extends ParsedUrlQuery {
@@ -13,8 +13,11 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
   // Get the dynamic id
-  let page_result = await post(id);
+
+  let page_result = await getProject(id);
+  let pageResult = JSON.parse(JSON.stringify(page_result));
   // Fetch the post
+  //console.log("selected pageResult: " + JSON.stringify(pageResult));
   let { results } = await blocks(id);
   // Get the children
   return {
@@ -25,9 +28,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     },
   };
 };
+
 export const getStaticPaths: GetStaticPaths = async () => {
   let { results } = await posts();
   // Get all posts
+
   return {
     paths: results.map((post) => {
       // Go through every post
@@ -73,7 +78,9 @@ const renderBlock = (block: any) => {
   }
 };
 
-const Post: NextPage<Props> = ({ id, post, blocks }) => {
+const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
+  console.log("selected block: " + JSON.stringify(blocks));
+
   return (
     <div className={styles.blogPageHolder}>
       <Head>
@@ -81,9 +88,7 @@ const Post: NextPage<Props> = ({ id, post, blocks }) => {
       </Head>
       <div className={styles.blogPageNav}>
         <nav>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
+          <Link href="/">Home</Link>
         </nav>
       </div>
       {blocks.map((block, index) => {
@@ -97,4 +102,4 @@ const Post: NextPage<Props> = ({ id, post, blocks }) => {
   );
 };
 
-export default Post;
+export default EventPage;

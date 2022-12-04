@@ -111,15 +111,18 @@ const Home: NextPage<Props> = (props) => {
       <section id="event_content">
         <div className="gchhkgrid1">
           {props.eventList.map((result, index) => {
+            console.log("event ID: " + JSON.stringify(result.id));
+
             return (
               <div className={""} key={index}>
-                <EventBanner
-                  parentStyle={"gccard"}
-                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
-                  createDate={result.properties.PublishDate.date?.start}
-                  title={result.properties.Title.rich_text[0].plain_text}
-                />
-                {/* <Link href={`/events/${result.id}`}></Link> */}
+                <Link href={`/events/${result.id}`}>
+                  <EventBanner
+                    parentStyle={"gccard"}
+                    imageUrl={result.properties.Gallery.rich_text[0].plain_text}
+                    createDate={result.properties.PublishDate.date?.start}
+                    title={result.properties.Title.rich_text[0].plain_text}
+                  />
+                </Link>
               </div>
             );
           })}

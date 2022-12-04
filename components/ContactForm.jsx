@@ -54,7 +54,6 @@ export default function ContactForm() {
     const result = await response.json();
     if (result.success) {
       isSubmitSuccessful = true;
-      console.log(result);
     }
   }
 
