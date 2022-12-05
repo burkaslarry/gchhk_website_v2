@@ -29,7 +29,6 @@ const inputFillChecking = {
   missionControl: "草根文化館",
   invalidEmail: "必須符合電郵地址格式，如 sjkelvin23@gmail.com",
 };
-getKey;
 
 var isSubmitSuccessful = false;
 
