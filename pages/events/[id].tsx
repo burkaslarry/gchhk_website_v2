@@ -9,10 +9,49 @@ import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import HeroBanner from "../../components/HeroBanner";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import Router from "next/router";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
+
+interface Props {
+  id: string;
+  post: any;
+  blocks: [any];
+}
+
+const actions = [
+  {
+    icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "回到主頁",
+    key: "home",
+  },
+  {
+    icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "聯絡我們",
+    key: "contact",
+  },
+  {
+    icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "分享主頁",
+    key: "share",
+  },
+];
+
+const actionSize = {
+  width: 50,
+  height: 50,
+  backgroundColor: "#53C351",
+};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
@@ -54,12 +93,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
-
-interface Props {
-  id: string;
-  post: any;
-  blocks: [any];
-}
 
 const renderBlock = (block: any) => {
   switch (block.type) {
@@ -115,6 +148,62 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
           );
         })}
       </div> */}
+      <SpeedDial
+        ariaLabel="Menu"
+        sx={{
+          position: "fixed",
+          bottom: 24,
+          right: 24,
+          "& .MuiFab-primary": {
+            backgroundColor: "#53C351",
+            color: "white",
+            width: 64,
+            height: 64,
+            "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
+            "&:hover": { backgroundColor: "#53C351" },
+          },
+        }}
+        openIcon={<ClearOutlinedIcon />}
+        icon={<MenuOutlinedIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            sx={actionSize}
+            onClick={(e) => {
+              if (action.key == "contact") {
+                Router.push({
+                  pathname: "/",
+                  query: { action: "contact" },
+                });
+              } else if (action.key == "home") {
+                Router.back();
+              } else if (action.key == "share") {
+                // Check for Web Share api support
+                if (navigator.share) {
+                  // Browser supports native share api
+                  navigator
+                    .share({
+                      text: "Please read this great article: ",
+                      url: Router.pathname,
+                    })
+                    .then(() => {
+                      console.log("Thanks for sharing!");
+                    })
+                    .catch((err) => console.error(err));
+                } else {
+                  // Fallback
+                  alert(
+                    "The current browser does not support the share function. Please, manually share the link"
+                  );
+                }
+              }
+            }}
+          />
+        ))}
+      </SpeedDial>
     </Layout>
   );
 };

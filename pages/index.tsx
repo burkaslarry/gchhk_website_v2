@@ -17,10 +17,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
+import { useState, useEffect } from "react";
 
 const actions = [
   {
@@ -90,7 +91,6 @@ interface Props {
 }
 
 const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  console.log(event.target);
   const element = document.getElementById("contact");
   if (element != null) {
     element.scrollIntoView({
@@ -102,6 +102,28 @@ const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 const Home: NextPage<Props> = (props) => {
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState((useRouter().query.action || 1).toString());
+  // getting the page query parameter
+  // Default value is equal to "1"
+
+  useEffect(() => {
+    (async () => {
+      if (page == "contact") {
+        let element = document.getElementById("contact");
+        if (element != null) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest",
+          });
+        }
+      }
+      // This code will be executed only once at begining of the loading of the page
+      // It will not be executed again unless you cahnge the page
+    })();
+  }, [page]);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -247,6 +269,7 @@ const Home: NextPage<Props> = (props) => {
                   });
                 }
               } else if (action.key == "home") {
+                Router.replace("/", undefined, { shallow: true });
                 const element = document.getElementById("home");
                 if (element != null) {
                   element.scrollIntoView({
@@ -272,7 +295,7 @@ const Home: NextPage<Props> = (props) => {
                   navigator
                     .share({
                       text: "Please read this great article: ",
-                      url: "https://www.google.com/",
+                      url: Router.pathname,
                     })
                     .then(() => {
                       console.log("Thanks for sharing!");

@@ -13,6 +13,7 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { green, pink, purple } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
+import { getKey } from "../pages/api/hello";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -28,6 +29,7 @@ const inputFillChecking = {
   missionControl: "草根文化館",
   invalidEmail: "必須符合電郵地址格式，如 sjkelvin23@gmail.com",
 };
+getKey;
 
 var isSubmitSuccessful = false;
 
@@ -35,10 +37,10 @@ export default function ContactForm() {
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+    const objectBefore = Object.fromEntries(formData);
 
-    formData.append("access_key", "5561f46b-c354-4847-9f43-13e57e8d2e68");
+    formData.append("access_key", "a2ebc052-d5d9-44cd-8bc4-0e74a22df5eb");
     formData.append("subject", "一般查詢 - " + objectBefore.senderName);
-    草根文化館;
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
