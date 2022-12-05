@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Link from "@mui/material/Link";
+import Link from "next/link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
@@ -11,11 +11,11 @@ import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
 import Router from "next/router";
 import { Typography } from "@mui/material";
@@ -39,9 +39,9 @@ const actions = [
     key: "community",
   },
   {
-    icon: <FoodBankOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "廚餘回收",
-    key: "food",
+    icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "分享主頁",
+    key: "share",
   },
   {
     icon: <GavelOutlinedIcon sx={{ color: "#ffffff" }} />,
@@ -92,7 +92,6 @@ interface Props {
 const Home: NextPage<Props> = (props) => {
   return (
     <Layout>
-      {/* Hero unit */}
       <section className={styles.banner} id="home">
         <HeroBanner resultConfig={heroResult} showButton="true" />
       </section>
@@ -250,6 +249,25 @@ const Home: NextPage<Props> = (props) => {
                   pathname: "https://www.facebook.com/JaPeiGoal",
                   query: {},
                 });
+              } else if (action.key == "share") {
+                // Check for Web Share api support
+                if (navigator.share) {
+                  // Browser supports native share api
+                  navigator
+                    .share({
+                      text: "Please read this great article: ",
+                      url: "https://www.google.com/",
+                    })
+                    .then(() => {
+                      console.log("Thanks for sharing!");
+                    })
+                    .catch((err) => console.error(err));
+                } else {
+                  // Fallback
+                  alert(
+                    "The current browser does not support the share function. Please, manually share the link"
+                  );
+                }
               }
             }}
           />

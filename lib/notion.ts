@@ -125,9 +125,6 @@ async function blocks(id: string) {
   const myBlocks = await client.blocks.children.list({
     block_id: id,
   });
-
-  console.log("selected myBlocks: " + JSON.stringify(myBlocks));
-
   return myBlocks;
 }
 

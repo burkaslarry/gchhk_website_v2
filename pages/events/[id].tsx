@@ -5,6 +5,10 @@ import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import { getProject, blocks, posts } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
+import Layout from "../../components/Layout";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import HeroBanner from "../../components/HeroBanner";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -18,12 +22,16 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let pageResult = JSON.parse(JSON.stringify(page_result));
   // Fetch the post
   //console.log("selected pageResult: " + JSON.stringify(pageResult));
-  let { results } = await blocks(id);
+
+  let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
+
+  let { results } = await blocks(bloggerId);
+
   // Get the children
   return {
     props: {
       id,
-      post: page_result,
+      post: pageResult,
       blocks: results,
     },
   };
@@ -57,7 +65,7 @@ const renderBlock = (block: any) => {
   switch (block.type) {
     case "heading_1":
       // For a heading
-      return <h1>{block["heading_1"].text[0].plain_text} </h1>;
+      return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
     case "image":
       // For an image
       let result = block["image"].external.url;
@@ -71,7 +79,7 @@ const renderBlock = (block: any) => {
       );
     case "paragraph":
       // For a paragraph
-      return <p>{block["paragraph"].text[0]?.text?.content} </p>;
+      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
     default:
       // For an extra type
       return <p>Undefined type </p>;
@@ -79,26 +87,35 @@ const renderBlock = (block: any) => {
 };
 
 const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
-  console.log("selected block: " + JSON.stringify(blocks));
-
   return (
-    <div className={styles.blogPageHolder}>
-      <Head>
-        <title>{post.properties.Name.title[0].plain_text}</title>
-      </Head>
-      <div className={styles.blogPageNav}>
-        <nav>
-          <Link href="/">Home</Link>
-        </nav>
-      </div>
-      {blocks.map((block, index) => {
-        return (
-          <div key={index} className={styles.blogPageContent}>
-            {renderBlock(block)}
-          </div>
-        );
-      })}
-    </div>
+    <Layout>
+      <section className={styles.banner} id="home">
+        <HeroBanner
+          resultConfig={{
+            imageUrl: post.properties.Gallery.rich_text[0].plain_text,
+            title: post.properties.Title.rich_text[0].plain_text,
+            subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
+          }}
+          showButton="false"
+          shareButton="true"
+        />
+      </section>
+
+      {/* <div className={styles.blogPageHolder}>
+        <Head>
+          <title>{post.properties.Name.title[0].plain_text}</title>
+        </Head>
+        {blocks.map((block, index) => {
+          console.log("selected block: " + JSON.stringify(block));
+
+          return (
+            <div key={index} className={styles.blogPageContent}>
+              {renderBlock(block)}
+            </div>
+          );
+        })}
+      </div> */}
+    </Layout>
   );
 };
 
