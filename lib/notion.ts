@@ -1,8 +1,9 @@
 require("dotenv");
-import { Client } from "@notionhq/client";
+import { Client, APIErrorCode, LogLevel } from "@notionhq/client";
 
 const client = new Client({
   auth: process.env.NOTION_API_KEY,
+  logLevel: LogLevel.DEBUG,
 });
 
 async function getEvents() {
@@ -120,9 +121,9 @@ async function getProjects() {
   return myPosts.results;
 }
 
-async function getProject(id: string) {
+async function getProject(pageIId: string) {
   const myPost = await client.pages.retrieve({
-    page_id: id,
+    page_id: pageIId,
   });
   return myPost;
 }
@@ -134,16 +135,52 @@ async function getRecycle() {
   return myPosts.results;
 }
 
-async function blocks(id: string) {
-  const myBlocks = await client.blocks.children.list({
-    block_id: id,
-  });
-  return myBlocks;
+async function blocks(blockId: string) {
+  try {
+    const myBlocks = await client.blocks.children.list({
+      block_id: blockId,
+    });
+
+    return myBlocks;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    return [];
+  }
 }
 
 async function posts() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "Gallery",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "BlogId",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "Title",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "PublishDate",
+          date: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
+    sorts: [{ property: "PublishDate", direction: "descending" }],
   });
   return myPosts;
 }

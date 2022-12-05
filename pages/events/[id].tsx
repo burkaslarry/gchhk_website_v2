@@ -56,7 +56,17 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let pageResult = JSON.parse(JSON.stringify(page_result));
   let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
 
-  let { results } = await blocks(bloggerId);
+  let { results } = (await blocks(bloggerId)) as any;
+
+  if (results === undefined) {
+    return {
+      props: {
+        id,
+        post: pageResult,
+        blocks: [],
+      },
+    };
+  }
 
   // Get the children
   return {
@@ -166,11 +176,15 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
             sx={actionSize}
             onClick={(e) => {
               if (action.key == "contact") {
+                if (typeof window === "undefined") return null;
+
                 Router.push({
                   pathname: "/",
                   query: { action: "contact" },
                 });
               } else if (action.key == "home") {
+                if (typeof window === "undefined") return null;
+
                 Router.back();
               } else if (action.key == "share") {
                 // Check for Web Share api support

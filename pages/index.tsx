@@ -17,15 +17,17 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
-import Router, { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
-import { useState, useEffect } from "react";
 
 const actions = [
   {
-    icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
+    icon: (
+      <Link href="/">
+        <HomeOutlinedIcon sx={{ color: "#ffffff" }} />
+      </Link>
+    ),
     name: "回到主頁",
     key: "home",
   },
@@ -45,12 +47,20 @@ const actions = [
     key: "share",
   },
   {
-    icon: <GavelOutlinedIcon sx={{ color: "#ffffff" }} />,
+    icon: (
+      <Link href="/terms">
+        <GavelOutlinedIcon sx={{ color: "#ffffff" }} />
+      </Link>
+    ),
     name: "工作指引",
     key: "guideline",
   },
   {
-    icon: <FacebookIcon sx={{ color: "#ffffff" }} />,
+    icon: (
+      <Link target="_blank" href="https://www.facebook.com/JaPeiGoal">
+        <FacebookIcon sx={{ color: "#ffffff" }} />
+      </Link>
+    ),
     name: "Facebook專頁",
     key: "facebookpage",
   },
@@ -102,28 +112,6 @@ const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 const Home: NextPage<Props> = (props) => {
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState((useRouter().query.action || 1).toString());
-  // getting the page query parameter
-  // Default value is equal to "1"
-
-  useEffect(() => {
-    (async () => {
-      if (page == "contact") {
-        let element = document.getElementById("contact");
-        if (element != null) {
-          element.scrollIntoView({
-            behavior: "smooth",
-            block: "end",
-            inline: "nearest",
-          });
-        }
-      }
-      // This code will be executed only once at begining of the loading of the page
-      // It will not be executed again unless you cahnge the page
-    })();
-  }, [page]);
-
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -270,34 +258,14 @@ const Home: NextPage<Props> = (props) => {
                     inline: "nearest",
                   });
                 }
-              } else if (action.key == "home") {
-                Router.replace("/", undefined, { shallow: true });
-                const element = document.getElementById("home");
-                if (element != null) {
-                  element.scrollIntoView({
-                    behavior: "smooth",
-                    block: "end",
-                    inline: "nearest",
-                  });
-                }
-              } else if (action.key == "guideline") {
-                Router.push({
-                  pathname: "/terms",
-                  query: {},
-                });
-              } else if (action.key == "facebookpage") {
-                Router.push({
-                  pathname: "https://www.facebook.com/JaPeiGoal",
-                  query: {},
-                });
               } else if (action.key == "share") {
                 // Check for Web Share api support
                 if (navigator.share) {
                   // Browser supports native share api
                   navigator
                     .share({
-                      text: "Please read this great article: ",
-                      url: Router.pathname,
+                      text: "Please read this page: ",
+                      url: window.location.href,
                     })
                     .then(() => {
                       console.log("Thanks for sharing!");
