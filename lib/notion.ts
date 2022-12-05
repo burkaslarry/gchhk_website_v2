@@ -144,6 +144,34 @@ async function blocks(id: string) {
 async function posts() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "Gallery",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "BlogId",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "Title",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: "PublishDate",
+          date: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
   });
   return myPosts;
 }
