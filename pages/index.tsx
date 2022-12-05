@@ -148,8 +148,6 @@ const Home: NextPage<Props> = (props) => {
       <section id="event_content">
         <div className="gchhkgrid1">
           {props.eventList.map((result, index) => {
-            console.log("event ID: " + JSON.stringify(result.id));
-
             return (
               <div className={""} key={index}>
                 <Link href={`/events/${result.id}`}>
@@ -182,12 +180,16 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Container className={styles.container_item_1}>
-                    <Typography variant="h2" color="white" align="center">
-                      {result.properties.LongName.rich_text[0].plain_text}
-                    </Typography>
-                  </Container>
-                  {/* <Link href={`/projects/${result.id}`}></Link> */}
+                  <Link
+                    href={`/projects/${result.properties.ProjectCode.title[0].plain_text}`}
+                    //href={`/terms`}
+                  >
+                    <Container className={styles.container_item_1}>
+                      <Typography variant="h2" color="white" align="center">
+                        {result.properties.LongName.rich_text[0].plain_text}
+                      </Typography>
+                    </Container>
+                  </Link>
                 </div>
               </div>
             );

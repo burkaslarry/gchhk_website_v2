@@ -5,18 +5,6 @@ const client = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-const contentFilter = {
-  and: [
-    {
-      property: "Title",
-      rich_text: {
-        is_not_empty: true,
-      },
-    },
-  ],
-};
-const contentSorts = [{ property: "PublishDate", direction: "descending" }];
-
 async function getEvents() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -51,6 +39,31 @@ async function getEvents() {
     sorts: [{ property: "PublishDate", direction: "descending" }],
   });
   return myPosts.results;
+}
+
+async function getEventsByProjectCode(projCode: string) {
+  const myPosts = await client.databases.query({
+    database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "ProjectCode",
+          title: {
+            contains: projCode,
+          },
+        },
+        {
+          property: "Gallery",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
+    sorts: [{ property: "PublishDate", direction: "descending" }],
+  });
+
+  return myPosts;
 }
 
 async function getEvent(id: string) {
@@ -134,12 +147,32 @@ async function posts() {
   });
   return myPosts;
 }
+
+async function projects() {
+  const myPosts = await client.databases.query({
+    database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "LongName",
+          rich_text: {
+            is_not_empty: true,
+          },
+        },
+      ],
+    },
+  });
+  return myPosts;
+}
+
 export {
   getRecycle,
   getEvent,
   getEvents,
+  getEventsByProjectCode,
   getProject,
   getProjects,
   blocks,
   posts,
+  projects,
 };

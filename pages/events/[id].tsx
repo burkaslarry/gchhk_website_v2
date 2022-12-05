@@ -1,7 +1,5 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
 import Image from "next/image";
-import Head from "next/head";
-import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import { getProject, blocks, posts } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
@@ -11,10 +9,7 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import HeroBanner from "../../components/HeroBanner";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Router from "next/router";
@@ -59,9 +54,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   let page_result = await getProject(id);
   let pageResult = JSON.parse(JSON.stringify(page_result));
-  // Fetch the post
-  //console.log("selected pageResult: " + JSON.stringify(pageResult));
-
   let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
 
   let { results } = await blocks(bloggerId);
@@ -94,30 +86,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const renderBlock = (block: any) => {
-  switch (block.type) {
-    case "heading_1":
-      // For a heading
-      return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
-    case "image":
-      // For an image
-      let result = block["image"].external.url;
-      return <Image src={result} width={650} height={400} alt="" />;
-    case "bulleted_list_item":
-      // For an unordered list
-      return (
-        <ul>
-          <li>{block["bulleted_list_item"].text[0].plain_text} </li>
-        </ul>
-      );
-    case "paragraph":
-      // For a paragraph
-      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
-    default:
-      // For an extra type
-      return <p>Undefined type </p>;
-  }
-};
+// const renderBlock = (block: any) => {
+//   switch (block.type) {
+//     case "heading_1":
+//       // For a heading
+//       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
+//     case "image":
+//       // For an image
+//       let result = block["image"].external.url;
+//       return <Image src={result} width={650} height={400} alt="" />;
+//     case "bulleted_list_item":
+//       // For an unordered list
+//       return (
+//         <ul>
+//           <li>{block["bulleted_list_item"].text[0].plain_text} </li>
+//         </ul>
+//       );
+//     case "paragraph":
+//       // For a paragraph
+//       return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
+//     default:
+//       // For an extra type
+//       return <p>Undefined type </p>;
+//   }
+// };
 
 const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
   return (
