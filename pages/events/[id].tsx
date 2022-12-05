@@ -97,7 +97,7 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
             subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
           }}
           showButton="false"
-          shareButton="true"
+          handleClick={console.log("")}
         />
       </section>
 

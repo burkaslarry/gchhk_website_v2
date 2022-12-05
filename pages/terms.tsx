@@ -59,7 +59,11 @@ const Terms: NextPage = () => {
     <Layout>
       {/* Hero unit */}
       <section className={styles.banner} id="home">
-        <HeroBanner resultConfig={heroResult} showButton="false" />
+        <HeroBanner
+          resultConfig={heroResult}
+          showButton="false"
+          handleClick={console.log("")}
+        />
       </section>
       <section id="terms">
         <Box

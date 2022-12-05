@@ -89,11 +89,27 @@ interface Props {
   recycle: [any];
 }
 
+const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  console.log(event.target);
+  const element = document.getElementById("contact");
+  if (element != null) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }
+};
+
 const Home: NextPage<Props> = (props) => {
   return (
     <Layout>
       <section className={styles.banner} id="home">
-        <HeroBanner resultConfig={heroResult} showButton="true" />
+        <HeroBanner
+          resultConfig={heroResult}
+          showButton="true"
+          handleClick={handleClick}
+        />
       </section>
 
       <section id="event_title">
