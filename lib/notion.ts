@@ -1,5 +1,5 @@
 require("dotenv");
-import { Client } from "@notionhq/client";
+import { Client, APIErrorCode } from "@notionhq/client";
 
 const client = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -120,9 +120,9 @@ async function getProjects() {
   return myPosts.results;
 }
 
-async function getProject(id: string) {
+async function getProject(pageIId: string) {
   const myPost = await client.pages.retrieve({
-    page_id: id,
+    page_id: pageIId,
   });
   return myPost;
 }
@@ -134,11 +134,16 @@ async function getRecycle() {
   return myPosts.results;
 }
 
-async function blocks(id: string) {
-  const myBlocks = await client.blocks.children.list({
-    block_id: id,
-  });
-  return myBlocks;
+async function blocks(blockId: string) {
+  try {
+    const myBlocks = await client.blocks.children.list({
+      block_id: blockId,
+    });
+
+    return myBlocks;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function posts() {
@@ -172,6 +177,7 @@ async function posts() {
         },
       ],
     },
+    sorts: [{ property: "PublishDate", direction: "descending" }],
   });
   return myPosts;
 }
