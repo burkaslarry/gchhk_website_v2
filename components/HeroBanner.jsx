@@ -6,7 +6,7 @@ import Image from "next/image";
 import gchLogo from "../public/GCH.svg";
 import { Box } from "@mui/system";
 
-const HeroBanner = ({ resultConfig, showButton }) => {
+const HeroBanner = ({ resultConfig, showButton, handleClick }) => {
   return (
     <div>
       <Box
@@ -44,10 +44,12 @@ const HeroBanner = ({ resultConfig, showButton }) => {
               <br />
               <h2>{resultConfig.subtitle}</h2>
               <br />
+              <Link href={`#contact`}></Link>
               <Button
                 variant="outlined"
                 type="submit"
                 color="themeWhite"
+                onClick={handleClick}
                 sx={{
                   width: "20vw",
                   padding: 1,

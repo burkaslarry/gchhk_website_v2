@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Link from "@mui/material/Link";
+import Link from "next/link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Box from "@mui/material/Box";
@@ -11,16 +11,17 @@ import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
+import { useState, useEffect } from "react";
 
 const actions = [
   {
@@ -39,9 +40,9 @@ const actions = [
     key: "community",
   },
   {
-    icon: <FoodBankOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "廚餘回收",
-    key: "food",
+    icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
+    name: "分享主頁",
+    key: "share",
   },
   {
     icon: <GavelOutlinedIcon sx={{ color: "#ffffff" }} />,
@@ -89,12 +90,48 @@ interface Props {
   recycle: [any];
 }
 
+const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const element = document.getElementById("contact");
+  if (element != null) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }
+};
+
 const Home: NextPage<Props> = (props) => {
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState((useRouter().query.action || 1).toString());
+  // getting the page query parameter
+  // Default value is equal to "1"
+
+  useEffect(() => {
+    (async () => {
+      if (page == "contact") {
+        let element = document.getElementById("contact");
+        if (element != null) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest",
+          });
+        }
+      }
+      // This code will be executed only once at begining of the loading of the page
+      // It will not be executed again unless you cahnge the page
+    })();
+  }, [page]);
+
   return (
     <Layout>
-      {/* Hero unit */}
       <section className={styles.banner} id="home">
-        <HeroBanner resultConfig={heroResult} showButton="true" />
+        <HeroBanner
+          resultConfig={heroResult}
+          showButton="true"
+          handleClick={handleClick}
+        />
       </section>
 
       <section id="event_title">
@@ -113,13 +150,14 @@ const Home: NextPage<Props> = (props) => {
           {props.eventList.map((result, index) => {
             return (
               <div className={""} key={index}>
-                <EventBanner
-                  parentStyle={"gccard"}
-                  imageUrl={result.properties.Gallary.rich_text[0].plain_text}
-                  createDate={result.properties.PublishDate.date?.start}
-                  title={result.properties.Title.rich_text[0].plain_text}
-                />
-                {/* <Link href={`/events/${result.id}`}></Link> */}
+                <Link href={`/events/${result.id}`}>
+                  <EventBanner
+                    parentStyle={"gccard"}
+                    imageUrl={result.properties.Gallery.rich_text[0].plain_text}
+                    createDate={result.properties.PublishDate.date?.start}
+                    title={result.properties.Title.rich_text[0].plain_text}
+                  />
+                </Link>
               </div>
             );
           })}
@@ -142,12 +180,16 @@ const Home: NextPage<Props> = (props) => {
             return (
               <div className="squarelight" key={index}>
                 <div>
-                  <Container className={styles.container_item_1}>
-                    <Typography variant="h2" color="white" align="center">
-                      {result.properties.LongName.rich_text[0].plain_text}
-                    </Typography>
-                  </Container>
-                  {/* <Link href={`/projects/${result.id}`}></Link> */}
+                  <Link
+                    href={`/projects/${result.properties.ProjectCode.title[0].plain_text}`}
+                    //href={`/terms`}
+                  >
+                    <Container className={styles.container_item_1}>
+                      <Typography variant="h2" color="white" align="center">
+                        {result.properties.LongName.rich_text[0].plain_text}
+                      </Typography>
+                    </Container>
+                  </Link>
                 </div>
               </div>
             );
@@ -229,6 +271,7 @@ const Home: NextPage<Props> = (props) => {
                   });
                 }
               } else if (action.key == "home") {
+                Router.replace("/", undefined, { shallow: true });
                 const element = document.getElementById("home");
                 if (element != null) {
                   element.scrollIntoView({
@@ -247,6 +290,25 @@ const Home: NextPage<Props> = (props) => {
                   pathname: "https://www.facebook.com/JaPeiGoal",
                   query: {},
                 });
+              } else if (action.key == "share") {
+                // Check for Web Share api support
+                if (navigator.share) {
+                  // Browser supports native share api
+                  navigator
+                    .share({
+                      text: "Please read this great article: ",
+                      url: Router.pathname,
+                    })
+                    .then(() => {
+                      console.log("Thanks for sharing!");
+                    })
+                    .catch((err) => console.error(err));
+                } else {
+                  // Fallback
+                  alert(
+                    "The current browser does not support the share function. Please, manually share the link"
+                  );
+                }
               }
             }}
           />

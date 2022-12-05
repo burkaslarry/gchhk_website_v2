@@ -39,16 +39,6 @@ const actions = [
     key: "contact",
   },
   {
-    icon: <PeopleOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "社區回收",
-    key: "community",
-  },
-  {
-    icon: <FoodBankOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "廚餘回收",
-    key: "food",
-  },
-  {
     icon: <GavelOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "工作指引",
     key: "guideline",
@@ -59,7 +49,11 @@ const Terms: NextPage = () => {
     <Layout>
       {/* Hero unit */}
       <section className={styles.banner} id="home">
-        <HeroBanner resultConfig={heroResult} showButton="false" />
+        <HeroBanner
+          resultConfig={heroResult}
+          showButton="false"
+          handleClick={console.log("")}
+        />
       </section>
       <section id="terms">
         <Box

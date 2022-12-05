@@ -195,3 +195,11 @@
 .MuiFormLabel-root.Mui-focused {
   color: #212121 !important;
 }
+
+.blogPageHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 50%;
+  margin: 10px auto;
+}
