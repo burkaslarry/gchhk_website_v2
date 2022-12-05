@@ -1,8 +1,9 @@
 require("dotenv");
-import { Client, APIErrorCode } from "@notionhq/client";
+import { Client, APIErrorCode, LogLevel } from "@notionhq/client";
 
 const client = new Client({
   auth: process.env.NOTION_API_KEY,
+  logLevel: LogLevel.DEBUG,
 });
 
 async function getEvents() {
@@ -143,6 +144,8 @@ async function blocks(blockId: string) {
     return myBlocks;
   } catch (error) {
     console.error(error);
+  } finally {
+    return [];
   }
 }
 
