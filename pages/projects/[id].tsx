@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       id,
       post: pageResult,
-      blocks: null,
+      blocks: pageResult,
     },
   };
 };
@@ -96,9 +96,9 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
       <section className={styles.banner} id="home">
         <HeroBanner
           resultConfig={{
-            imageUrl: post.properties.Gallery.rich_text[0].plain_text,
-            title: post.properties.Title.rich_text[0].plain_text,
-            subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
+            imageUrl:
+              "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
+            title: post.id,
           }}
           showButton="false"
           handleClick={console.log("")}
