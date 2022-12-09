@@ -20,6 +20,7 @@ import React from "react";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import Container from "@mui/material/Container";
+import GCHHKGird from "../components/GCHHKGird";
 
 const actions = [
   {
@@ -163,26 +164,7 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="project_content">
-        <div className="gchhkgrid2">
-          {props.project.map((result, index) => {
-            return (
-              <div className="squarelight" key={index}>
-                <div>
-                  <Link
-                    href={`/projects/${result.properties.ProjectCode.title[0].plain_text}`}
-                    //href={`/terms`}
-                  >
-                    <Container className={styles.container_item_1}>
-                      <Typography variant="h2" color="white" align="center">
-                        {result.properties.LongName.rich_text[0].plain_text}
-                      </Typography>
-                    </Container>
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <GCHHKGird resultList={props.project} type="project" />
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -196,27 +178,7 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <div className="gchhkgrid3">
-          {props.recycle.map((result, index) => {
-            return (
-              <div className="squaredark" key={index}>
-                <div>
-                  <Container className={styles.container_item_1}>
-                    <Typography variant="h4" color="white" align="center">
-                      {result.properties.Title.title[0].plain_text}
-                    </Typography>
-                    <br />
-                    <Typography variant="h4" color="white" align="center">
-                      {result.properties.Number.number +
-                        " " +
-                        result.properties.Unit.rich_text[0].plain_text}
-                    </Typography>
-                  </Container>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <GCHHKGird resultList={props.recycle} type="recycle" />
       </section>
 
       <section id="contact">
