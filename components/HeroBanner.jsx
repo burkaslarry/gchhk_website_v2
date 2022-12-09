@@ -27,7 +27,7 @@ const HeroBanner = ({ resultConfig, showButton, handleClick }) => {
         >
           <Box sx={{ display: "flex" }}>
             <Link href="/">
-              <Image src={gchLogo} height={88} width={88} alt="" Link />
+              <Image src={gchLogo} height={88} width={88} alt="" />
             </Link>
           </Box>
 

@@ -106,7 +106,15 @@ const renderBlock = (block: any) => {
     case "image":
       // For an image
       let result = block["image"].external.url;
-      return <Image src={result} width={650} height={400} alt="" />;
+      console.log("selected imageresul " + result);
+      return (
+        <Image
+          src={result}
+          fill
+          style={{ height: "100%", width: "100%" }}
+          alt=""
+        />
+      );
     case "bulleted_list_item":
       // For an unordered list
       return (
@@ -124,7 +132,6 @@ const renderBlock = (block: any) => {
 };
 
 const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
-  console.log("selected blockss: " + JSON.stringify(blocks));
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -144,12 +151,7 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
           <title>{post.properties.Name.title[0].plain_text}</title>
         </Head>
         {blocks.map((block, index) => {
-          console.log("selected block: " + JSON.stringify(block));
-          return (
-            <div key={index} className={styles.blogPageContent}>
-              {renderBlock(block)}
-            </div>
-          );
+          return <div key={index}>{renderBlock(block)}</div>;
         })}
       </div>
       <SpeedDial
