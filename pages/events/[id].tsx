@@ -196,7 +196,7 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
                   // Browser supports native share api
                   navigator
                     .share({
-                      text: "Please read this great article: ",
+                      text: "草根文化館致力促進教育、保護環境、救助貧困",
                       url: Router.pathname,
                     })
                     .then(() => {

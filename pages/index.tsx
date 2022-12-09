@@ -11,7 +11,6 @@ import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -19,8 +18,9 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
-import Container from "@mui/material/Container";
 import GCHHKGird from "../components/GCHHKGird";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import Router from "next/router";
 
 const actions = [
   {
@@ -38,9 +38,9 @@ const actions = [
     key: "contact",
   },
   {
-    icon: <PeopleOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "社區回收",
-    key: "community",
+    icon: <AccessibilityNewIcon sx={{ color: "#ffffff" }} />,
+    name: "關於我們",
+    key: "aboutus",
   },
   {
     icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
@@ -220,18 +220,20 @@ const Home: NextPage<Props> = (props) => {
                     inline: "nearest",
                   });
                 }
+              } else if (action.key == "aboutus") {
+                Router.push({
+                  pathname: "/about",
+                });
               } else if (action.key == "share") {
                 // Check for Web Share api support
                 if (navigator.share) {
                   // Browser supports native share api
                   navigator
                     .share({
-                      text: "Please read this page: ",
+                      text: "草根文化館致力促進教育、保護環境、救助貧困",
                       url: window.location.href,
                     })
-                    .then(() => {
-                      console.log("Thanks for sharing!");
-                    })
+                    .then(() => {})
                     .catch((err) => console.error(err));
                 } else {
                   // Fallback
