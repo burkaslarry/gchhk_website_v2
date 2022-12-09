@@ -141,10 +141,11 @@ async function blocks(blockId: string) {
       block_id: blockId,
     });
 
+    console.log("go 001: ");
     return myBlocks;
   } catch (error) {
+    console.log("go 002: ");
     console.error(error);
-  } finally {
     return [];
   }
 }

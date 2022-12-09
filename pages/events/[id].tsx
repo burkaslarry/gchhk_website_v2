@@ -13,6 +13,7 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Router from "next/router";
+import Head from "next/head";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -59,6 +60,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let { results } = (await blocks(bloggerId)) as any;
 
   if (results === undefined) {
+    console.log("go 1");
     return {
       props: {
         id,
@@ -67,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       },
     };
   }
-
+  console.log("go 2");
   // Get the children
   return {
     props: {
@@ -96,32 +98,33 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-// const renderBlock = (block: any) => {
-//   switch (block.type) {
-//     case "heading_1":
-//       // For a heading
-//       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
-//     case "image":
-//       // For an image
-//       let result = block["image"].external.url;
-//       return <Image src={result} width={650} height={400} alt="" />;
-//     case "bulleted_list_item":
-//       // For an unordered list
-//       return (
-//         <ul>
-//           <li>{block["bulleted_list_item"].text[0].plain_text} </li>
-//         </ul>
-//       );
-//     case "paragraph":
-//       // For a paragraph
-//       return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
-//     default:
-//       // For an extra type
-//       return <p>Undefined type </p>;
-//   }
-// };
+const renderBlock = (block: any) => {
+  switch (block.type) {
+    case "heading_1":
+      // For a heading
+      return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
+    case "image":
+      // For an image
+      let result = block["image"].external.url;
+      return <Image src={result} width={650} height={400} alt="" />;
+    case "bulleted_list_item":
+      // For an unordered list
+      return (
+        <ul>
+          <li>{block["bulleted_list_item"].text[0].plain_text} </li>
+        </ul>
+      );
+    case "paragraph":
+      // For a paragraph
+      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
+    default:
+      // For an extra type
+      return <p>Undefined type </p>;
+  }
+};
 
 const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
+  console.log("selected blockss: " + JSON.stringify(blocks));
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -129,27 +132,26 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
           resultConfig={{
             imageUrl: post.properties.Gallery.rich_text[0].plain_text,
             title: post.properties.Title.rich_text[0].plain_text,
-            subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
+            subtitle: "",
           }}
           showButton="false"
           handleClick={console.log("")}
         />
       </section>
 
-      {/* <div className={styles.blogPageHolder}>
+      <div className={styles.blogPageHolder}>
         <Head>
           <title>{post.properties.Name.title[0].plain_text}</title>
         </Head>
         {blocks.map((block, index) => {
           console.log("selected block: " + JSON.stringify(block));
-
           return (
             <div key={index} className={styles.blogPageContent}>
               {renderBlock(block)}
             </div>
           );
         })}
-      </div> */}
+      </div>
       <SpeedDial
         ariaLabel="Menu"
         sx={{
