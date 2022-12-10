@@ -40,7 +40,7 @@ const actions = [
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#9926B8",
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
@@ -104,6 +104,7 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
           handleClick={console.log("")}
         />
       </section>
+      <section id="project_content"></section>
       <section id="event_content">
         <div className="gchhkgrid1">
           {resultList.forEach((resultItem: any) => {
@@ -114,13 +115,11 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
                 <Link href={`/events/${resultItem.id}`}>
                   <EventBanner
                     parentStyle={"gccard"}
-                    imageUrl={mappedResultItem.cover.external.url}
-                    createDate={
-                      mappedResultItem.properties.PublishDate.date?.start
+                    imageUrl={
+                      resultItem.properties.Gallery.rich_text[0].plain_text
                     }
-                    title={
-                      mappedResultItem.properties.Title.rich_text[0].plain_text
-                    }
+                    createDate={resultItem.properties.PublishDate.date?.start}
+                    title={resultItem.properties.Title.rich_text[0].plain_text}
                   />
                 </Link>
               </div>

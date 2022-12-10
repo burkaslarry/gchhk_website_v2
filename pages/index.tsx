@@ -21,9 +21,6 @@ import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import GCHHKGird from "../components/GCHHKGird";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import Router from "next/router";
-import Image from "next/image";
-import gchLogo from "../public/GCH.svg";
-import Grid from "@mui/material/Grid";
 
 const actions = [
   {
@@ -41,7 +38,11 @@ const actions = [
     key: "contact",
   },
   {
-    icon: <AccessibilityNewIcon sx={{ color: "#ffffff" }} />,
+    icon: (
+      <Link href="/about">
+        <AccessibilityNewIcon sx={{ color: "#ffffff" }} />,
+      </Link>
+    ),
     name: "關於我們",
     key: "aboutus",
   },
@@ -49,24 +50,6 @@ const actions = [
     icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "分享主頁",
     key: "share",
-  },
-  {
-    icon: (
-      <Link href="/terms">
-        <GavelOutlinedIcon sx={{ color: "#ffffff" }} />
-      </Link>
-    ),
-    name: "工作指引",
-    key: "guideline",
-  },
-  {
-    icon: (
-      <Link target="_blank" href="https://www.facebook.com/JaPeiGoal">
-        <FacebookIcon sx={{ color: "#ffffff" }} />
-      </Link>
-    ),
-    name: "Facebook專頁",
-    key: "facebookpage",
   },
 ];
 
@@ -177,7 +160,7 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>回收總數</strong>
+          <strong>至今廚餘回收總數</strong>
         </Typography>
       </section>
       <section id="recycle_kpi_content">

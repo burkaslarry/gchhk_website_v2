@@ -24,7 +24,7 @@ const heroResult = {
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#9926B8",
 };
 
 const actions = [
