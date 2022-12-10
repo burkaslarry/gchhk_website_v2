@@ -107,16 +107,20 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
       <section id="event_content">
         <div className="gchhkgrid1">
           {resultList.forEach((resultItem: any) => {
+            let mappedResultItem = JSON.parse(JSON.stringify(resultItem));
+            console.log("Thanks for sharing: " + mappedResultItem);
             return (
               <div>
                 <Link href={`/events/${resultItem.id}`}>
                   <EventBanner
                     parentStyle={"gccard"}
-                    imageUrl={
-                      resultItem.properties.Gallery.rich_text[0].plain_text
+                    imageUrl={mappedResultItem.cover.external.url}
+                    createDate={
+                      mappedResultItem.properties.PublishDate.date?.start
                     }
-                    createDate={resultItem.properties.PublishDate.date?.start}
-                    title={resultItem.properties.Title.rich_text[0].plain_text}
+                    title={
+                      mappedResultItem.properties.Title.rich_text[0].plain_text
+                    }
                   />
                 </Link>
               </div>

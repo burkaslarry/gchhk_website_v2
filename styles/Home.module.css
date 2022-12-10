@@ -145,7 +145,7 @@
 .banner {
   /* Sizing */
   width: 100vw;
-  height: 100vh;
+  height: 70vh;
 
   /* Flexbox stuff */
   display: flex;
@@ -163,17 +163,8 @@
   background-attachment: fixed;
 }
 
-.container_translucent {
-  z-index: 5;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(180deg, #0c632f -5.54%, rgba(1, 22, 19, 0) 100%);
-}
-
 .container_item {
-  margin-top: 15%;
   z-index: 10;
-  height: 20vh;
   display: block;
   justify-content: center;
   align-items: center;

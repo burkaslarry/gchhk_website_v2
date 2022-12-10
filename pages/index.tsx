@@ -21,6 +21,9 @@ import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import GCHHKGird from "../components/GCHHKGird";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import Router from "next/router";
+import Image from "next/image";
+import gchLogo from "../public/GCH.svg";
+import Grid from "@mui/material/Grid";
 
 const actions = [
   {
@@ -70,14 +73,15 @@ const actions = [
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#9926B8",
 };
 
 const heroResult = {
   imageUrl:
     "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
   title: "草根文化館",
-  subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
+  subtitle:
+    "本會是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。",
 };
 
 export async function getServerSideProps() {
@@ -88,9 +92,9 @@ export async function getServerSideProps() {
   // Return the result
   return {
     props: {
-      eventList: results,
-      project: resultKing,
-      recycle: resultQueen,
+      eventList: results.slice(0, 3),
+      project: resultKing.slice(0, 2),
+      recycle: resultQueen.slice(0, 1),
     },
   };
 }
@@ -122,7 +126,6 @@ const Home: NextPage<Props> = (props) => {
           handleClick={handleClick}
         />
       </section>
-
       <section id="event_title">
         <Typography
           variant="h4"
@@ -131,7 +134,7 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>網誌日常</strong>
+          <strong>機構活動</strong>
         </Typography>
       </section>
       <section id="event_content">
@@ -160,7 +163,7 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>項目總覽</strong>
+          <strong>機構工作</strong>
         </Typography>
       </section>
       <section id="project_content">
@@ -174,7 +177,7 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>項目回收總數</strong>
+          <strong>回收總數</strong>
         </Typography>
       </section>
       <section id="recycle_kpi_content">
@@ -193,12 +196,12 @@ const Home: NextPage<Props> = (props) => {
           bottom: 24,
           right: 24,
           "& .MuiFab-primary": {
-            backgroundColor: "#53C351",
+            backgroundColor: "#9926B8",
             color: "white",
             width: 64,
             height: 64,
             "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
-            "&:hover": { backgroundColor: "#53C351" },
+            "&:hover": { backgroundColor: "#6A1AA8" },
           },
         }}
         openIcon={<ClearOutlinedIcon />}

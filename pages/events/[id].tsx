@@ -110,9 +110,12 @@ const renderBlock = (block: any) => {
       return (
         <Image
           src={result}
-          fill
-          style={{ height: "100%", width: "100%" }}
-          alt=""
+          sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+          alt="Picture of the author"
+          width={768}
+          height={432}
         />
       );
     case "bulleted_list_item":
@@ -150,9 +153,11 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
         <Head>
           <title>{post.properties.Name.title[0].plain_text}</title>
         </Head>
-        {blocks.map((block, index) => {
-          return <div key={index}>{renderBlock(block)}</div>;
-        })}
+        <div>
+          {blocks.map((block, index) => {
+            return <div key={index}>{renderBlock(block)}</div>;
+          })}
+        </div>
       </div>
       <SpeedDial
         ariaLabel="Menu"

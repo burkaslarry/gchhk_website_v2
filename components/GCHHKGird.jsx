@@ -21,10 +21,6 @@ const GCHHKGird = ({ resultList, type }) => {
               <Typography variant="h4" color="white" align="center">
                 {result.properties.LongName.rich_text[0].plain_text}
               </Typography>
-              <br />
-              <Typography variant="h4" color="white" align="center">
-                {result.properties.ShortName.rich_text[0].plain_text}
-              </Typography>
             </Container>
           </Link>
         </div>
