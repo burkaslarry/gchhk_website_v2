@@ -150,7 +150,11 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="project_content">
-        <GCHHKGird resultList={props.project} type="project" />
+        <GCHHKGird
+          resultList={props.project}
+          type="project"
+          masterclass={"gcccardhk2"}
+        />
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -164,7 +168,11 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird resultList={props.recycle} type="recycle" />
+        <GCHHKGird
+          resultList={props.recycle}
+          type="recycle"
+          masterclass={"gcccardhk3"}
+        />
       </section>
 
       <section id="contact">

@@ -100,11 +100,6 @@ const AboutUs: NextPage = () => {
                   pathname: "/",
                   query: {},
                 });
-              } else if (action.key == "guideline") {
-                Router.push({
-                  pathname: "/terms",
-                  query: {},
-                });
               }
             }}
           />
