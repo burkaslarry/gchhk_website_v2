@@ -11,7 +11,6 @@ import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -19,8 +18,9 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import React from "react";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
-import Container from "@mui/material/Container";
 import GCHHKGird from "../components/GCHHKGird";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import Router from "next/router";
 
 const actions = [
   {
@@ -38,46 +38,33 @@ const actions = [
     key: "contact",
   },
   {
-    icon: <PeopleOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "社區回收",
-    key: "community",
+    icon: (
+      <Link href="/about">
+        <AccessibilityNewIcon sx={{ color: "#ffffff" }} />,
+      </Link>
+    ),
+    name: "關於我們",
+    key: "aboutus",
   },
   {
     icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "分享主頁",
     key: "share",
   },
-  {
-    icon: (
-      <Link href="/terms">
-        <GavelOutlinedIcon sx={{ color: "#ffffff" }} />
-      </Link>
-    ),
-    name: "工作指引",
-    key: "guideline",
-  },
-  {
-    icon: (
-      <Link target="_blank" href="https://www.facebook.com/JaPeiGoal">
-        <FacebookIcon sx={{ color: "#ffffff" }} />
-      </Link>
-    ),
-    name: "Facebook專頁",
-    key: "facebookpage",
-  },
 ];
 
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#9926B8",
 };
 
 const heroResult = {
   imageUrl:
     "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
   title: "草根文化館",
-  subtitle: "本會致力 \n 促進教育、保護環境、救助貧困",
+  subtitle:
+    "本會是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。",
 };
 
 export async function getServerSideProps() {
@@ -88,9 +75,9 @@ export async function getServerSideProps() {
   // Return the result
   return {
     props: {
-      eventList: results,
-      project: resultKing,
-      recycle: resultQueen,
+      eventList: results.slice(0, 3),
+      project: resultKing.slice(0, 2),
+      recycle: resultQueen.slice(0, 1),
     },
   };
 }
@@ -122,7 +109,6 @@ const Home: NextPage<Props> = (props) => {
           handleClick={handleClick}
         />
       </section>
-
       <section id="event_title">
         <Typography
           variant="h4"
@@ -131,17 +117,16 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>網誌日常</strong>
+          <strong>機構活動</strong>
         </Typography>
       </section>
       <section id="event_content">
         <div className="gchhkgrid1">
           {props.eventList.map((result, index) => {
             return (
-              <div className={""} key={index}>
+              <div className={"gccard"} key={index}>
                 <Link href={`/events/${result.id}`}>
                   <EventBanner
-                    parentStyle={"gccard"}
                     imageUrl={result.properties.Gallery.rich_text[0].plain_text}
                     createDate={result.properties.PublishDate.date?.start}
                     title={result.properties.Title.rich_text[0].plain_text}
@@ -160,11 +145,15 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>項目總覽</strong>
+          <strong>機構工作</strong>
         </Typography>
       </section>
       <section id="project_content">
-        <GCHHKGird resultList={props.project} type="project" />
+        <GCHHKGird
+          resultList={props.project}
+          type="project"
+          masterclass={"gcccardhk2"}
+        />
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -174,11 +163,15 @@ const Home: NextPage<Props> = (props) => {
           sx={{ paddingTop: 3 }}
           align="center"
         >
-          <strong>項目回收總數</strong>
+          <strong>至今廚餘回收總數</strong>
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird resultList={props.recycle} type="recycle" />
+        <GCHHKGird
+          resultList={props.recycle}
+          type="recycle"
+          masterclass={"gcccardhk3"}
+        />
       </section>
 
       <section id="contact">
@@ -193,12 +186,12 @@ const Home: NextPage<Props> = (props) => {
           bottom: 24,
           right: 24,
           "& .MuiFab-primary": {
-            backgroundColor: "#53C351",
+            backgroundColor: "#9926B8",
             color: "white",
             width: 64,
             height: 64,
             "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
-            "&:hover": { backgroundColor: "#53C351" },
+            "&:hover": { backgroundColor: "#6A1AA8" },
           },
         }}
         openIcon={<ClearOutlinedIcon />}
@@ -220,18 +213,20 @@ const Home: NextPage<Props> = (props) => {
                     inline: "nearest",
                   });
                 }
+              } else if (action.key == "aboutus") {
+                Router.push({
+                  pathname: "/about",
+                });
               } else if (action.key == "share") {
                 // Check for Web Share api support
                 if (navigator.share) {
                   // Browser supports native share api
                   navigator
                     .share({
-                      text: "Please read this page: ",
+                      text: "草根文化館致力促進教育、保護環境、救助貧困",
                       url: window.location.href,
                     })
-                    .then(() => {
-                      console.log("Thanks for sharing!");
-                    })
+                    .then(() => {})
                     .catch((err) => console.error(err));
                 } else {
                   // Fallback

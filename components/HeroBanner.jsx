@@ -12,7 +12,6 @@ const HeroBanner = ({ resultConfig, showButton, handleClick }) => {
       <Box
         sx={{
           width: "100vw",
-          height: "100vh",
           background: "url('" + resultConfig.imageUrl + "')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -21,8 +20,8 @@ const HeroBanner = ({ resultConfig, showButton, handleClick }) => {
         <Box
           sx={{
             width: "100vw",
-            background:
-              "linear-gradient(180deg, #0c632f -5.54%, rgba(1, 22, 19, 0) 100%)",
+            height: "70vh",
+            backgroundColor: "rgba(80, 167, 106, 0.7)",
           }}
         >
           <Box sx={{ display: "flex" }}>
@@ -33,7 +32,6 @@ const HeroBanner = ({ resultConfig, showButton, handleClick }) => {
 
           <Container
             sx={{
-              height: "100vh",
               direction: "column",
               justify: "space-evenly",
               alignItems: "center",

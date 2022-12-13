@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 
-const GCHHKGird = ({ resultList, type }) => {
+const GCHHKGird = ({ masterclass, resultList, type }) => {
   let jsx = [];
   resultList.map((result, index) => {
     if (type == "project") {
@@ -20,10 +20,6 @@ const GCHHKGird = ({ resultList, type }) => {
             >
               <Typography variant="h4" color="white" align="center">
                 {result.properties.LongName.rich_text[0].plain_text}
-              </Typography>
-              <br />
-              <Typography variant="h4" color="white" align="center">
-                {result.properties.ShortName.rich_text[0].plain_text}
               </Typography>
             </Container>
           </Link>
@@ -63,10 +59,11 @@ const GCHHKGird = ({ resultList, type }) => {
           </Container>
         </div>
       );
+      X;
     }
   });
 
-  return <div class="gcccardhk3">{jsx}</div>;
+  return <div class={masterclass}>{jsx}</div>;
 };
 
 export default GCHHKGird;

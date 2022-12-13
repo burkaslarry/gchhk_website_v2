@@ -46,7 +46,7 @@ const actions = [
 const actionSize = {
   width: 50,
   height: 50,
-  backgroundColor: "#53C351",
+  backgroundColor: "#9926B8",
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
@@ -103,6 +103,9 @@ const renderBlock = (block: any) => {
     case "heading_1":
       // For a heading
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
+    case "paragraph":
+      // For a paragraph
+      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
     case "image":
       // For an image
       let result = block["image"].external.url;
@@ -110,9 +113,12 @@ const renderBlock = (block: any) => {
       return (
         <Image
           src={result}
-          fill
-          style={{ height: "100%", width: "100%" }}
-          alt=""
+          sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+          alt="Picture of the author"
+          width={768}
+          height={432}
         />
       );
     case "bulleted_list_item":
@@ -122,9 +128,6 @@ const renderBlock = (block: any) => {
           <li>{block["bulleted_list_item"].text[0].plain_text} </li>
         </ul>
       );
-    case "paragraph":
-      // For a paragraph
-      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
     default:
       // For an extra type
       return <p>Undefined type </p>;
@@ -150,9 +153,11 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
         <Head>
           <title>{post.properties.Name.title[0].plain_text}</title>
         </Head>
-        {blocks.map((block, index) => {
-          return <div key={index}>{renderBlock(block)}</div>;
-        })}
+        <div>
+          {blocks.map((block, index) => {
+            return <div key={index}>{renderBlock(block)}</div>;
+          })}
+        </div>
       </div>
       <SpeedDial
         ariaLabel="Menu"
@@ -196,7 +201,7 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
                   // Browser supports native share api
                   navigator
                     .share({
-                      text: "Please read this great article: ",
+                      text: "草根文化館致力促進教育、保護環境、救助貧困",
                       url: Router.pathname,
                     })
                     .then(() => {

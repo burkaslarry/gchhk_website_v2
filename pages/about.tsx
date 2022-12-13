@@ -8,6 +8,8 @@ import { Box } from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -42,7 +44,7 @@ const actions = [
     key: "guideline",
   },
 ];
-const Terms: NextPage = () => {
+const AboutUs: NextPage = () => {
   return (
     <Layout>
       {/* Hero unit */}
@@ -59,16 +61,8 @@ const Terms: NextPage = () => {
           sx={{ width: "100vw", height: "auto", textAlign: "center" }}
         ></Box>
         <TermsSection
-          title="性騷擾指引"
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        />
-        <TermsSection
-          title="私隱條例"
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        />
-        <TermsSection
-          title="Website and Cookies 用途"
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+          title="關於我們"
+          content="草根文化館是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。草根文化館為《稅務條例》第88條獲豁免繳稅的慈善機構。捐款港幣100元或以上可憑收據在課税年度申請扣稅。"
         />
       </section>
       <SpeedDial
@@ -106,11 +100,6 @@ const Terms: NextPage = () => {
                   pathname: "/",
                   query: {},
                 });
-              } else if (action.key == "guideline") {
-                Router.push({
-                  pathname: "/terms",
-                  query: {},
-                });
               }
             }}
           />
@@ -120,4 +109,4 @@ const Terms: NextPage = () => {
   );
 };
 
-export default Terms;
+export default AboutUs;
