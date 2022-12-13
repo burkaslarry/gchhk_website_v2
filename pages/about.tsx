@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import { GetStaticProps, NextPage, GetStaticPaths } from "next";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
@@ -7,19 +7,13 @@ import React from "react";
 import { Box } from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
-import FoodBankOutlinedIcon from "@mui/icons-material/FoodBankOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
-
-const heroResult = {
-  imageUrl: "https://i.imgur.com/p9E5i02.png",
-  title: "工作指引",
-};
+import { blocks } from "../lib/notion";
+import GCHHKGird from "../components/GCHHKGird";
 
 const actionSize = {
   width: 50,
@@ -38,33 +32,102 @@ const actions = [
     name: "聯絡我們",
     key: "contact",
   },
-  {
-    icon: <GavelOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "工作指引",
-    key: "guideline",
-  },
 ];
-const AboutUs: NextPage = () => {
+
+class MyTerms {
+  //field
+  displayTitle: string;
+  displayPageId: string;
+  //constructor
+  constructor(displayTitle: string, displayPageId: string) {
+    this.displayTitle = displayTitle;
+    this.displayPageId = displayPageId;
+  }
+}
+
+export async function getServerSideProps() {
+  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+
+  // Get the children
+  var paragraphBlockList = [];
+  var termsBlockList: string[] = [];
+  var termsBlockDetailList: MyTerms[] = [];
+  for (const variable of results) {
+    // code block to be executed
+    if (variable.type == "paragraph") {
+      let text = variable["paragraph"].rich_text[0]?.text?.content;
+      paragraphBlockList.push(text);
+    } else if (variable.type == "link_to_page") {
+      let text = variable["link_to_page"].page_id;
+      termsBlockList.push(text);
+    }
+  }
+
+  if (termsBlockList.length == 3) {
+    var spadeJack = new MyTerms("機構理念", termsBlockList[0]);
+    var spadeQueen = new MyTerms("年報", termsBlockList[1]);
+    var spadeKing = new MyTerms("平等指引", termsBlockList[2]);
+    termsBlockDetailList = [spadeJack, spadeQueen, spadeKing];
+  }
+
+  console.log("paragraph termsBlockDetailList:" + termsBlockDetailList);
+
+  // Return the result
+  return {
+    props: {
+      aboutTitle: paragraphBlockList[0],
+      aboutContent: paragraphBlockList[1],
+      aboutBlocks: JSON.parse(JSON.stringify(termsBlockDetailList)),
+    },
+  };
+}
+
+interface Props {
+  aboutTitle: [any];
+  aboutContent: [any];
+  aboutBlocks: [any];
+}
+
+const AboutUs: NextPage<Props> = (props) => {
   return (
     <Layout>
       {/* Hero unit */}
       <section className={styles.banner} id="home">
         <HeroBanner
-          resultConfig={heroResult}
+          resultConfig={{
+            imageUrl: "https://i.imgur.com/p9E5i02.png",
+            title: "關於我們",
+          }}
           showButton="false"
           handleClick={console.log("")}
         />
       </section>
       <section id="terms">
         <Box
-          padding={16}
-          sx={{ width: "100vw", height: "auto", textAlign: "center" }}
-        ></Box>
-        <TermsSection
-          title="關於我們"
-          content="草根文化館是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。草根文化館為《稅務條例》第88條獲豁免繳稅的慈善機構。捐款港幣100元或以上可憑收據在課税年度申請扣稅。"
+          sx={{
+            width: "100vw",
+            height: "auto",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TermsSection
+            padding={4}
+            title={""}
+            content={props.aboutTitle + "\n\n" + props.aboutContent}
+          />
+        </Box>
+      </section>
+
+      <section id="termsBlock">
+        <GCHHKGird
+          resultList={props.aboutBlocks}
+          type="terms"
+          masterclass={"gcccardhk3x"}
         />
       </section>
+
       <SpeedDial
         ariaLabel="Menu"
         sx={{
@@ -72,12 +135,12 @@ const AboutUs: NextPage = () => {
           bottom: 24,
           right: 24,
           "& .MuiFab-primary": {
-            backgroundColor: "#53C351",
+            backgroundColor: "#9926B8",
             color: "white",
             width: 64,
             height: 64,
             "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
-            "&:hover": { backgroundColor: "#53C351" },
+            "&:hover": { backgroundColor: "#9926B8" },
           },
         }}
         openIcon={<ClearOutlinedIcon />}

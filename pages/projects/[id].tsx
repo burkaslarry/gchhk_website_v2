@@ -134,12 +134,12 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
           bottom: 24,
           right: 24,
           "& .MuiFab-primary": {
-            backgroundColor: "#53C351",
+            backgroundColor: "#9926B8",
             color: "white",
             width: 64,
             height: 64,
             "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
-            "&:hover": { backgroundColor: "#53C351" },
+            "&:hover": { backgroundColor: "#9926B8" },
           },
         }}
         openIcon={<ClearOutlinedIcon />}

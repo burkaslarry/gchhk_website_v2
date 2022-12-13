@@ -99,3 +99,31 @@ a {
 .gcccardgreen {
   width: auto;
 }
+
+.gcccardhk3x {
+  z-index: 5;
+  margin: 0 auto;
+  max-width: 100vw;
+  height: fit-content;
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+}
+
+.gcccardlightgreen3x {
+  background-color: #53c351;
+  padding: 1rem;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition-duration: 0.25s;
+  display: block;
+  border-radius: 8px;
+}
+
+.gcccardlightgreen3x:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
