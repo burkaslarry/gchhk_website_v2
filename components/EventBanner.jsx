@@ -2,19 +2,23 @@ import { Box, Container } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-const EventBanner = ({ parentStyle, imageUrl, createDate, title }) => {
+const EventBanner = ({ imageUrl, createDate, title }) => {
   return (
-    <div className={parentStyle}>
+    <div>
       <Container
         sx={{
-          width: "100vw",
           height: "40vh",
+          borderRadius: "8px",
           background:
             "linear-gradient(0deg, rgba(0 0 0 / 80%), rgba(0 0 0 / 29%)), url('" +
             imageUrl +
             "')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          "&:hover": {
+            boxShadow:
+              "0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)",
+          },
         }}
       >
         <Box sx={{ display: "block", marginTop: 4 }}>

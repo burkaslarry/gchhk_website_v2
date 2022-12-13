@@ -124,10 +124,9 @@ const Home: NextPage<Props> = (props) => {
         <div className="gchhkgrid1">
           {props.eventList.map((result, index) => {
             return (
-              <div className={""} key={index}>
+              <div className={"gccard"} key={index}>
                 <Link href={`/events/${result.id}`}>
                   <EventBanner
-                    parentStyle={"gccard"}
                     imageUrl={result.properties.Gallery.rich_text[0].plain_text}
                     createDate={result.properties.PublishDate.date?.start}
                     title={result.properties.Title.rich_text[0].plain_text}
