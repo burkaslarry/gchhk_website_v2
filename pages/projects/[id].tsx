@@ -111,10 +111,9 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
             let mappedResultItem = JSON.parse(JSON.stringify(resultItem));
             console.log("Thanks for sharing: " + mappedResultItem);
             return (
-              <div>
+              <div className={"gccard"}>
                 <Link href={`/events/${resultItem.id}`}>
                   <EventBanner
-                    parentStyle={"gccard"}
                     imageUrl={
                       resultItem.properties.Gallery.rich_text[0].plain_text
                     }
