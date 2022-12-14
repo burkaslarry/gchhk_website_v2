@@ -59,14 +59,17 @@ const Terms: NextPage = () => {
           sx={{ width: "100vw", height: "auto", textAlign: "center" }}
         ></Box>
         <TermsSection
+          padding={16}
           title="性騷擾指引"
           content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         />
         <TermsSection
+          padding={16}
           title="私隱條例"
           content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         />
         <TermsSection
+          padding={16}
           title="Website and Cookies 用途"
           content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         />
@@ -78,12 +81,12 @@ const Terms: NextPage = () => {
           bottom: 24,
           right: 24,
           "& .MuiFab-primary": {
-            backgroundColor: "#53C351",
+            backgroundColor: "#9926B8",
             color: "white",
             width: 64,
             height: 64,
             "& .MuiSpeedDialIcon-icon": { fontSize: 32 },
-            "&:hover": { backgroundColor: "#53C351" },
+            "&:hover": { backgroundColor: "#9926B8" },
           },
         }}
         openIcon={<ClearOutlinedIcon />}

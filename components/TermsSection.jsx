@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-const TermsSection = ({ title, content }) => {
+const TermsSection = ({ title, content, padding }) => {
   return (
     <div>
       <Typography
@@ -15,7 +15,7 @@ const TermsSection = ({ title, content }) => {
       <br />
       <Typography
         variant="h6"
-        padding={16}
+        padding={padding}
         gutterBottom
         fontWeight="500"
         sx={{ paddingTop: 3 }}
@@ -23,8 +23,6 @@ const TermsSection = ({ title, content }) => {
       >
         {content}
       </Typography>
-      <br />
-      <br />
     </div>
   );
 };

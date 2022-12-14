@@ -36,11 +36,6 @@ const actions = [
     name: "聯絡我們",
     key: "contact",
   },
-  {
-    icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "分享主頁",
-    key: "share",
-  },
 ];
 
 const actionSize = {
@@ -70,7 +65,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     };
   }
   console.log("go 2");
-  // Get the children
   return {
     props: {
       id,

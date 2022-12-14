@@ -45,6 +45,22 @@ const GCHHKGird = ({ masterclass, resultList, type }) => {
           </Container>
         </div>
       );
+    } else if (type == "terms") {
+      jsx.push(
+        <div class="gcccardlightgreen3x" key={index}>
+          <Link href={`/about/${result.displayPageId}`}>
+            <Container
+              justifyContent="center"
+              alignItems="center"
+              className={styles.container_item_1}
+            >
+              <Typography variant="h4" color="white" align="center">
+                {result.displayTitle}
+              </Typography>
+            </Container>
+          </Link>
+        </div>
+      );
     } else {
       jsx.push(
         <div class="gcccardgreen" key={index}>
