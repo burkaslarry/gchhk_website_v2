@@ -4,8 +4,17 @@ import { theme } from "../utils/theme";
 import "../styles/globals.css";
 import Head from "next/head";
 import gchLogo from "../public/GCH.svg";
+import Script from "next/script";
+
+import React from "react";
+import { hotjar } from "react-hotjar";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Head>

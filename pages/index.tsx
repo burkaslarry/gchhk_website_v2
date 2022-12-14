@@ -91,6 +91,7 @@ interface Props {
 const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
   const element = document.getElementById("contact");
   if (element != null) {
+    hotjar.event("click-contact");
     element.scrollIntoView({
       behavior: "smooth",
       block: "end",
