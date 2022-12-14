@@ -21,6 +21,7 @@ import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import GCHHKGird from "../components/GCHHKGird";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import Router from "next/router";
+import { hotjar } from "react-hotjar";
 
 const actions = [
   {
