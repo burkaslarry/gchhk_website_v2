@@ -23,6 +23,7 @@ interface Props {
   id: string;
   post: any;
   blocks: [any];
+  imageGallerySet: string[];
 }
 
 const actions = [
@@ -60,22 +61,36 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let { results } = (await blocks(bloggerId)) as any;
 
   if (results === undefined) {
-    console.log("go 1");
     return {
       props: {
         id,
         post: pageResult,
         blocks: [],
+        imageGallerySet: [],
       },
     };
   }
-  console.log("go 2");
   // Get the children
+
+  var imageSet: string[] = [];
+
+  console.log("results: " + JSON.stringify(results));
+
+  for (const variable of results) {
+    if (variable.type == "image") {
+      console.log("results: " + JSON.stringify(variable));
+      let text = variable["image"].external.url;
+      imageSet.push(text);
+    }
+  }
+
+  //imageGallerySet;
   return {
     props: {
       id,
       post: pageResult,
       blocks: results,
+      imageGallerySet: imageSet,
     },
   };
 };
@@ -106,21 +121,11 @@ const renderBlock = (block: any) => {
     case "paragraph":
       // For a paragraph
       return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
-    case "image":
-      // For an image
-      let result = block["image"].external.url;
-      console.log("selected imageresul " + result);
-      return (
-        <Image
-          src={result}
-          sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-          alt="Picture of the author"
-          width={768}
-          height={432}
-        />
-      );
+    // case "image":
+    //   // For an image
+    //   let result = block["image"].external.url;
+    //   console.log("selected imageresul " + result);
+    //   return <Image alt="" fill src={result} />;
     case "bulleted_list_item":
       // For an unordered list
       return (
@@ -130,11 +135,11 @@ const renderBlock = (block: any) => {
       );
     default:
       // For an extra type
-      return <p>Undefined type </p>;
+      return <p></p>;
   }
 };
 
-const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
+const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -145,10 +150,11 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
             subtitle: "",
           }}
           showButton="false"
+          facebookLink=""
+          igLink=""
           handleClick={console.log("")}
         />
       </section>
-
       <div className={styles.blogPageHolder}>
         <Head>
           <title>{post.properties.Name.title[0].plain_text}</title>

@@ -7,7 +7,7 @@ const EventBanner = ({ imageUrl, createDate, title }) => {
     <div>
       <Container
         sx={{
-          height: "40vh",
+          height: "35vh",
           borderRadius: "8px",
           background:
             "linear-gradient(0deg, rgba(0 0 0 / 80%), rgba(0 0 0 / 29%)), url('" +

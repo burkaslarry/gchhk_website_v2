@@ -50,6 +50,8 @@ const Terms: NextPage = () => {
         <HeroBanner
           resultConfig={heroResult}
           showButton="false"
+          facebookLink=""
+          igLink=""
           handleClick={console.log("")}
         />
       </section>

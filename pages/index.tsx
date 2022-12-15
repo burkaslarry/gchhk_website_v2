@@ -108,6 +108,8 @@ const Home: NextPage<Props> = (props) => {
         <HeroBanner
           resultConfig={heroResult}
           showButton="true"
+          facebookLink=""
+          igLink=""
           handleClick={handleClick}
         />
       </section>

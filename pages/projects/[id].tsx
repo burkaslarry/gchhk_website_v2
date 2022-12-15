@@ -1,6 +1,10 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getEventsByProjectCode, projects, blocks } from "../../lib/notion";
+import {
+  getEventsByProjectCode,
+  projects,
+  getProjectByProjectCode,
+} from "../../lib/notion";
 import EventBanner from "../../components/EventBanner";
 import Link from "next/link";
 import Router from "next/router";
@@ -14,6 +18,7 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -24,16 +29,25 @@ const actions = [
     icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "回到主頁",
     key: "home",
+    link: "",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "聯絡我們",
     key: "contact",
+    link: "",
   },
   {
     icon: <ShareOutlinedIcon sx={{ color: "#ffffff" }} />,
     name: "分享主頁",
     key: "share",
+    link: "",
+  },
+  {
+    icon: <FacebookIcon sx={{ color: "#ffffff" }} />,
+    name: "臉書專頁",
+    key: "socialpage",
+    link: "",
   },
 ];
 
@@ -46,19 +60,21 @@ const actionSize = {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
   // Get the dynamic id
-  let page_result = await getEventsByProjectCode(id);
-  let pageResult = JSON.parse(JSON.stringify(page_result));
 
-  // Fetch the post
+  let projectresult = await getProjectByProjectCode(id);
+  let projectResult = JSON.parse(JSON.stringify(projectresult));
+
+  let page_result = await getEventsByProjectCode(id);
 
   return {
     props: {
       id,
-      post: pageResult,
-      blocks: pageResult,
+      post: projectResult,
+      blocks: page_result,
     },
   };
 };
+
 export const getStaticPaths: GetStaticPaths = async () => {
   let { results } = await projects();
   // Get all posts
@@ -84,41 +100,42 @@ interface Props {
 }
 
 const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
-  let resultList = post.results;
-  let isEmpty = Object.keys(resultList).length === 0;
+  let projectResultList = post.results;
+  let isEmpty = Object.keys(projectResultList).length === 0;
+  let projectResultFirst = projectResultList[0];
+  let resultList = blocks;
 
   if (isEmpty) {
     Router.back();
     return <div></div>;
   }
+
   return (
     <Layout>
       <section className={styles.banner} id="home">
         <HeroBanner
           resultConfig={{
-            imageUrl:
-              "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
-            title: post.id,
+            imageUrl: "https://i.imgur.com/p9E5i02.png",
+            title:
+              projectResultFirst.properties.LongName.rich_text[0].plain_text,
           }}
           showButton="false"
+          facebookLink={""}
+          igLink={""}
           handleClick={console.log("")}
         />
       </section>
-      <section id="project_content"></section>
+
       <section id="event_content">
         <div className="gchhkgrid1">
-          {resultList.forEach((resultItem: any) => {
-            let mappedResultItem = JSON.parse(JSON.stringify(resultItem));
-            console.log("Thanks for sharing: " + mappedResultItem);
+          {resultList.map((result, index) => {
             return (
-              <div className={"gccard"}>
-                <Link href={`/events/${resultItem.id}`}>
+              <div className={"gccard"} key={index}>
+                <Link href={`/events/${result.id}`}>
                   <EventBanner
-                    imageUrl={
-                      resultItem.properties.Gallery.rich_text[0].plain_text
-                    }
-                    createDate={resultItem.properties.PublishDate.date?.start}
-                    title={resultItem.properties.Title.rich_text[0].plain_text}
+                    imageUrl={result.properties.Gallery.rich_text[0].plain_text}
+                    createDate={result.properties.PublishDate.date?.start}
+                    title={result.properties.Title.rich_text[0].plain_text}
                   />
                 </Link>
               </div>
@@ -152,7 +169,16 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
             tooltipTitle={action.name}
             sx={actionSize}
             onClick={(e) => {
-              if (action.key == "contact") {
+              if (action.key == "socialpage") {
+                let pMarks =
+                  projectResultFirst.properties.SocialPageLink.rich_text[0]
+                    .plain_text;
+                let result =
+                  pMarks != "" || pMarks !== undefined ? pMarks : "/";
+                Router.push({
+                  pathname: result,
+                });
+              } else if (action.key == "contact") {
                 Router.push({
                   pathname: "/",
                   query: { action: "contact" },

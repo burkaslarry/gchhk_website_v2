@@ -70,8 +70,6 @@ export async function getServerSideProps() {
     termsBlockDetailList = [spadeJack, spadeQueen, spadeKing];
   }
 
-  console.log("paragraph termsBlockDetailList:" + termsBlockDetailList);
-
   // Return the result
   return {
     props: {
@@ -99,6 +97,8 @@ const AboutUs: NextPage<Props> = (props) => {
             title: "關於我們",
           }}
           showButton="false"
+          facebookLink=""
+          igLink=""
           handleClick={console.log("")}
         />
       </section>
