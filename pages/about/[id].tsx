@@ -11,9 +11,10 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
 import Head from "next/head";
+import { Box } from "@mui/system";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -21,8 +22,8 @@ interface IParams extends ParsedUrlQuery {
 
 interface Props {
   id: string;
-  post: any;
-  blocks: [any];
+  termsTitle: string;
+  termsContent: string;
 }
 
 const actions = [
@@ -47,44 +48,56 @@ const actionSize = {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
   // Get the dynamic id
+  let { results } = (await blocks(id)) as any;
+  let pageResult = JSON.parse(JSON.stringify(results));
 
-  let page_result = await getProject(id);
-  let pageResult = JSON.parse(JSON.stringify(page_result));
-  let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
-
-  let { results } = (await blocks(bloggerId)) as any;
-
-  if (results === undefined) {
+  if (pageResult === undefined) {
     console.log("go 1");
     return {
       props: {
         id,
-        post: pageResult,
-        blocks: [],
+        termsTitle: "",
+        termsContent: "",
       },
     };
   }
-  console.log("go 2");
+  var paragraphBlockList = [];
+  for (const variable of results) {
+    if (variable.type == "paragraph") {
+      let text = variable["paragraph"].rich_text[0]?.text?.content;
+      paragraphBlockList.push(text);
+    }
+  }
+
   return {
     props: {
       id,
-      post: pageResult,
-      blocks: results,
+      termsTitle: paragraphBlockList[0],
+      termsContent: paragraphBlockList[1],
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let { results } = await posts();
-  // Get all posts
+  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+
+  // Get the children
+  var termsBlockList: string[] = [];
+  for (const variable of results) {
+    // code block to be executed
+    if (variable.type == "link_to_page") {
+      let text = variable["link_to_page"].page_id;
+      termsBlockList.push(text);
+    }
+  }
 
   return {
-    paths: results.map((post) => {
+    paths: termsBlockList.map((post) => {
       // Go through every post
       return {
         params: {
           // set a params object with an id in it
-          id: post.id,
+          id: post,
         },
       };
     }),
@@ -93,6 +106,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const renderBlock = (block: any) => {
+  console.log("block : " + JSON.stringify(block));
   switch (block.type) {
     case "heading_1":
       // For a heading
@@ -100,59 +114,46 @@ const renderBlock = (block: any) => {
     case "paragraph":
       // For a paragraph
       return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
-    case "image":
-      // For an image
-      let result = block["image"].external.url;
-      console.log("selected imageresul " + result);
-      return (
-        <Image
-          src={result}
-          sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-          alt="Picture of the author"
-          width={768}
-          height={432}
-        />
-      );
-    case "bulleted_list_item":
-      // For an unordered list
-      return (
-        <ul>
-          <li>{block["bulleted_list_item"].text[0].plain_text} </li>
-        </ul>
-      );
     default:
       // For an extra type
-      return <p>Undefined type </p>;
+      return <p></p>;
   }
 };
 
-const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
+const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
   return (
     <Layout>
       <section className={styles.banner} id="home">
         <HeroBanner
           resultConfig={{
-            imageUrl: post.properties.Gallery.rich_text[0].plain_text,
-            title: post.properties.Title.rich_text[0].plain_text,
+            imageUrl: "https://i.imgur.com/p9E5i02.png",
+            title: termsTitle,
             subtitle: "",
           }}
           showButton="false"
+          facebookLink=""
+          igLink=""
           handleClick={console.log("")}
         />
       </section>
 
-      <div className={styles.blogPageHolder}>
-        <Head>
-          <title>{post.properties.Name.title[0].plain_text}</title>
-        </Head>
-        <div>
-          {blocks.map((block, index) => {
-            return <div key={index}>{renderBlock(block)}</div>;
-          })}
-        </div>
-      </div>
+      <section id="terms">
+        <Box
+          sx={{
+            width: "100vw",
+            height: "auto",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TermsSection
+            padding={4}
+            title={termsContent}
+            content={termsContent}
+          />
+        </Box>
+      </section>
       <SpeedDial
         ariaLabel="Menu"
         sx={{
@@ -217,4 +218,4 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
   );
 };
 
-export default EventPage;
+export default AboutDetailPage;

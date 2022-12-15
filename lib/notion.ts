@@ -64,6 +64,24 @@ async function getEventsByProjectCode(projCode: string) {
     sorts: [{ property: "PublishDate", direction: "descending" }],
   });
 
+  return myPosts.results;
+}
+
+async function getProjectByProjectCode(projCode: string) {
+  const myPosts = await client.databases.query({
+    database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
+    filter: {
+      and: [
+        {
+          property: "ProjectCode",
+          title: {
+            contains: projCode,
+          },
+        },
+      ],
+    },
+  });
+
   return myPosts;
 }
 
@@ -141,10 +159,8 @@ async function blocks(blockId: string) {
       block_id: blockId,
     });
 
-    console.log("go 001: ");
     return myBlocks;
   } catch (error) {
-    console.log("go 002: ");
     console.error(error);
     return [];
   }
@@ -208,6 +224,7 @@ export {
   getEvent,
   getEvents,
   getEventsByProjectCode,
+  getProjectByProjectCode,
   getProject,
   getProjects,
   blocks,

@@ -60,7 +60,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let { results } = (await blocks(bloggerId)) as any;
 
   if (results === undefined) {
-    console.log("go 1");
     return {
       props: {
         id,
@@ -69,8 +68,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       },
     };
   }
-  console.log("go 2");
   // Get the children
+  //imageGallerySet;
   return {
     props: {
       id,
@@ -130,11 +129,11 @@ const renderBlock = (block: any) => {
       );
     default:
       // For an extra type
-      return <p>Undefined type </p>;
+      return <p></p>;
   }
 };
 
-const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
+const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -145,10 +144,11 @@ const EventPage: NextPage<Props> = ({ id, post, blocks }) => {
             subtitle: "",
           }}
           showButton="false"
+          facebookLink=""
+          igLink=""
           handleClick={console.log("")}
         />
       </section>
-
       <div className={styles.blogPageHolder}>
         <Head>
           <title>{post.properties.Name.title[0].plain_text}</title>

@@ -75,7 +75,6 @@ const GCHHKGird = ({ masterclass, resultList, type }) => {
           </Container>
         </div>
       );
-      X;
     }
   });
 
