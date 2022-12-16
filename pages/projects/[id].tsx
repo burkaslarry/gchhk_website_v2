@@ -104,14 +104,8 @@ interface Props {
 
 const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
   let projectResultList = post.results;
-  let isEmpty = Object.keys(projectResultList).length === 0;
   let projectResultFirst = projectResultList[0];
   let resultList = blocks;
-
-  if (isEmpty) {
-    Router.back();
-    return <div></div>;
-  }
 
   React.useEffect(() => {
     // Initialise Hotjar only client side
