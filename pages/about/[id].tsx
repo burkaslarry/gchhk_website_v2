@@ -1,5 +1,4 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import { getProject, blocks, posts } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
@@ -13,8 +12,7 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
-import Head from "next/head";
-import { Box } from "@mui/system";
+import Typography from "@mui/material/Typography";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -113,7 +111,11 @@ const renderBlock = (block: any) => {
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
     case "paragraph":
       // For a paragraph
-      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
+      return (
+        <Typography variant="h6">
+          {block["paragraph"].rich_text[0]?.text?.content}
+        </Typography>
+      );
     default:
       // For an extra type
       return <p></p>;
