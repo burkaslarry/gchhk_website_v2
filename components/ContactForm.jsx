@@ -1,19 +1,9 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {
-  FormHelperText,
-  Typography,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { green, pink, purple } from "@mui/material/colors";
-import { useForm } from "react-hook-form";
-import { getKey } from "../pages/api/hello";
+import { green } from "@mui/material/colors";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -35,6 +25,7 @@ var isSubmitSuccessful = false;
 export default function ContactForm() {
   async function handleSubmit(event) {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const objectBefore = Object.fromEntries(formData);
 

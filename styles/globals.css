@@ -127,3 +127,26 @@ a {
 .gcccardlightgreen3x:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+
+.gcccardhk4x {
+  z-index: 5;
+  margin: 0 auto;
+  max-width: 100vw;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+}
+
+.gcccardcanvas {
+  padding: 1rem;
+  height: auto;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.imgClass {
+  width: 100%;
+  height: auto;
+}

@@ -19,6 +19,9 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import React from "react";
+import { hotjar } from "react-hotjar";
+import Box from "@mui/material/Box";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -101,14 +104,16 @@ interface Props {
 
 const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
   let projectResultList = post.results;
-  let isEmpty = Object.keys(projectResultList).length === 0;
   let projectResultFirst = projectResultList[0];
   let resultList = blocks;
 
-  if (isEmpty) {
-    Router.back();
-    return <div></div>;
-  }
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange(
+      projectResultFirst.properties.LongName.rich_text[0].plain_text
+    );
+  }, []);
 
   return (
     <Layout>

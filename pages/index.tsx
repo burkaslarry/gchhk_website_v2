@@ -10,17 +10,15 @@ import EventBanner from "../components/EventBanner";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import React from "react";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
 import GCHHKGird from "../components/GCHHKGird";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import Router from "next/router";
+import React from "react";
 import { hotjar } from "react-hotjar";
 
 const actions = [
@@ -92,7 +90,6 @@ interface Props {
 const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
   const element = document.getElementById("contact");
   if (element != null) {
-    hotjar.event("click-contact");
     element.scrollIntoView({
       behavior: "smooth",
       block: "end",
@@ -102,6 +99,12 @@ const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 const Home: NextPage<Props> = (props) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange("主頁");
+  }, []);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">

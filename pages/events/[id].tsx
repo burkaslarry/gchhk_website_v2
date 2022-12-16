@@ -1,5 +1,4 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import { getProject, blocks, posts } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
@@ -14,6 +13,10 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Router from "next/router";
 import Head from "next/head";
+import Typography from "@mui/material/Typography";
+import React from "react";
+import { hotjar } from "react-hotjar";
+import Box from "@mui/material/Box";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -74,13 +77,12 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   var imageSet: string[] = [];
 
-  console.log("results: " + JSON.stringify(results));
-
   for (const variable of results) {
     if (variable.type == "image") {
-      console.log("results: " + JSON.stringify(variable));
       let text = variable["image"].external.url;
-      imageSet.push(text);
+      if (text.length > 0) {
+        imageSet.push(text);
+      }
     }
   }
 
@@ -120,7 +122,11 @@ const renderBlock = (block: any) => {
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
     case "paragraph":
       // For a paragraph
-      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
+      return (
+        <Typography variant="h6">
+          {block["paragraph"].rich_text[0]?.text?.content}
+        </Typography>
+      );
     // case "image":
     //   // For an image
     //   let result = block["image"].external.url;
@@ -140,6 +146,12 @@ const renderBlock = (block: any) => {
 };
 
 const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange(post.properties.Title.rich_text[0].plain_text);
+  }, []);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -160,9 +172,32 @@ const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
           <title>{post.properties.Name.title[0].plain_text}</title>
         </Head>
         <div>
+          <br />
+
           {blocks.map((block, index) => {
             return <div key={index}>{renderBlock(block)}</div>;
           })}
+          <br />
+          <br />
+          <br />
+          <br />
+          <div className="gcccardhk4x">
+            {imageGallerySet.map((imangeLink: string, index) => {
+              return (
+                <div key={index} className="gcccardcanvas">
+                  <a href={imangeLink}>
+                    <picture>
+                      <img
+                        src={imangeLink}
+                        alt="Landscape picture"
+                        className="imgClass"
+                      />
+                    </picture>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <SpeedDial

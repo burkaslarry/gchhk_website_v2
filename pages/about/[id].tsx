@@ -1,7 +1,6 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
-import { getProject, blocks, posts } from "../../lib/notion";
+import { blocks } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -13,8 +12,10 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
-import Head from "next/head";
-import { Box } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import React from "react";
+import { hotjar } from "react-hotjar";
+import Box from "@mui/material/Box";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -113,7 +114,11 @@ const renderBlock = (block: any) => {
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
     case "paragraph":
       // For a paragraph
-      return <p>{block["paragraph"].rich_text[0]?.text?.content} </p>;
+      return (
+        <Typography variant="h6">
+          {block["paragraph"].rich_text[0]?.text?.content}
+        </Typography>
+      );
     default:
       // For an extra type
       return <p></p>;
@@ -121,6 +126,12 @@ const renderBlock = (block: any) => {
 };
 
 const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange(termsTitle);
+  }, []);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -147,11 +158,7 @@ const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
             alignItems: "center",
           }}
         >
-          <TermsSection
-            padding={4}
-            title={termsContent}
-            content={termsContent}
-          />
+          <TermsSection padding={4} title={""} content={termsContent} />
         </Box>
       </section>
       <SpeedDial
