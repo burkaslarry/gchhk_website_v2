@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getProject, blocks, posts } from "../../lib/notion";
+import { blocks } from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -13,6 +13,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
 import Typography from "@mui/material/Typography";
+import React from "react";
+import { hotjar } from "react-hotjar";
+import Box from "@mui/material/Box";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -123,6 +126,12 @@ const renderBlock = (block: any) => {
 };
 
 const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange(termsTitle);
+  }, []);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">
@@ -149,11 +158,7 @@ const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
             alignItems: "center",
           }}
         >
-          <TermsSection
-            padding={4}
-            title={termsContent}
-            content={termsContent}
-          />
+          <TermsSection padding={4} title={""} content={termsContent} />
         </Box>
       </section>
       <SpeedDial

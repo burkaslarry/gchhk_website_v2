@@ -14,6 +14,9 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Router from "next/router";
 import Head from "next/head";
 import Typography from "@mui/material/Typography";
+import React from "react";
+import { hotjar } from "react-hotjar";
+import Box from "@mui/material/Box";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -143,6 +146,12 @@ const renderBlock = (block: any) => {
 };
 
 const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange(post.properties.Title.rich_text[0].plain_text);
+  }, []);
+
   return (
     <Layout>
       <section className={styles.banner} id="home">

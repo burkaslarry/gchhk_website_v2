@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
 import styles from "../styles/Home.module.css";
-import React from "react";
 import { Box } from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
@@ -14,6 +13,8 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
 import { blocks } from "../lib/notion";
 import GCHHKGird from "../components/GCHHKGird";
+import React from "react";
+import { hotjar } from "react-hotjar";
 
 const actionSize = {
   width: 50,
@@ -87,6 +88,12 @@ interface Props {
 }
 
 const AboutUs: NextPage<Props> = (props) => {
+  React.useEffect(() => {
+    // Initialise Hotjar only client side
+    hotjar.initialize(3287549, 6);
+    hotjar.stateChange("關於我們");
+  }, []);
+
   return (
     <Layout>
       {/* Hero unit */}
