@@ -1,43 +1,28 @@
-# gchhk_website_v2
-This is the demo website for GCHHK, written in typescript , supported by nextjs, notion
+<p align="center">
+  <a href="https://gchhk-website-v2.vercel.app">
+    <img alt="GCCHK Website" src="https://i.imgur.com/qxZUMcW.png" width="689">
+  </a>
+</p>
 
-Hello world Hi Larry!
+# 草根文化館網站
 
-## Getting Started
+> 草根文化館本會網站，定期推廣環保回收活動。網站主要由 Next.js and Notion 建立而成，方便打理。
 
-First, run the development server:
+## 簡介
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+此 Repo 項目提供完整網站架構和做法
 
+內容管理由 Notion 提供修正系統由 Notion 提供，網存空間由 Vercel 提供，主要開發框架為 Next.js , [notion](https://http://notion.so), [Next.js](https://nextjs.org/),  [Vercel](https://vercel.com).  [Hotjar](http://hotjar.com).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
+**All config is defined in [site.config.ts](./site.config.ts).**
 
+This project requires a recent version of Node.js (we recommend >= 16) and React (Version >=18.0).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
+1. Fork / clone this repo
+2. Change a few values in [site.config.ts](./site.config.ts)
+3. `npm install`
+4. `npm run dev` to test locally
+5. `npm run build` to deploy to vercel 💪
+6. Merge `develop` branch into `main` for conducting staged production and robust performance
