@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
 import HeroBanner from "../components/HeroBanner";
-import EventBanner from "../components/EventBanner";
+import EventGridItem from "../components/EventGridItem";
 import styles from "../styles/Home.module.css";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
@@ -53,8 +53,8 @@ const actions = [
 ];
 
 const actionSize = {
-  width: 50,
-  height: 50,
+  width: 54,
+  height: 54,
   backgroundColor: "#9926B8",
 };
 
@@ -88,14 +88,9 @@ interface Props {
 }
 
 const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  const element = document.getElementById("contact");
-  if (element != null) {
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
-  }
+  Router.push({
+    pathname: "/about",
+  });
 };
 
 const Home: NextPage<Props> = (props) => {
@@ -128,15 +123,16 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="event_content">
-        <div className="gchhkgrid1">
+        <div className="cards">
           {props.eventList.map((result, index) => {
             return (
-              <div className={"gccard"} key={index}>
+              <div className="" key={index}>
                 <Link href={`/events/${result.id}`}>
-                  <EventBanner
+                  <EventGridItem
                     imageUrl={result.properties.Gallery.rich_text[0].plain_text}
-                    createDate={result.properties.PublishDate.date?.start}
                     title={result.properties.Title.rich_text[0].plain_text}
+                    subtitle=""
+                    type="cover"
                   />
                 </Link>
               </div>
@@ -156,11 +152,24 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="project_content">
-        <GCHHKGird
-          resultList={props.project}
-          type="project"
-          masterclass={"gcccardhk2"}
-        />
+        <div className="cards">
+          {props.project.map((result, index) => {
+            return (
+              <div className="" key={index}>
+                <Link
+                  href={`/projects/${result.properties.ProjectCode.title[0].plain_text}`}
+                >
+                  <EventGridItem
+                    imageUrl=""
+                    title={result.properties.LongName.rich_text[0].plain_text}
+                    subtitle=""
+                    type="lightgreen"
+                  />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </section>
       <section id="recycle_kpi_title">
         <Typography
@@ -174,15 +183,28 @@ const Home: NextPage<Props> = (props) => {
         </Typography>
       </section>
       <section id="recycle_kpi_content">
-        <GCHHKGird
-          resultList={props.recycle}
-          type="recycle"
-          masterclass={"gcccardhk3"}
-        />
+        <div className="gcccardhk3">
+          {props.recycle.map((result, index) => {
+            return (
+              <div className="" key={index}>
+                <EventGridItem
+                  imageUrl=""
+                  title={result.properties.Title.title[0].plain_text}
+                  subtitle={
+                    result.properties.Number.number +
+                    " " +
+                    result.properties.Unit.rich_text[0].plain_text
+                  }
+                  type="darkgreen"
+                />
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <section id="contact">
-        <Box sx={{ width: "100vw" }}>
+        <Box sx={{ width: "100%" }}>
           <ContactUs />
         </Box>
       </section>
