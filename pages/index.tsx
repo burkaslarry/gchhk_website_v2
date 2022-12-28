@@ -192,7 +192,7 @@ const Home: NextPage<Props> = (props) => {
                     imageUrl=""
                     title={result.properties.LongName.rich_text[0].plain_text}
                     subtitle=""
-                    type="lightgreen"
+                    type="darkgreen"
                   />
                 </Link>
               </div>
@@ -241,7 +241,7 @@ const Home: NextPage<Props> = (props) => {
                     " " +
                     result.properties.Unit.rich_text[0].plain_text
                   }
-                  type="darkgreen"
+                  type="lightgreen"
                 />
               </div>
             );
