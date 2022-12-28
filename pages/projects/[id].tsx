@@ -5,8 +5,9 @@ import {
   projects,
   getProjectByProjectCode,
 } from "../../lib/notion";
-import EventBanner from "../../components/EventBanner";
+import EventGridItem from "../../components/EventGridItem";
 import Link from "next/link";
+import Typography from "@mui/material/Typography";
 import Router from "next/router";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -106,7 +107,8 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
   let projectResultList = post.results;
   let projectResultFirst = projectResultList[0];
   let resultList = blocks;
-
+  let projectContent =
+    projectResultFirst.properties.Content.rich_text[0].plain_text;
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
@@ -130,17 +132,25 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
           handleClick={console.log("")}
         />
       </section>
-
+      <section
+        id="project_content"
+        style={{ display: projectContent.length > 0 ? "block" : "none" }}
+      >
+        <div className="gchhkgrid2">
+          <Typography variant="h6">{projectContent}</Typography>
+        </div>
+      </section>
       <section id="event_content">
-        <div className="gchhkgrid1">
+        <div className="cards">
           {resultList.map((result, index) => {
             return (
-              <div className={"gccard"} key={index}>
+              <div className="" key={index}>
                 <Link href={`/events/${result.id}`}>
-                  <EventBanner
+                  <EventGridItem
                     imageUrl={result.properties.Gallery.rich_text[0].plain_text}
-                    createDate={result.properties.PublishDate.date?.start}
                     title={result.properties.Title.rich_text[0].plain_text}
+                    subtitle=""
+                    type="cover"
                   />
                 </Link>
               </div>

@@ -1,6 +1,4 @@
-import { Box, Container } from "@mui/system";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
+import { Container } from "@mui/system";
 
 const EventGridItem = ({ imageUrl, title, subtitle, type }) => {
   if (type == "lightgreen") {

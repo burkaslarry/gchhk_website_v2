@@ -15,7 +15,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { Typography } from "@mui/material";
 import { getEvents, getRecycle, getProjects } from "../lib/notion";
-import GCHHKGird from "../components/GCHHKGird";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import Router from "next/router";
 import React from "react";

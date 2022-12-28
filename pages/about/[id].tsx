@@ -153,6 +153,7 @@ const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
           sx={{
             width: "100vw",
             height: "auto",
+            minHeight: "600px",
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",

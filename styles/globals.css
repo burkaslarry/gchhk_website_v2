@@ -25,12 +25,21 @@ a {
 }
 
 .gchhkgrid1 {
-  max-width: 1200px;
   margin: 0 auto;
   z-index: 5;
   display: grid;
   gap: 1rem;
   padding: 1em;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.gchhkgrid2 {
+  margin: 0 auto;
+  z-index: 5;
+  display: grid;
+  gap: 1rem;
+  padding: 2em;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

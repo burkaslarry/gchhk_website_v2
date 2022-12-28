@@ -12,9 +12,10 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
 import { blocks } from "../lib/notion";
-import GCHHKGird from "../components/GCHHKGird";
+import EventGridItem from "../components/EventGridItem";
 import React from "react";
 import { hotjar } from "react-hotjar";
+import Link from "next/link";
 
 const actionSize = {
   width: 50,
@@ -128,11 +129,23 @@ const AboutUs: NextPage<Props> = (props) => {
       </section>
 
       <section id="termsBlock">
-        <GCHHKGird
-          resultList={props.aboutBlocks}
-          type="terms"
-          masterclass={"gcccardhk3x"}
-        />
+        <div className="cards">
+          {props.aboutBlocks.map((result, index) => {
+            console.log("block : " + JSON.stringify(result));
+            return (
+              <div className="" key={index}>
+                <Link href={`/about/${result.displayPageId}`}>
+                  <EventGridItem
+                    imageUrl=""
+                    title={result.displayTitle}
+                    subtitle=""
+                    type="lightgreen"
+                  />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <SpeedDial
