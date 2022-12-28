@@ -180,14 +180,24 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.bigcards {
-  max-width: 1200px;
+.cards_project {
+  max-width: 800px;
   margin: 0 auto;
   display: grid;
   gap: 1rem;
   padding: 1rem;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cards_more_button {
+  max-width: 300px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .blog {

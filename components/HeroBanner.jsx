@@ -52,7 +52,6 @@ const HeroBanner = ({
                 <br />
                 <h2>{resultConfig.subtitle}</h2>
                 <br />
-                <Link href={`#contact`}></Link>
                 <Button
                   variant="outlined"
                   type="submit"

@@ -61,55 +61,32 @@ const actionSize = {
 const heroResult = {
   imageUrl:
     "https://images.unsplash.com/photo-1563770660941-20978e870e26?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=3600",
-  title: "草根文化館",
-  subtitle:
-    "本會是一個非牟利機構，旨在促進教育、保護環境、救助貧困。秉承本會宗旨，我們就相關議題進行社區服務、培訓、研究及與這些領域上的其他群體交流合作。",
+  title: "機構活動一覽",
+  subtitle: "",
 };
 
 export async function getServerSideProps() {
   let results = await getEvents();
-  let resultKing = await getProjects();
-  let resultQueen = await getRecycle();
 
   // Return the result
   return {
     props: {
-      eventList: results.slice(0, 3),
-      project: resultKing.slice(0, 2),
-      recycle: resultQueen.slice(0, 1),
+      eventList: results,
     },
   };
 }
 
 interface Props {
   eventList: [any];
-  project: [any];
-  recycle: [any];
 }
 
-const handleAboutClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  Router.push({
-    pathname: "/about",
-  });
-};
-
-const handleMoreProjectClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  Router.push({
-    pathname: "/project_list",
-  });
-};
-
-const handleMoreEventClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  Router.push({
-    pathname: "/event_list",
-  });
-};
+const handleAboutClick = (event: React.MouseEvent<HTMLButtonElement>) => {};
 
 const Home: NextPage<Props> = (props) => {
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
-    hotjar.stateChange("主頁");
+    hotjar.stateChange("機構活動一覽");
   }, []);
 
   return (
@@ -122,17 +99,6 @@ const Home: NextPage<Props> = (props) => {
           igLink=""
           handleClick={handleAboutClick}
         />
-      </section>
-      <section id="event_title">
-        <Typography
-          variant="h4"
-          gutterBottom
-          fontWeight="700"
-          sx={{ paddingTop: 3 }}
-          align="center"
-        >
-          <strong>機構活動</strong>
-        </Typography>
       </section>
       <section id="event_content">
         <div className="cards">
@@ -147,102 +113,6 @@ const Home: NextPage<Props> = (props) => {
                     type="cover"
                   />
                 </Link>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-      <section id="event_more">
-        <div className="cards_more_button">
-          <Button
-            variant="outlined"
-            type="submit"
-            onClick={handleMoreEventClick}
-            sx={{
-              color: "#9926B8",
-              padding: 1,
-              margin: 2,
-              display: "inline",
-            }}
-          >
-            更多活動
-          </Button>
-        </div>
-      </section>
-      <section id="project_title">
-        <Typography
-          variant="h4"
-          gutterBottom
-          fontWeight="700"
-          sx={{ paddingTop: 3 }}
-          align="center"
-        >
-          <strong>機構工作</strong>
-        </Typography>
-      </section>
-      <section id="project_content">
-        <div className="cards_project">
-          {props.project.map((result, index) => {
-            return (
-              <div className="" key={index}>
-                <Link
-                  href={`/projects/${result.properties.ProjectCode.title[0].plain_text}`}
-                >
-                  <EventGridItem
-                    imageUrl=""
-                    title={result.properties.LongName.rich_text[0].plain_text}
-                    subtitle=""
-                    type="lightgreen"
-                  />
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-      <section id="project_more">
-        <div className="cards_more_button">
-          <Button
-            variant="outlined"
-            type="submit"
-            onClick={handleMoreProjectClick}
-            sx={{
-              color: "#9926B8",
-              padding: 1,
-              margin: 2,
-              display: "inline",
-            }}
-          >
-            更多工作
-          </Button>
-        </div>
-      </section>
-      <section id="recycle_kpi_title">
-        <Typography
-          variant="h4"
-          gutterBottom
-          fontWeight="700"
-          sx={{ paddingTop: 3 }}
-          align="center"
-        >
-          <strong>至今廚餘回收總數</strong>
-        </Typography>
-      </section>
-      <section id="recycle_kpi_content">
-        <div className="gcccardhk3">
-          {props.recycle.map((result, index) => {
-            return (
-              <div className="" key={index}>
-                <EventGridItem
-                  imageUrl=""
-                  title={result.properties.Title.title[0].plain_text}
-                  subtitle={
-                    result.properties.Number.number +
-                    " " +
-                    result.properties.Unit.rich_text[0].plain_text
-                  }
-                  type="darkgreen"
-                />
               </div>
             );
           })}
