@@ -154,13 +154,12 @@ a {
 }
 
 .cards_more_button {
-  max-width: 300px;
+  max-width: 500px;
   margin: 0 auto;
   display: grid;
   gap: 1rem;
   padding: 1rem;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .blog {

@@ -4,16 +4,16 @@ const EventGridItem = ({ imageUrl, title, subtitle, type }) => {
   if (type == "lightgreen") {
     return (
       <div className="card_02">
-        <div className="itemdiv">{title}</div>
+        <div className="itemdivCenter">
+          {title} <br /> {subtitle}
+        </div>
       </div>
     );
   } else if (type == "darkgreen") {
     if (subtitle != "") {
       return (
         <div className="card_01">
-          <div className="itemdivCenter">
-            {title} <br /> {subtitle}
-          </div>
+          <div className="itemdivCenter">{title}</div>
         </div>
       );
     }

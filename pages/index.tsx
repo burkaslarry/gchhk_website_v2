@@ -161,7 +161,6 @@ const Home: NextPage<Props> = (props) => {
             sx={{
               color: "#9926B8",
               padding: 1,
-              margin: 2,
               display: "inline",
             }}
           >

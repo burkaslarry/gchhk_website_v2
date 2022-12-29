@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import { hotjar } from "react-hotjar";
 import Box from "@mui/material/Box";
+import Link from "next/link";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -25,6 +26,7 @@ interface Props {
   id: string;
   termsTitle: string;
   termsContent: string;
+  fileLink: string;
 }
 
 const actions = [
@@ -59,14 +61,18 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         id,
         termsTitle: "",
         termsContent: "",
+        fileLink: "",
       },
     };
   }
   var paragraphBlockList = [];
+  var targetFilePDFLink = "";
   for (const variable of results) {
     if (variable.type == "paragraph") {
       let text = variable["paragraph"].rich_text[0]?.text?.content;
       paragraphBlockList.push(text);
+    } else if (variable.type == "file") {
+      targetFilePDFLink = variable["file"].external.url;
     }
   }
 
@@ -75,6 +81,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       id,
       termsTitle: paragraphBlockList[0],
       termsContent: paragraphBlockList[1],
+      fileLink: targetFilePDFLink,
     },
   };
 };
@@ -112,6 +119,16 @@ const renderBlock = (block: any) => {
     case "heading_1":
       // For a heading
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
+    case "file":
+      // For a paragraph
+      let fileLink = block["file"].external.url;
+      return (
+        <Link href={fileLink}>{"按此下載"}</Link>
+
+        // <Typography variant="h6">
+        //   {block["paragraph"].rich_text[0]?.text?.content}
+        // </Typography>
+      );
     case "paragraph":
       // For a paragraph
       return (
@@ -125,7 +142,12 @@ const renderBlock = (block: any) => {
   }
 };
 
-const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
+const AboutDetailPage: NextPage<Props> = ({
+  id,
+  termsTitle,
+  termsContent,
+  fileLink,
+}) => {
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
@@ -160,6 +182,8 @@ const AboutDetailPage: NextPage<Props> = ({ id, termsTitle, termsContent }) => {
           }}
         >
           <TermsSection padding={4} title={""} content={termsContent} />
+
+          <Link href={fileLink}>{"按此下載"}</Link>
         </Box>
       </section>
       <SpeedDial
