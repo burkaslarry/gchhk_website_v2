@@ -2,13 +2,22 @@ import { Container } from "@mui/system";
 
 const EventGridItem = ({ imageUrl, title, subtitle, type }) => {
   if (type == "lightgreen") {
-    return (
-      <div className="card_02">
-        <div className="itemdivCenter">
-          {title} <br /> {subtitle}
+    if (subtitle != "") {
+      return (
+        <div className="card_02">
+          <div className="itemdivCenter">
+            {title} <br />
+            {subtitle}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="card_02">
+          <div className="itemdiv">{title}</div>
+        </div>
+      );
+    }
   } else if (type == "darkgreen") {
     if (subtitle != "") {
       return (

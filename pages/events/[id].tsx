@@ -186,13 +186,11 @@ const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
               return (
                 <div key={index} className="gcccardcanvas">
                   <a href={imangeLink}>
-                    <picture>
-                      <img
-                        src={imangeLink}
-                        alt="Landscape picture"
-                        className="imgClass"
-                      />
-                    </picture>
+                    <img
+                      src={imangeLink}
+                      alt="Landscape picture"
+                      className="imgClass"
+                    />
                   </a>
                 </div>
               );
