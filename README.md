@@ -50,32 +50,6 @@ https://macpaw.com/how-to/use-terminal-on-mac
 
 Maintenance 新內容大綱
 
-##### 聯絡email
-
-###### Github
-https://support.github.com/?tags=dotcom-footer
-
-###### Vercel
-https://vercel.com/help#issues
-
-###### Hotjar
-https://help.hotjar.com/hc/en-us/requests/new
-
-###### Hotjar
-https://help.hotjar.com/hc/en-us/requests/new
-
-
-#### 2. Frequently Ask Question 常見問題
-1. 要唔 
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
 
 #### Pricing Suggestion on Following Service:
 Service level of all applied hosting and tracking tools are free of charge. 
