@@ -74,7 +74,7 @@ export async function getServerSideProps() {
   // Return the result
   return {
     props: {
-      eventList: results.slice(0, 3),
+      eventList: results,
       project: resultKing.slice(0, 2),
       recycle: resultQueen.slice(0, 1),
     },
