@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import { Box, Container } from "@mui/system";
+import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
@@ -20,6 +20,7 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import Router from "next/router";
 import React from "react";
 import { hotjar } from "react-hotjar";
+import {BACK_HOME, CONTACT_US} from "../lib/constant";
 
 const actions = [
   {
@@ -28,12 +29,12 @@ const actions = [
         <HomeOutlinedIcon sx={{ color: "#ffffff" }} />
       </Link>
     ),
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
   {

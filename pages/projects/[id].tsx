@@ -23,6 +23,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import React from "react";
 import { hotjar } from "react-hotjar";
 import Box from "@mui/material/Box";
+import {CONTACT_US} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -37,7 +38,7 @@ const actions = [
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
     link: "",
   },

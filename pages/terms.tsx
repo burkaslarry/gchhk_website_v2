@@ -13,6 +13,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
+import {CONTACT_US} from "../lib/constant";
 
 const heroResult = {
   imageUrl: "https://i.imgur.com/p9E5i02.png",
@@ -33,7 +34,7 @@ const actions = [
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
   {
@@ -42,6 +43,7 @@ const actions = [
     key: "guideline",
   },
 ];
+
 const Terms: NextPage = () => {
   return (
     <Layout>

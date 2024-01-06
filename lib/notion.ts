@@ -1,5 +1,5 @@
 require("dotenv");
-import { Client, APIErrorCode, LogLevel } from "@notionhq/client";
+import {Client, LogLevel} from "@notionhq/client";
 
 const client = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -140,10 +140,9 @@ async function getProjects() {
 }
 
 async function getProject(pageIId: string) {
-  const myPost = await client.pages.retrieve({
+  return await client.pages.retrieve({
     page_id: pageIId,
   });
-  return myPost;
 }
 
 async function getRecycle() {

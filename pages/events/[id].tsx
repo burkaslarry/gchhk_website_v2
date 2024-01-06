@@ -16,7 +16,7 @@ import Head from "next/head";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { hotjar } from "react-hotjar";
-import Box from "@mui/material/Box";
+import {BACK_HOME, CONTACT_US} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -32,12 +32,12 @@ interface Props {
 const actions = [
   {
     icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
   {

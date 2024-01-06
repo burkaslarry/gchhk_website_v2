@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
+import { NextPage } from "next";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
@@ -16,6 +16,7 @@ import EventGridItem from "../components/EventGridItem";
 import React from "react";
 import { hotjar } from "react-hotjar";
 import Link from "next/link";
+import {BACK_HOME, CONTACT_US} from "../lib/constant";
 
 const actionSize = {
   width: 50,
@@ -26,12 +27,12 @@ const actionSize = {
 const actions = [
   {
     icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
 ];
