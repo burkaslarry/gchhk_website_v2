@@ -12,12 +12,12 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
-import Typography from "@mui/material/Typography";
 import React from "react";
 import {hotjar} from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {actionSize50, CONTACT_US} from "../../lib/constant";
+require("dotenv");
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -83,7 +83,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+  let { results } = (await blocks(`${process.env.ABOUT_PAGE_ID}`)) as any;
 
   // Get the children
   var termsBlockList: string[] = [];
@@ -108,36 +108,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
-
-const renderBlock = (block: any) => {
-  console.log("block : " + JSON.stringify(block));
-  switch (block.type) {
-    case "heading_1":
-      // For a heading
-      return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
-    case "file":
-      // For a paragraph
-      let fileLink = block["file"].external.url;
-      return (
-        <Link href={fileLink}>{"按此下載"}</Link>
-
-        // <Typography variant="h6">
-        //   {block["paragraph"].rich_text[0]?.text?.content}
-        // </Typography>
-      );
-    case "paragraph":
-      // For a paragraph
-      return (
-        <Typography variant="h6">
-          {block["paragraph"].rich_text[0]?.text?.content}
-        </Typography>
-      );
-    default:
-      // For an extra type
-      return <p></p>;
-  }
-};
-
 const AboutDetailPage: NextPage<Props> = ({
   id,
   termsTitle,

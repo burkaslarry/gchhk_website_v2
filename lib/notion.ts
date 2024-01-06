@@ -71,7 +71,7 @@ async function getEventsByProjectCode(projCode: string) {
 
 // Retrieve a project by project code from the Notion database
 async function getProjectByProjectCode(projCode: string) {
-  const myPosts = await client.databases.query({
+  return await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
     filter: {
       and: [
@@ -84,46 +84,6 @@ async function getProjectByProjectCode(projCode: string) {
       ],
     },
   });
-
-  return myPosts;
-}
-
-// Retrieve an event by ID from the Notion database
-async function getEvent(id: string) {
-  const myPosts = await client.databases.query({
-    database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
-    filter: {
-      and: [
-        {
-          property: "Gallery",
-          rich_text: {
-            is_not_empty: true,
-          },
-        },
-        {
-          property: "BlogId",
-          rich_text: {
-            equals: id,
-          },
-        },
-        {
-          property: "Title",
-          rich_text: {
-            is_not_empty: true,
-          },
-        },
-        {
-          property: "PublishDate",
-          date: {
-            is_not_empty: true,
-          },
-        },
-      ],
-    },
-    sorts: [{ property: "PublishDate", direction: "descending" }],
-  });
-
-  return myPosts.results;
 }
 
 // Retrieve projects from the Notion database
@@ -162,11 +122,9 @@ async function getRecycle() {
 // Retrieve blocks of a given block ID from the Notion database
 async function blocks(blockId: string) {
   try {
-    const myBlocks = await client.blocks.children.list({
+    return await client.blocks.children.list({
       block_id: blockId,
     });
-
-    return myBlocks;
   } catch (error) {
     console.error(error);
     return [];
@@ -175,7 +133,7 @@ async function blocks(blockId: string) {
 
 // Retrieve posts from the Notion database
 async function posts() {
-  const myPosts = await client.databases.query({
+  return await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
     filter: {
       and: [
@@ -205,19 +163,18 @@ async function posts() {
         },
       ],
     },
-    sorts: [{ property: "PublishDate", direction: "descending" }],
+    sorts: [{property: "PublishDate", direction: "descending"}],
   });
-  return myPosts;
 }
 
-// Retrieve projects from the Notion database
-async function projects() {
-  const myPosts = await client.databases.query({
+// Retrieve projectsLongName from the Notion database
+async function projectsLongName(requiredProperty: string = "LongName") {
+  return await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
     filter: {
       and: [
         {
-          property: "LongName",
+          property: requiredProperty,
           rich_text: {
             is_not_empty: true,
           },
@@ -225,12 +182,10 @@ async function projects() {
       ],
     },
   });
-  return myPosts;
 }
 
 export {
   getRecycle,
-  getEvent,
   getEvents,
   getEventsByProjectCode,
   getProjectByProjectCode,
@@ -238,5 +193,5 @@ export {
   getProjects,
   blocks,
   posts,
-  projects,
+  projectsLongName,
 };

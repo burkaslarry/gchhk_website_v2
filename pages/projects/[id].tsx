@@ -1,6 +1,6 @@
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
 import {ParsedUrlQuery} from "querystring";
-import {getEventsByProjectCode, getProjectByProjectCode, projects,} from "../../lib/notion";
+import {getEventsByProjectCode, getProjectByProjectCode,projectsLongName} from "../../lib/notion";
 import EventGridItem from "../../components/EventGridItem";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let { results } = await projects();
+  let { results } = await projectsLongName()
   // Get all posts
   return {
     paths: results.map((post) => {

@@ -17,6 +17,7 @@ import React from "react";
 import {hotjar} from "react-hotjar";
 import Link from "next/link";
 import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
+require("dotenv");
 
 const actions = [
   {
@@ -43,7 +44,7 @@ class MyTerms {
 }
 
 export async function getServerSideProps() {
-  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+  let { results } = (await blocks(`${process.env.ABOUT_PAGE_ID}`)) as any;
 
   // Get the children
   var paragraphBlockList = [];
