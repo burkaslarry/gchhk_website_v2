@@ -13,17 +13,11 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
-import {CONTACT_US} from "../lib/constant";
+import {actionSize50, CONTACT_US} from "../lib/constant";
 
 const heroResult = {
   imageUrl: "https://i.imgur.com/p9E5i02.png",
   title: "工作指引",
-};
-
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
 };
 
 const actions = [
@@ -101,7 +95,7 @@ const Terms: NextPage = () => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            sx={actionSize}
+            sx={actionSize50}
             onClick={(e) => {
               if (action.key == "contact") {
                 Router.push({

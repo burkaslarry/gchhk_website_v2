@@ -16,13 +16,7 @@ import EventGridItem from "../components/EventGridItem";
 import React from "react";
 import { hotjar } from "react-hotjar";
 import Link from "next/link";
-import {BACK_HOME, CONTACT_US} from "../lib/constant";
-
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
+import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
 
 const actions = [
   {

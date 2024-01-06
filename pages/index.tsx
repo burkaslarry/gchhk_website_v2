@@ -20,7 +20,7 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import Router from "next/router";
 import React from "react";
 import { hotjar } from "react-hotjar";
-import {BACK_HOME, CONTACT_US} from "../lib/constant";
+import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
 
 const actions = [
   {
@@ -52,12 +52,6 @@ const actions = [
     key: "share",
   },
 ];
-
-const actionSize = {
-  width: 54,
-  height: 54,
-  backgroundColor: "#9926B8",
-};
 
 const heroResult = {
   imageUrl:

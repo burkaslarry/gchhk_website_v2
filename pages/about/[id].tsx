@@ -17,7 +17,7 @@ import React from "react";
 import { hotjar } from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import {CONTACT_US} from "../../lib/constant";
+import {actionSize50, CONTACT_US} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -43,11 +43,6 @@ const actions = [
   },
 ];
 
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
@@ -210,7 +205,7 @@ const AboutDetailPage: NextPage<Props> = ({
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            sx={actionSize}
+            sx={actionSize50}
             onClick={(e) => {
               if (action.key == "contact") {
                 if (typeof window === "undefined") return null;

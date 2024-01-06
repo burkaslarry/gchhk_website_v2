@@ -2,17 +2,7 @@ import { Box, Container } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-interface EventBannerProps {
-    imageUrl: string;
-    createDate: string;
-    title: string;
-}
-
-const EventBanner: React.FC<EventBannerProps> = ({
-                                                     imageUrl,
-                                                     createDate,
-                                                     title,
-                                                 }) => {
+const EventBanner = ({ imageUrl, createDate, title }) => {
   return (
     <div>
       <Container
