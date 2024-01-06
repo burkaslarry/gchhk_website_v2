@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Image from "next/image";
 import gchLogo from "../public/GCH.svg";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 
 const HeroBanner = ({
   resultConfig,

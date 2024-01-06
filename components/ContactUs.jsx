@@ -1,7 +1,8 @@
 import Typography from "@mui/material/Typography";
-import { Container } from "@mui/system";
+import {Container} from "@mui/system";
 import ContactForm from "../components/ContactForm";
 import {CONTACT_US} from "../lib/constant";
+
 export default function ContactUs() {
   return (
     <Container sx={{ bgcolor: "#F6EDF6", p: 6 }}>

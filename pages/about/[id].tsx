@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { blocks } from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {blocks} from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -14,7 +14,7 @@ import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import {actionSize50, CONTACT_US} from "../../lib/constant";

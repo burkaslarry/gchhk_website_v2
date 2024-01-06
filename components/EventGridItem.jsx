@@ -1,4 +1,4 @@
-import { Container } from "@mui/system";
+import {Container} from "@mui/system";
 
 const EventGridItem = ({ imageUrl, title, subtitle, type }) => {
   if (type == "lightgreen") {

@@ -1,10 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import {
-  getEventsByProjectCode,
-  projects,
-  getProjectByProjectCode,
-} from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {getEventsByProjectCode, getProjectByProjectCode, projects,} from "../../lib/notion";
 import EventGridItem from "../../components/EventGridItem";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
@@ -21,8 +17,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import React from "react";
-import { hotjar } from "react-hotjar";
-import Box from "@mui/material/Box";
+import {hotjar} from "react-hotjar";
 import {actionSize50, CONTACT_US} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {

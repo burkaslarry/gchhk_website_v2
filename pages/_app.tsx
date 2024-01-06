@@ -1,13 +1,12 @@
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "../utils/theme";
+import type {AppProps} from "next/app";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "../utils/theme";
 import "../styles/globals.css";
 import Head from "next/head";
 import gchLogo from "../public/GCH.svg";
-import Script from "next/script";
 
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {

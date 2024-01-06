@@ -1,10 +1,10 @@
-import type { NextPage } from "next";
+import type {NextPage} from "next";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
 import styles from "../styles/Home.module.css";
 import React from "react";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";

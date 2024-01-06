@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { getProject, blocks, posts } from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {blocks, getProject, posts} from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -15,7 +15,7 @@ import Router from "next/router";
 import Head from "next/head";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import {actionSize50, BACK_HOME, CONTACT_US} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {

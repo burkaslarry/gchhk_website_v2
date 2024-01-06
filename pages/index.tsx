@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
+import type {NextPage} from "next";
 import Link from "next/link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 import Button from "@mui/material/Button";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
@@ -14,12 +14,12 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import { Typography } from "@mui/material";
-import { getEvents, getRecycle, getProjects } from "../lib/notion";
+import {Typography} from "@mui/material";
+import {getEvents, getProjects, getRecycle} from "../lib/notion";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import Router from "next/router";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
 
 const actions = [

@@ -1,9 +1,9 @@
-import { NextPage } from "next";
+import {NextPage} from "next";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
 import styles from "../styles/Home.module.css";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
@@ -11,10 +11,10 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
-import { blocks } from "../lib/notion";
+import {blocks} from "../lib/notion";
 import EventGridItem from "../components/EventGridItem";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import Link from "next/link";
 import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
 
