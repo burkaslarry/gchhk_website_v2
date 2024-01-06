@@ -6,6 +6,7 @@ const client = new Client({
   logLevel: LogLevel.DEBUG,
 });
 
+// Retrieve events from the Notion database
 async function getEvents() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -42,6 +43,7 @@ async function getEvents() {
   return myPosts.results;
 }
 
+// Retrieve events by project code from the Notion database
 async function getEventsByProjectCode(projCode: string) {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -67,6 +69,7 @@ async function getEventsByProjectCode(projCode: string) {
   return myPosts.results;
 }
 
+// Retrieve a project by project code from the Notion database
 async function getProjectByProjectCode(projCode: string) {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
@@ -85,6 +88,7 @@ async function getProjectByProjectCode(projCode: string) {
   return myPosts;
 }
 
+// Retrieve an event by ID from the Notion database
 async function getEvent(id: string) {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -122,6 +126,7 @@ async function getEvent(id: string) {
   return myPosts.results;
 }
 
+// Retrieve projects from the Notion database
 async function getProjects() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
@@ -139,12 +144,14 @@ async function getProjects() {
   return myPosts.results;
 }
 
+// Retrieve a project by page ID from the Notion database
 async function getProject(pageIId: string) {
   return await client.pages.retrieve({
     page_id: pageIId,
   });
 }
 
+// Retrieve recycle items from the Notion database
 async function getRecycle() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_RECYCLEKPI_TABLE_KEY}`,
@@ -152,6 +159,7 @@ async function getRecycle() {
   return myPosts.results;
 }
 
+// Retrieve blocks of a given block ID from the Notion database
 async function blocks(blockId: string) {
   try {
     const myBlocks = await client.blocks.children.list({
@@ -165,6 +173,7 @@ async function blocks(blockId: string) {
   }
 }
 
+// Retrieve posts from the Notion database
 async function posts() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_EVENT_TABLE_KEY}`,
@@ -201,6 +210,7 @@ async function posts() {
   return myPosts;
 }
 
+// Retrieve projects from the Notion database
 async function projects() {
   const myPosts = await client.databases.query({
     database_id: `${process.env.NOTION_PROJECT_TABLE_KEY}`,
