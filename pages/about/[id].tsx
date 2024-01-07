@@ -16,6 +16,7 @@ import React from "react";
 import {hotjar} from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import {Analytics} from "@vercel/analytics/react";
 import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
 require("dotenv");
 

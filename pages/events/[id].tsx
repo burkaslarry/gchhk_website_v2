@@ -16,8 +16,8 @@ import Head from "next/head";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import {hotjar} from "react-hotjar";
-import {actionSize50, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
 import {Analytics} from "@vercel/analytics/react";
+import {actionSize50, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
