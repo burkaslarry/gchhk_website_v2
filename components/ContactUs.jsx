@@ -1,6 +1,7 @@
 import Typography from "@mui/material/Typography";
-import { Container } from "@mui/system";
+import {Container} from "@mui/system";
 import ContactForm from "../components/ContactForm";
+import {CONTACT_US} from "../lib/constant";
 
 export default function ContactUs() {
   return (
@@ -13,7 +14,7 @@ export default function ContactUs() {
         sx={{ paddingTop: 3 }}
         align="center"
       >
-        聯絡我們
+          {CONTACT_US}
       </Typography>
 
       <Typography

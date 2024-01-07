@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
+import type {NextPage} from "next";
 import Link from "next/link";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import { Box, Container } from "@mui/system";
+import {Box} from "@mui/system";
 import Button from "@mui/material/Button";
 import Layout from "../components/Layout";
 import ContactUs from "../components/ContactUs";
@@ -14,12 +14,14 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import { Typography } from "@mui/material";
-import { getEvents, getRecycle, getProjects } from "../lib/notion";
+import {Typography} from "@mui/material";
+import {getEvents, getProjects, getRecycle} from "../lib/notion";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import Router from "next/router";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
+import { Analytics } from '@vercel/analytics/react';
+import {ABOUT_US, actionSize, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../lib/constant";
 
 const actions = [
   {
@@ -28,12 +30,12 @@ const actions = [
         <HomeOutlinedIcon sx={{ color: "#ffffff" }} />
       </Link>
     ),
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
   {
@@ -42,7 +44,7 @@ const actions = [
         <Diversity2Icon sx={{ color: "#ffffff" }} />,
       </Link>
     ),
-    name: "關於我們",
+    name: ABOUT_US,
     key: "aboutus",
   },
   {
@@ -51,12 +53,6 @@ const actions = [
     key: "share",
   },
 ];
-
-const actionSize = {
-  width: 54,
-  height: 54,
-  backgroundColor: "#9926B8",
-};
 
 const heroResult = {
   imageUrl:
@@ -75,8 +71,8 @@ export async function getServerSideProps() {
   return {
     props: {
       eventList: results,
-      project: resultKing.slice(0, 2),
-      recycle: resultQueen.slice(0, 1),
+      project: resultKing.slice(0, 2), // first 2  projects
+      recycle: resultQueen.slice(0, 1), // first 2  projects
     },
   };
 }
@@ -301,18 +297,20 @@ const Home: NextPage<Props> = (props) => {
                       url: window.location.href,
                     })
                     .then(() => {})
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                      console.error(err)
+                      alert(SHARE_NOT_SUPPORTED);
+                    } );
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                    alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}
           />
         ))}
       </SpeedDial>
+        <Analytics />
     </Layout>
   );
 };

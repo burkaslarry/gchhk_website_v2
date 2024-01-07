@@ -1,9 +1,9 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
+import {Typography} from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { green } from "@mui/material/colors";
+import {green} from "@mui/material/colors";
 
 const inputFillChecking = {
   titleName: "姓名",
