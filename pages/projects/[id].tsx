@@ -19,6 +19,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import React from "react";
 import {hotjar} from "react-hotjar";
 import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
+import {Analytics} from "@vercel/analytics/react";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -215,6 +216,7 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
           />
         ))}
       </SpeedDial>
+      <Analytics/>
     </Layout>
   );
 };

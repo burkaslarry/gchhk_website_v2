@@ -21,7 +21,7 @@ import Router from "next/router";
 import React from "react";
 import {hotjar} from "react-hotjar";
 import {ABOUT_US, actionSize, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../lib/constant";
-
+import { Analytics } from '@vercel/analytics/react';
 const actions = [
   {
     icon: (
@@ -309,6 +309,7 @@ const Home: NextPage<Props> = (props) => {
           />
         ))}
       </SpeedDial>
+        <Analytics />
     </Layout>
   );
 };

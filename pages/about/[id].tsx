@@ -213,6 +213,7 @@ const AboutDetailPage: NextPage<Props> = ({
           />
         ))}
       </SpeedDial>
+      <Analytics />
     </Layout>
   );
 };
