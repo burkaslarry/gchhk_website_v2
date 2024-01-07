@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { getProject, blocks, posts } from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {blocks, getProject, posts} from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -15,8 +15,9 @@ import Router from "next/router";
 import Head from "next/head";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { hotjar } from "react-hotjar";
-import Box from "@mui/material/Box";
+import {hotjar} from "react-hotjar";
+import {actionSize50, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
+import {Analytics} from "@vercel/analytics/react";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -32,12 +33,12 @@ interface Props {
 const actions = [
   {
     icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
   {
@@ -47,11 +48,6 @@ const actions = [
   },
 ];
 
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
@@ -221,7 +217,7 @@ const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            sx={actionSize}
+            sx={actionSize50}
             onClick={(e) => {
               if (action.key == "contact") {
                 if (typeof window === "undefined") return null;
@@ -246,18 +242,20 @@ const EventPage: NextPage<Props> = ({ id, post, blocks, imageGallerySet }) => {
                     .then(() => {
                       console.log("Thanks for sharing!");
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                      console.error(err)
+                      alert(SHARE_NOT_SUPPORTED);
+                    } );
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                  alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}
           />
         ))}
       </SpeedDial>
+      <Analytics/>
     </Layout>
   );
 };

@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { blocks } from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {blocks} from "../../lib/notion";
 import styles from "../../styles/Home.module.css";
 import Layout from "../../components/Layout";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -12,11 +12,12 @@ import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TermsSection from "../../components/TermsSection";
 import Router from "next/router";
-import Typography from "@mui/material/Typography";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
+require("dotenv");
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -37,16 +38,11 @@ const actions = [
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
 ];
 
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
@@ -87,7 +83,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+  let { results } = (await blocks(`${process.env.ABOUT_PAGE_ID}`)) as any;
 
   // Get the children
   var termsBlockList: string[] = [];
@@ -112,36 +108,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
-
-const renderBlock = (block: any) => {
-  console.log("block : " + JSON.stringify(block));
-  switch (block.type) {
-    case "heading_1":
-      // For a heading
-      return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
-    case "file":
-      // For a paragraph
-      let fileLink = block["file"].external.url;
-      return (
-        <Link href={fileLink}>{"按此下載"}</Link>
-
-        // <Typography variant="h6">
-        //   {block["paragraph"].rich_text[0]?.text?.content}
-        // </Typography>
-      );
-    case "paragraph":
-      // For a paragraph
-      return (
-        <Typography variant="h6">
-          {block["paragraph"].rich_text[0]?.text?.content}
-        </Typography>
-      );
-    default:
-      // For an extra type
-      return <p></p>;
-  }
-};
-
 const AboutDetailPage: NextPage<Props> = ({
   id,
   termsTitle,
@@ -209,7 +175,7 @@ const AboutDetailPage: NextPage<Props> = ({
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            sx={actionSize}
+            sx={actionSize50}
             onClick={(e) => {
               if (action.key == "contact") {
                 if (typeof window === "undefined") return null;
@@ -234,18 +200,20 @@ const AboutDetailPage: NextPage<Props> = ({
                     .then(() => {
                       console.log("Thanks for sharing!");
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                      console.error(err)
+                      alert(SHARE_NOT_SUPPORTED);
+                    } );
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                  alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}
           />
         ))}
       </SpeedDial>
+      <Analytics />
     </Layout>
   );
 };

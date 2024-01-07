@@ -1,10 +1,6 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { ParsedUrlQuery } from "querystring";
-import {
-  getEventsByProjectCode,
-  projects,
-  getProjectByProjectCode,
-} from "../../lib/notion";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
+import {ParsedUrlQuery} from "querystring";
+import {getEventsByProjectCode, getProjectByProjectCode,projectsLongName} from "../../lib/notion";
 import EventGridItem from "../../components/EventGridItem";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
@@ -21,8 +17,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import React from "react";
-import { hotjar } from "react-hotjar";
-import Box from "@mui/material/Box";
+import {hotjar} from "react-hotjar";
+import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
+import {Analytics} from "@vercel/analytics/react";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -37,7 +34,7 @@ const actions = [
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
     link: "",
   },
@@ -54,12 +51,6 @@ const actions = [
     link: "",
   },
 ];
-
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   let { id } = ctx.params as IParams;
@@ -80,7 +71,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let { results } = await projects();
+  let { results } = await projectsLongName()
   // Get all posts
   return {
     paths: results.map((post) => {
@@ -182,7 +173,7 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            sx={actionSize}
+            sx={actionSize50}
             onClick={(e) => {
               if (action.key == "socialpage") {
                 let pMarks =
@@ -212,18 +203,20 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
                     .then(() => {
                       console.log("Thanks for sharing!");
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                      console.error(err)
+                      alert(SHARE_NOT_SUPPORTED);
+                    });
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                  alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}
           />
         ))}
       </SpeedDial>
+      <Analytics/>
     </Layout>
   );
 };

@@ -1,9 +1,9 @@
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
+import {NextPage} from "next";
 import Layout from "../components/Layout";
 import HeroBanner from "../components/HeroBanner";
 import TermsSection from "../components/TermsSection";
 import styles from "../styles/Home.module.css";
-import { Box } from "@mui/system";
+import {Box} from "@mui/system";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
@@ -11,27 +11,23 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Router from "next/router";
-import { blocks } from "../lib/notion";
+import {blocks} from "../lib/notion";
 import EventGridItem from "../components/EventGridItem";
 import React from "react";
-import { hotjar } from "react-hotjar";
+import {hotjar} from "react-hotjar";
 import Link from "next/link";
-
-const actionSize = {
-  width: 50,
-  height: 50,
-  backgroundColor: "#9926B8",
-};
+import {ABOUT_US, actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
+require("dotenv");
 
 const actions = [
   {
     icon: <HomeOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "回到主頁",
+    name: BACK_HOME,
     key: "home",
   },
   {
     icon: <ContactMailOutlinedIcon sx={{ color: "#ffffff" }} />,
-    name: "聯絡我們",
+    name: CONTACT_US,
     key: "contact",
   },
 ];
@@ -48,7 +44,7 @@ class MyTerms {
 }
 
 export async function getServerSideProps() {
-  let { results } = (await blocks("7c64e3eb9d894ec789eeacbc3492cf02")) as any;
+  let { results } = (await blocks(`${process.env.ABOUT_PAGE_ID}`)) as any;
 
   // Get the children
   var paragraphBlockList = [];
@@ -92,7 +88,7 @@ const AboutUs: NextPage<Props> = (props) => {
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
-    hotjar.stateChange("關於我們");
+    hotjar.stateChange(ABOUT_US);
   }, []);
 
   return (
@@ -102,7 +98,7 @@ const AboutUs: NextPage<Props> = (props) => {
         <HeroBanner
           resultConfig={{
             imageUrl: "https://i.imgur.com/p9E5i02.png",
-            title: "關於我們",
+            title: ABOUT_US,
           }}
           showButton="false"
           facebookLink=""
