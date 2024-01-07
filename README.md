@@ -38,19 +38,6 @@ This project requires a recent version of Node.js (we recommend >= 16) and React
 | `git diff` | Show file differences that **haven't been** staged |
 
 
-參考 : 
-https://macpaw.com/how-to/use-terminal-on-mac
-
-## User Guideline 用戶指南
-
-**All config is defined in [site.config.ts](./site.config.ts).**
-
-
-## Maintenance Guideline 網站維護指南
-
-Maintenance 新內容大綱
-
-
 #### Pricing Suggestion on Following Service:
 Service level of all applied hosting and tracking tools are free of charge. 
 Below shows the details of pricing plans for each service provider. 

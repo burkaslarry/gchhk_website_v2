@@ -18,7 +18,7 @@ import Diversity2Icon from "@mui/icons-material/Diversity2";
 import Router from "next/router";
 import React from "react";
 import {hotjar} from "react-hotjar";
-import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
+import {ABOUT_US, actionSize, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../lib/constant";
 
 const actions = [
   {
@@ -41,7 +41,7 @@ const actions = [
         <Diversity2Icon sx={{ color: "#ffffff" }} />,
       </Link>
     ),
-    name: "關於我們",
+    name: ABOUT_US,
     key: "aboutus",
   },
   {
@@ -165,12 +165,13 @@ const Home: NextPage<Props> = (props) => {
                       url: window.location.href,
                     })
                     .then(() => {})
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                        console.error(err)
+                        alert(SHARE_NOT_SUPPORTED);
+                    });
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                  alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}

@@ -16,7 +16,7 @@ import React from "react";
 import {hotjar} from "react-hotjar";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import {actionSize50, CONTACT_US} from "../../lib/constant";
+import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
 require("dotenv");
 
 interface IParams extends ParsedUrlQuery {
@@ -200,12 +200,13 @@ const AboutDetailPage: NextPage<Props> = ({
                     .then(() => {
                       console.log("Thanks for sharing!");
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                      console.error(err)
+                      alert(SHARE_NOT_SUPPORTED);
+                    } );
                 } else {
                   // Fallback
-                  alert(
-                    "The current browser does not support the share function. Please, manually share the link"
-                  );
+                  alert(SHARE_NOT_SUPPORTED);
                 }
               }
             }}

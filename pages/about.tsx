@@ -16,7 +16,7 @@ import EventGridItem from "../components/EventGridItem";
 import React from "react";
 import {hotjar} from "react-hotjar";
 import Link from "next/link";
-import {actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
+import {ABOUT_US, actionSize, BACK_HOME, CONTACT_US} from "../lib/constant";
 require("dotenv");
 
 const actions = [
@@ -88,7 +88,7 @@ const AboutUs: NextPage<Props> = (props) => {
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
-    hotjar.stateChange("關於我們");
+    hotjar.stateChange(ABOUT_US);
   }, []);
 
   return (
@@ -98,7 +98,7 @@ const AboutUs: NextPage<Props> = (props) => {
         <HeroBanner
           resultConfig={{
             imageUrl: "https://i.imgur.com/p9E5i02.png",
-            title: "關於我們",
+            title: ABOUT_US,
           }}
           showButton="false"
           facebookLink=""
