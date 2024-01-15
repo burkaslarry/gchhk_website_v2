@@ -71,8 +71,8 @@ export async function getServerSideProps() {
   return {
     props: {
       eventList: results,
-      project: resultKing.slice(0, 2), // first 2  projects
-      recycle: resultQueen.slice(0, 1), // first 2  projects
+      project: resultKing, // first 2  projects
+      recycle: resultQueen, // first 2  projects
     },
   };
 }
@@ -133,6 +133,7 @@ const Home: NextPage<Props> = (props) => {
       <section id="event_content">
         <div className="cards">
           {props.eventList.map((result, index) => {
+            console.log("eventId : " + JSON.stringify(result.id))
             return (
               <div className="" key={index}>
                 <Link href={`/events/${result.id}`}>

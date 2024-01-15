@@ -57,6 +57,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   let pageResult = JSON.parse(JSON.stringify(page_result));
   let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
 
+  let title = pageResult.properties.Title.rich_text[0].plain_text;
+
   let { results } = (await blocks(bloggerId)) as any;
 
   if (results === undefined) {
@@ -81,6 +83,16 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       }
     }
   }
+
+  if (title.includes("(MSW")) {
+    imageSet = []
+    console.log("The title contains '(MSW'");
+  } else {
+    console.log("The title does not contain '(MSW'");
+  }
+
+
+
 
   //imageGallerySet;
   return {
@@ -112,6 +124,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const renderBlock = (block: any) => {
+  console.log("block : " + JSON.stringify(block))
+
   switch (block.type) {
     case "heading_1":
       // For a heading
@@ -123,16 +137,40 @@ const renderBlock = (block: any) => {
           {block["paragraph"].rich_text[0]?.text?.content}
         </Typography>
       );
-    // case "image":
-    //   // For an image
-    //   let result = block["image"].external.url;
-    //   console.log("selected imageresul " + result);
-    //   return <Image alt="" fill src={result} />;
+    case "image":
+      // For an image
+      let result = block["image"].external.url;
+      console.log("selected imageresul " + result);
+      return <img alt="" src={result} />;
     case "bulleted_list_item":
       // For an unordered list
+       const listItemTextBlockArray = block["bulleted_list_item"].text
+       const listItemRichTextArray = block["bulleted_list_item"].rich_text;
+       var displayText = ""
+      if (Array.isArray(listItemTextBlockArray) && listItemTextBlockArray.length === 0) {
+        // The listItemTextBlockArray is empty
+        displayText = ""
+      } else if (listItemTextBlockArray === undefined) {
+        // The listItemTextBlockArray is undefined
+        displayText = ""
+      } else {
+        displayText = listItemTextBlockArray[0].plain_text
+        // The listItemTextBlockArray is neither empty nor undefined
+      }
+
+      if (Array.isArray(listItemRichTextArray) && listItemRichTextArray.length === 0) {
+        // The listItemRichTextArray is empty
+        //displayText = ""
+      } else if (listItemRichTextArray === undefined) {
+        // The listItemRichTextArray is undefined
+      } else {
+        displayText = listItemRichTextArray[0].plain_text
+        // The listItemRichTextArray is neither empty nor undefined
+      }
+
       return (
         <ul>
-          <li>{block["bulleted_list_item"].text[0].plain_text} </li>
+          <li>{displayText}</li>
         </ul>
       );
     default:
