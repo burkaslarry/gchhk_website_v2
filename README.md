@@ -61,15 +61,28 @@ to deploy to vercel 💪
 
 新增日誌 
 
-1. 於Notion Blog 頁面新增內容 https://www.notion.so/Blog-e1b300f237a7492e9bf8c10c57edd3ee
+1. 於Notion > Blog 頁面新增內容 https://www.notion.so/Blog-e1b300f237a7492e9bf8c10c57edd3ee
 
-2. 抄下圈中 ID 
-https://ibb.co/gy3v9fn
-![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
+2. 抄下圈中 ID , 貼上 Notion > Database > Event record 上 
+
+<img alt="GCCHK Website" src="https://i.ibb.co/H7VN4bJ/Screenshot-2024-01-15-at-10-46-54-PM.png" width="400">
+    
+出 blog 要 : 
+1. title 有 字 , 
+2. Blog Id 有  字 ,
+3. publish  Date 有日期 ,  AND 
+4. Gallery  要有 link
 
 
+    <img alt="GCCHK Test" src="https://i.ibb.co/Tq0hHJX/Screenshot-2024-01-15-at-10-48-11-PM.png" width="400">
 
-![image](files/Users/jzhang/Desktop/Isolated.png)
+3.  於 Browser 上 行一次 Javascript Console , 抄下 Event ID
+
+   <img alt="GCCHK Website" src="https://i.ibb.co/xJP2ntS/Screenshot-2024-01-15-at-11-37-48-PM.png" width="400">
+4.  抄下 Event ID 於 貼上 Notion > Database > Event record 的 BlogId  一欄
+5. 等待 15 minutes 
+ 
+
 
 #### Pricing Suggestion on Following Service:
 Service level of all applied hosting and tracking tools are free of charge. 
