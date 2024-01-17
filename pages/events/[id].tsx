@@ -124,7 +124,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const renderBlock = (block: any) => {
-  console.log("block : " + JSON.stringify(block))
 
   switch (block.type) {
     case "heading_1":
@@ -132,11 +131,24 @@ const renderBlock = (block: any) => {
       return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
     case "paragraph":
       // For a paragraph
-      return (
-        <Typography variant="h6">
-          {block["paragraph"].rich_text[0]?.text?.content}
-        </Typography>
-      );
+      let content = block["paragraph"].rich_text[0]?.text?.content || '';
+      console.log("block : " + JSON.stringify(block))
+
+      let isBold = block["paragraph"].rich_text[0]?.annotations.bold
+      if (isBold) {
+        return (
+              <Typography variant="h6"  sx={{ fontWeight: 'bold' }}>
+                {content}
+              </Typography>             
+        );
+      }  else {
+        return (
+            <Typography variant="h6">
+              {content}
+            </Typography>
+        );
+      }
+
     case "image":
       // For an image
       let result = block["image"].external.url;
