@@ -84,6 +84,11 @@ to deploy to vercel 💪
  
 
 
+Safari 上清 Cache，可以閱覽最新內容 
+<img alt="GCCHK Website" src="https://i.postimg.cc/s3Q8t5sy/temp-Image-KMSCU7.jpg" width="400">
+
+
+
 #### Pricing Suggestion on Following Service:
 Service level of all applied hosting and tracking tools are free of charge. 
 Below shows the details of pricing plans for each service provider. 
