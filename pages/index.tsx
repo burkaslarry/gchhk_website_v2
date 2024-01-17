@@ -134,6 +134,7 @@ const Home: NextPage<Props> = (props) => {
         <div className="cards">
           {props.eventList.map((result, index) => {
             console.log("eventId : " + JSON.stringify(result.id))
+            console.log("event Gallery : " + JSON.stringify(result.properties.Gallery))
             return (
               <div className="" key={index}>
                 <Link href={`/events/${result.id}`}>

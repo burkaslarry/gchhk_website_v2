@@ -20,14 +20,15 @@ import {Analytics} from "@vercel/analytics/react";
 import {actionSize50, BACK_HOME, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
 
 interface IParams extends ParsedUrlQuery {
-  id: string;
+    id: string;
 }
 
 interface Props {
-  id: string;
-  post: any;
-  blocks: [any];
-  imageGallerySet: string[];
+    id: string;
+    post: any;
+    blocks: [any];
+    imageGallerySet: string[];
+    coverImageSet: string[];
 }
 
 const actions = [
@@ -57,8 +58,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     let pageResult = JSON.parse(JSON.stringify(page_result));
     let bloggerId = pageResult.properties.BlogId.rich_text[0].plain_text;
 
-    let title = pageResult.properties.Title.rich_text[0].plain_text;
-
     let {results} = (await blocks(bloggerId)) as any;
 
     if (results === undefined) {
@@ -84,21 +83,38 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         }
     }
 
+    const plainText = pageResult.properties.Gallery.rich_text[0].text.content
+    console.log("plainText: " + plainText);
+
+    // Split the plain text by whitespace into an array of individual links
+    const linksArray = plainText.split(" ");
+
+    // Extract the first three links
+    console.log(linksArray);
     // if (title.includes("(MSW")) {
     //   imageSet = []
     //   console.log("The title contains '(MSW'");
     // } else {
-    //   console.log("The title does not contain '(MSW'");
     // }
+    for (const variable of linksArray) {
+        imageSet.push(variable);
+    }
 
+    const uniqueArray: string[] = [];
+    for (const item of imageSet) {
+        if (!uniqueArray.includes(item)) {
+            uniqueArray.push(item);
+        }
+    }
 
-    //imageGallerySet;
+    console.log("The imageSet:" + uniqueArray);
+  //imageGallerySet;
     return {
         props: {
             id,
             post: pageResult,
             blocks: results,
-            imageGallerySet: imageSet,
+            imageGallerySet: uniqueArray,
         },
     };
 };
@@ -122,8 +138,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const renderBlock = (block: any) => {
+  console.log("block : " + JSON.stringify(block))
 
-    switch (block.type) {
+  switch (block.type) {
         case "heading_1":
             // For a heading
             return <h1>{block["heading_1"].rich_text[0].plain_text} </h1>;
@@ -136,7 +153,6 @@ const renderBlock = (block: any) => {
         case "paragraph":
             // For a paragraph
             let content = block["paragraph"].rich_text[0]?.text?.content || '';
-            console.log("block : " + JSON.stringify(block))
 
             let isBold = block["paragraph"].rich_text[0]?.annotations.bold
             if (isBold) {
@@ -155,11 +171,6 @@ const renderBlock = (block: any) => {
                 );
             }
 
-        case "image":
-            // For an image
-            let result = block["image"].external.url;
-            console.log("selected imageresul " + result);
-            return <img alt="" src={result}/>;
         case "bulleted_list_item":
             // For an unordered list
             const listItemTextBlockArray = block["bulleted_list_item"].text
@@ -192,7 +203,7 @@ const renderBlock = (block: any) => {
                 </ul>
             );
         default:
-            // For an extra type
+          // For an extra type
             return <p></p>;
     }
 };
