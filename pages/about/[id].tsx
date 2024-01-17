@@ -18,6 +18,7 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import {Analytics} from "@vercel/analytics/react";
 import {actionSize50, CONTACT_US, SHARE_NOT_SUPPORTED} from "../../lib/constant";
+
 require("dotenv");
 
 interface IParams extends ParsedUrlQuery {
@@ -62,22 +63,33 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       },
     };
   }
-  var paragraphBlockList = [];
+
+  var paragraphTitle = "";
+  var paragraphBlockList = "";
   var targetFilePDFLink = "";
   for (const variable of results) {
+    console.log("block: " + JSON.stringify(variable))
+
+
     if (variable.type == "paragraph") {
-      let text = variable["paragraph"].rich_text[0]?.text?.content;
-      paragraphBlockList.push(text);
+      paragraphBlockList = variable["paragraph"].rich_text[0]?.text?.content;
     } else if (variable.type == "file") {
       targetFilePDFLink = variable["file"].external.url;
+    } else if (variable.type == "heading_1") {
+      paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
+    } else if (variable.type == "heading_2") {
+      paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
+    } else if (variable.type == "heading_3") {
+      paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
     }
   }
+
 
   return {
     props: {
       id,
-      termsTitle: paragraphBlockList[0],
-      termsContent: paragraphBlockList[1],
+      termsTitle: paragraphTitle,
+      termsContent: paragraphBlockList,
       fileLink: targetFilePDFLink,
     },
   };
