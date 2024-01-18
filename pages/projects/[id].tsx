@@ -118,8 +118,6 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
               projectResultFirst.properties.LongName.rich_text[0].plain_text,
           }}
           showButton="false"
-          facebookLink={""}
-          igLink={""}
           handleClick={console.log("")}
         />
       </section>

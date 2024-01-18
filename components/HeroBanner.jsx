@@ -10,8 +10,6 @@ import {ABOUT_US} from "../lib/constant";
 const HeroBanner = ({
   resultConfig,
   showButton,
-  facebookLink,
-  igLink,
   handleClick,
 }) => {
   return (
@@ -23,6 +21,7 @@ const HeroBanner = ({
           background: "url('" + resultConfig.imageUrl + "')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+            backgroundPosition: "center",
         }}
       >
         <Box

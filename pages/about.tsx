@@ -101,8 +101,6 @@ const AboutUs: NextPage<Props> = (props) => {
             title: ABOUT_US,
           }}
           showButton="false"
-          facebookLink=""
-          igLink=""
           handleClick={console.log("")}
         />
       </section>

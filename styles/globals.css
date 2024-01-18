@@ -15,11 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-.bannerContainer {
-  width: "100vw";
-  height: "500px";
-}
-
 .tooltip {
   opacity: 1;
 }
