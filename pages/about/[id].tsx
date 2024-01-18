@@ -65,22 +65,22 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
 
   var paragraphTitle = "";
-  var paragraphBlockList = "";
+  var paragraphBlockString = "";
   var targetFilePDFLink = "";
   for (const variable of results) {
     console.log("block: " + JSON.stringify(variable))
-
-
     if (variable.type == "paragraph") {
-      paragraphBlockList = variable["paragraph"].rich_text[0]?.text?.content;
+      if (variable["paragraph"]?.rich_text?.[0]?.text?.content) {
+        paragraphBlockString = variable["paragraph"].rich_text[0].text.content;
+      }
     } else if (variable.type == "file") {
       targetFilePDFLink = variable["file"].external.url;
     } else if (variable.type == "heading_1") {
       paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
     } else if (variable.type == "heading_2") {
-      paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
+      paragraphTitle = variable["heading_2"].rich_text[0].plain_text;
     } else if (variable.type == "heading_3") {
-      paragraphTitle = variable["heading_1"].rich_text[0].plain_text;
+      paragraphTitle = variable["heading_3"].rich_text[0].plain_text;
     }
   }
 
@@ -89,7 +89,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       id,
       termsTitle: paragraphTitle,
-      termsContent: paragraphBlockList,
+      termsContent: paragraphBlockString,
       fileLink: targetFilePDFLink,
     },
   };
@@ -162,7 +162,10 @@ const AboutDetailPage: NextPage<Props> = ({
         >
           <TermsSection padding={4} title={""} content={termsContent} />
 
-          <Link href={fileLink}>{"按此下載"}</Link>
+
+          {fileLink && fileLink.includes('http') && (
+              <Link href={fileLink}>按此下載</Link>
+          )}
         </Box>
       </section>
       <SpeedDial
