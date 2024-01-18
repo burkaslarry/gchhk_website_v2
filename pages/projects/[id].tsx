@@ -99,12 +99,13 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
   let projectResultFirst = projectResultList[0];
   let resultList = blocks;
   let projectContent =
-    projectResultFirst.properties.Content.rich_text[0].plain_text;
+    projectResultFirst.properties.Content.rich_text[0]?.text?.content  || '';
+  let projectLongTitle = projectResultFirst.properties.LongName.rich_text[0]?.text?.content  || ''
   React.useEffect(() => {
     // Initialise Hotjar only client side
     hotjar.initialize(3287549, 6);
     hotjar.stateChange(
-      projectResultFirst.properties.LongName.rich_text[0].plain_text
+        projectLongTitle
     );
   }, []);
 
@@ -114,8 +115,7 @@ const ProjectList: NextPage<Props> = ({ id, post, blocks }) => {
         <HeroBanner
           resultConfig={{
             imageUrl: "https://i.imgur.com/p9E5i02.png",
-            title:
-              projectResultFirst.properties.LongName.rich_text[0].plain_text,
+            title: projectLongTitle
           }}
           showButton="false"
           handleClick={console.log("")}
