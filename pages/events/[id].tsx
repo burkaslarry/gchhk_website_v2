@@ -209,12 +209,21 @@ const renderBlock = (block: any) => {
 };
 
 const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
+    let titleContent = post.properties.Title.rich_text[0].plain_text
     React.useEffect(() => {
         // Initialise Hotjar only client side
         hotjar.initialize(3287549, 6);
-        hotjar.stateChange(post.properties.Title.rich_text[0].plain_text);
+        hotjar.stateChange(titleContent);
     }, []);
 
+    let substr= '參觀'
+    let result = titleContent.includes(substr);
+    var style = "gcccardhk4x"
+    if (result) {
+        style = "gcccardhk4x"
+    } else  {
+        style = "gcccardcanvas"
+    }
     return (
         <Layout>
             <section className={styles.banner} id="home">
@@ -227,7 +236,7 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
                     showButton="false"
                     facebookLink=""
                     igLink=""
-                    handleClick={console.log("")}
+                    handleClick={ console.log("") }
                 />
             </section>
             <div className={styles.blogPageHolder}>
@@ -244,7 +253,7 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
                     <br/>
                     <br/>
                     <br/>
-                    <div className="gcccardhk4x">
+                    <div className={style}>
                         {imageGallerySet.map((imangeLink: string, index) => {
                             return (
                                 <div key={index} className="gcccardcanvas">

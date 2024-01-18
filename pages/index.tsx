@@ -70,9 +70,9 @@ export async function getServerSideProps() {
   // Return the result
   return {
     props: {
-      eventList: results,
-      project: resultKing, // first 2  projects
-      recycle: resultQueen, // first 2  projects
+      eventList: results.slice(0,6),
+      project: resultKing,
+      recycle: resultQueen,
     },
   };
 }
