@@ -234,8 +234,6 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
                         subtitle: "",
                     }}
                     showButton="false"
-                    facebookLink=""
-                    igLink=""
                     handleClick={ console.log("") }
                 />
             </section>

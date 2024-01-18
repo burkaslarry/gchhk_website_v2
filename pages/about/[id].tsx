@@ -143,8 +143,6 @@ const AboutDetailPage: NextPage<Props> = ({
             subtitle: "",
           }}
           showButton="false"
-          facebookLink=""
-          igLink=""
           handleClick={console.log("")}
         />
       </section>
