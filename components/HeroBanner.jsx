@@ -51,7 +51,7 @@ const HeroBanner = ({
               <Container className={styles.container_item}>
                 <h1 style={{ fontSize: 32 }}>{resultConfig.title}</h1>
                 <br />
-                <h4>{resultConfig.subtitle}</h4>
+                <h3>{resultConfig.subtitle}</h3>
                 <br />
                 <Button
                   variant="outlined"
