@@ -122,6 +122,59 @@ a {
   text-align: center;
 }
 
+/* For mobile phones: */
+
+.galleryimage-grid {
+  display: grid;
+  grid-gap: 5px;
+  justify-items: center;
+}
+
+.galleryimage-grid .size {
+  width: 100%;
+}
+
+.galleryimage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.galleryimage img {
+  margin: 5px;
+}
+
+.galleryimage .size {
+  width: 100%;
+}
+
+
+/* For tablets: */
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .galleryimage-grid {
+    grid-template-columns: auto auto;
+  }
+  .galleryimage {}
+  .galleryimage .size {
+    width: 45%;
+  }
+}
+
+
+/* For desktop: */
+
+@media (min-width: 768px) {
+  .galleryimage-grid {
+    grid-template-columns: auto auto auto;
+  }
+  .galleryimage {}
+  .galleryimage .size {
+    width: 30%;
+  }
+}
+
 .imgClass {
   width: 100%;
   height: 300px;
