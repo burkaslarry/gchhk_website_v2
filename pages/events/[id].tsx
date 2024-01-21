@@ -89,25 +89,29 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     // Split the plain text by whitespace into an array of individual links
     const linksArray = plainText.split(" ");
 
+    let filtered = linksArray.filter(function (el: string) {
+        return el != null;
+    });
+
     // Extract the first three links
-    console.log(linksArray);
-    // if (title.includes("(MSW")) {
-    //   imageSet = []
-    //   console.log("The title contains '(MSW'");
-    // } else {
-    // }
-    for (const variable of linksArray) {
-        imageSet.push(variable);
+    console.log("linksArray:" + filtered);
+
+    for (const imageLink of filtered) {
+        if (imageLink.trim() !== "" || imageLink.includes('http')) {
+            imageSet.push(imageLink.trim());
+        }
     }
+
+    console.log("The imageSet Before:" + imageSet.length);
 
     const uniqueArray: string[] = [];
     for (const item of imageSet) {
-        if (!uniqueArray.includes(item)) {
+        if (!uniqueArray.includes(item) && item != '') {
             uniqueArray.push(item);
         }
     }
 
-    console.log("The imageSet:" + uniqueArray);
+    console.log("The imageSet:" + uniqueArray.length);
   //imageGallerySet;
     return {
         props: {
@@ -216,14 +220,7 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
         hotjar.stateChange(titleContent);
     }, []);
 
-    let substr= '參觀'
-    let result = titleContent.includes(substr);
-    var style = "gcccardhk4x"
-    if (result) {
-        style = "gcccardhk4x"
-    } else  {
-        style = "gcccardcanvas"
-    }
+    var gridstyle = "galleryimage-grid"
     return (
         <Layout>
             <section className={styles.banner} id="home">
@@ -243,7 +240,6 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
                 </Head>
                 <div>
                     <br/>
-
                     {blocks.map((block, index) => {
                         return <div key={index}>{renderBlock(block)}</div>;
                     })}
@@ -251,10 +247,12 @@ const EventPage: NextPage<Props> = ({id, post, blocks, imageGallerySet}) => {
                     <br/>
                     <br/>
                     <br/>
-                    <div className={style}>
+                    <div className={gridstyle}>
                         {imageGallerySet.map((imangeLink: string, index) => {
+                            console.log("image item: " + imangeLink)
+                            console.log("image index: " + index)
                             return (
-                                <div key={index} className="gcccardcanvas">
+                                <div key={index} className="size ">
                                     <a href={imangeLink}>
                                         <img
                                             src={imangeLink}
