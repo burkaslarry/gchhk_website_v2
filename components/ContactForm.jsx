@@ -1,9 +1,10 @@
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {green} from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 
 const inputFillChecking = {
   titleName: "姓名",
@@ -23,16 +24,28 @@ const inputFillChecking = {
 var isSubmitSuccessful = false;
 
 export default function ContactForm() {
+  const [formData, setFormData] = useState({
+    senderName: "",
+    email: "",
+    message: "",
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    const { senderName, email, message } = formData;
+    setIsFormValid(senderName.trim() !== "" && email.trim() !== "" && message.trim() !== "");
+  }, [formData]);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const objectBefore = Object.fromEntries(formData);
+    const form = new FormData(event.target);
+    const objectBefore = Object.fromEntries(form);
 
-    formData.append("access_key", "a2ebc052-d5d9-44cd-8bc4-0e74a22df5eb");
-    formData.append("subject", "一般查詢 - " + objectBefore.senderName);
+    form.append("access_key", "a2ebc052-d5d9-44cd-8bc4-0e74a22df5eb");
+    form.append("subject", "一般查詢 - " + objectBefore.senderName);
 
-    const object = Object.fromEntries(formData);
+    const object = Object.fromEntries(form);
     const json = JSON.stringify(object);
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -51,84 +64,82 @@ export default function ContactForm() {
 
   if (isSubmitSuccessful) {
     return (
-      <div style={{ textAlign: "center" }}>
-        <CheckCircleIcon sx={{ fontSize: 100 }} color="success" />
-        <Typography color={green[900]}>
-          {" "}
-          <strong>電郵已送出，謝謝</strong>
-        </Typography>
-      </div>
+        <div style={{ textAlign: "center" }}>
+          <CheckCircleIcon sx={{ fontSize: 100 }} color="success" />
+          <Typography color={green[900]}>
+            <strong>電郵已送出，謝謝</strong>
+          </Typography>
+        </div>
     );
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <TextField
-            name="senderName"
-            id="senderName"
-            required
-            placeholder={inputFillChecking.placeholder}
-            label={inputFillChecking.titleName}
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="email"
-            id="email"
-            required
-            label={inputFillChecking.titleEmail}
-            fullWidth
-            autoComplete="email"
-            variant="standard"
-          />
-        </Grid>
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-        <Grid item xs={12}>
-          <TextField
-            label={inputFillChecking.titleContent}
-            fullWidth
-            required
-            multiline
-            maxRows={4}
-            name="message"
-            id="outlined-multiline-flexible"
-            variant="standard"
-          />
+  return (
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+                name="senderName"
+                id="senderName"
+                required
+                placeholder={inputFillChecking.placeholder}
+                label={inputFillChecking.titleName}
+                fullWidth
+                autoComplete="given-name"
+                variant="standard"
+                value={formData.senderName}
+                onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+                name="email"
+                id="email"
+                required
+                label={inputFillChecking.titleEmail}
+                fullWidth
+                autoComplete="email"
+                variant="standard"
+                value={formData.email}
+                onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+                label={inputFillChecking.titleContent}
+                fullWidth
+                required
+                multiline
+                maxRows={4}
+                name="message"
+                id="outlined-multiline-flexible"
+                variant="standard"
+                value={formData.message}
+                onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} container justifyContent="center" alignItems="center">
+            <Button
+                type="submit"
+                variant="contained"
+                sx={{ width: "60vw", padding: 1, margin: 2 }}
+                disabled={!isFormValid}
+            >
+              送出電郵
+            </Button>
+          </Grid>
+          <Grid item xs={12} container justifyContent="center" alignItems="center">
+            <input type="hidden" name="from_name" value={inputFillChecking.missionControl}></input>
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          container
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ width: "60vw", padding: 1, margin: 2 }}
-          >
-            送出電郵
-          </Button>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          container
-          justifyContent="center"
-          alignItems="center"
-        >
-          <input
-            type="hidden"
-            name="from_name"
-            value={inputFillChecking.missionControl}
-          ></input>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
   );
 }
