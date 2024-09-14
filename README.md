@@ -85,7 +85,7 @@ to deploy to vercel 💪
 
 
 Safari 上清 Cache，可以閱覽最新內容 
-<img alt="GCCHK Website" src="https://ibb.co/HXGqdmp" width="400">
+<img alt="GCCHK Website" src="https://i.ibb.co/t3YDXyP/Screenshot-2024-09-14-at-10-52-12-PM.png" width="400">
 
 
 
